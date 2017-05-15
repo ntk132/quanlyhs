@@ -9,13 +9,11 @@ namespace quanlyhocsinhDAL
 {
     public class LopHocDAL
     {
-        private string connectionStr = @"Data Source=kpc\HOMESQLSERVER;Initial Catalog=QuanLyHocSinh;Integrated Security=True";
-        DataAccess da = new DataAccess();
+        //private string connectionStr = @"Data Source=kpc\homesqlserver;Initial Catalog=QUANLYHS;Integrated Security=True";
+        private DataAccess da = new DataAccess();
 
         public LopHocDAL()
         {
-            da.ExecuteQuery("USE QuanLyHocSinh");
-            da.ExecuteQuery("SET DATEFORMAT DMY");
         }
 
         public DataTable layDanhSachLop()
@@ -42,44 +40,38 @@ namespace quanlyhocsinhDAL
             return list;
         }
 
-        public int layMaLopTheoTenLop(string tenlop)
-        {
-            DataTable dt = da.ExecuteQuery("select MaLopHoc from LOPHOC where TenLop='" + tenlop + "'");
-            DataRow data = dt.Rows[0];
-            return (int)data["MaLopHoc"];
-        }
-
         public void insert(LopHocDTO lop)
         {
-            string query = "insert into LOPHOC (MaLopHoc, TenLop, KhoiLop, SiSo) values (@malop, @tenlop, @khoilop, @siso)";
+            string query = "insert into LOPHOC (MaLopHoc, MaNamHoc,TenLop, KhoiLop, SiSo) values (@malop, @manh, @tenlop, @khoilop, @siso)";
 
-            SqlConnection connection = new SqlConnection(connectionStr);
+            //SqlConnection connection = new SqlConnection(connectionStr);
             SqlCommand command = new SqlCommand();
 
-            command.Connection = connection;
+            command.Connection = da.connection;
             command.CommandType = CommandType.Text;
             command.CommandText = query;
 
-            command.Parameters.AddWithValue("@malop", SqlDbType.Int).Value = lop.MaLop;
+            command.Parameters.AddWithValue("@malop", SqlDbType.VarChar).Value = lop.MaLop;
+            command.Parameters.AddWithValue("@manh", SqlDbType.VarChar).Value = lop.MaNamHoc;
             command.Parameters.AddWithValue("@tenlop", SqlDbType.NVarChar).Value = lop.TenLop;
-            command.Parameters.AddWithValue("@khoilop", SqlDbType.Int).Value = lop.KhoiLop;
+            command.Parameters.AddWithValue("@khoilop", SqlDbType.VarChar).Value = lop.KhoiLop;
             command.Parameters.AddWithValue("@siso", SqlDbType.Int).Value = lop.SiSo;
 
-            connection.Open();
+            da.connection.Open();
 
             command.ExecuteNonQuery();
 
-            connection.Close();
+            da.connection.Close();
         }
 
         public void update(LopHocDTO lop)
         {
             string query = "update LOPHOC set TenLop=@tenlop, KhoiLop=@khoilop, SiSo=@siso where MaHocSinh=" + lop.MaLop;
 
-            SqlConnection connection = new SqlConnection(connectionStr);
+            //SqlConnection connection = new SqlConnection(connectionStr);
             SqlCommand command = new SqlCommand();
 
-            command.Connection = connection;
+            command.Connection = da.connection;
             command.CommandType = CommandType.Text;
             command.CommandText = query;
 
@@ -88,29 +80,29 @@ namespace quanlyhocsinhDAL
             command.Parameters.AddWithValue("@khoilop", SqlDbType.Int).Value = lop.KhoiLop;
             command.Parameters.AddWithValue("@siso", SqlDbType.Int).Value = lop.SiSo;
 
-            connection.Open();
+            da.connection.Open();
 
             command.ExecuteNonQuery();
 
-            connection.Close();
+            da.connection.Close();
         }
 
         public void delete(LopHocDTO lop)
         {
             string query = "delete from LOPHOC where MaHocSinh=" + lop.MaLop;
 
-            SqlConnection connection = new SqlConnection(connectionStr);
+            //SqlConnection connection = new SqlConnection(connectionStr);
             SqlCommand command = new SqlCommand();
 
-            command.Connection = connection;
+            command.Connection = da.connection;
             command.CommandType = CommandType.Text;
             command.CommandText = query;
 
-            connection.Open();
+            da.connection.Open();
 
             command.ExecuteNonQuery();
 
-            connection.Close();
+            da.connection.Close();
         }
     }
 }

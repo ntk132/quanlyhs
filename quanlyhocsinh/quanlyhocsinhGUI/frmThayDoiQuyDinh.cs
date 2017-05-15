@@ -17,46 +17,47 @@ namespace quanlyhocsinhGUI
     {
         DataAccess da = new DataAccess();
         QuyDinhDAL qddal = new QuyDinhDAL();
+        MonHocDAL mhdal = new MonHocDAL();
 
         public frmThayDoiQuyDinh()
         {
             InitializeComponent();
         }
 
-        private void btThayDoiQD_Click(object sender, EventArgs e)
+        private void frmThayDoiQuyDinh_Load(object sender, EventArgs e)
         {
-            QuyDinhDTO qd = new QuyDinhDTO();
-            qd.MaQuyDinh = tbMaQD.Text;
-            qd.TenQuyDinh = tbTenQD.Text;
-            qd.GiaTri = tbGiaTri.Text;
+            dgvMonHoc.DataSource = mhdal.layDanhSachMonHoc();
 
-            qddal.update(qd);
+            tbTuoiToiThieu.Text = layDuLieuTuBangQuyDinh("TUOI_TOI_THIEU");
+            tbTuoiToiDa.Text = layDuLieuTuBangQuyDinh("TUOI_TOI_DA");
+            tbSiSiToiDa.Text = layDuLieuTuBangQuyDinh("SI_SO_TOI_DA");
+            tbDiemDatMon.Text = layDuLieuTuBangQuyDinh("DIEM_TOI_THIEU_DE_DAT");
         }
 
-        private void btThoat_Click(object sender, EventArgs e)
+        private string layDuLieuTuBangQuyDinh(string maqd)
+        {
+            DataRow dr = qddal.layQuyDinhTheoMaQD(maqd).Rows[0];
+
+            return dr["GiaTriQuyDinh"].ToString();
+        }
+
+        private void btLuuThayDoiQD_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btHuyThayDoiQD_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void dgvQuyDinh_SelectionChanged(object sender, EventArgs e)
+        private void dgvMonHoc_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvQuyDinh.SelectedRows.Count > 0)
+            if (dgvMonHoc.SelectedRows.Count > 0)
             {
-                tbMaQD.Text = dgvQuyDinh.SelectedRows[0].Cells[0].Value.ToString();
-                tbTenQD.Text = dgvQuyDinh.SelectedRows[0].Cells[1].Value.ToString();
-                tbGiaTri.Text = dgvQuyDinh.SelectedRows[0].Cells[2].Value.ToString();
-                tbGhiChu.Text = dgvQuyDinh.SelectedRows[0].Cells[3].Value.ToString();
+                tbMaMon.Text = dgvMonHoc.SelectedRows[0].Cells[0].Value.ToString();
+                tbTenMon.Text = dgvMonHoc.SelectedRows[0].Cells[1].Value.ToString();
             }
-        }
-
-        private void frmThayDoiQuyDinh_Load(object sender, EventArgs e)
-        {
-            dgvQuyDinh.DataSource = qddal.layDanhSachQuyDinh();
-        }
-
-        private void tbMaQD_TextChanged(object sender, EventArgs e)
-        {
-            
         }
     }
 }

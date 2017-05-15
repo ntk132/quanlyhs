@@ -11,23 +11,13 @@ namespace quanlyhocsinhDAL
 {
     public class DataAccess
     {
-        private static string connectionStr = @"Data Source=kpc\HOMESQLSERVER;Initial Catalog=QuanLyHocSinh;Integrated Security=True";
-        private SqlConnection connection = new SqlConnection(connectionStr);
+        private static string connectionStr = @"Data Source=kpc\homesqlserver;Initial Catalog=QLHS;Integrated Security=True";
+        public SqlConnection connection = new SqlConnection(connectionStr);
 
-        public void openConnection()
+        public DataAccess()
         {
-            try
-            {
-                connection.Open();
-            }
-            catch (SqlException e)
-            {
-            }
-        }
-
-        public void closeConnection()
-        {
-            connection.Close();
+            ExecuteQuery("USE QLHS");
+            ExecuteQuery("SET DATEFORMAT DMY");
         }
 
         public DataTable ExecuteQuery(string query)

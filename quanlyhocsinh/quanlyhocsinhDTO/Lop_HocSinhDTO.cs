@@ -9,24 +9,24 @@ namespace quanlyhocsinhDTO
     public class Lop_HocSinhDTO
     {
         public Lop_HocSinhDTO() { }
-        public Lop_HocSinhDTO(int manamhoc, int malop, int mahs)
+        public Lop_HocSinhDTO(string manamhoc, string malop, int mahs)
         {
             this.sMaNamHoc = manamhoc;
             this.sMaLopHoc = malop;
             this.sMaHocSinh = mahs;
         }
 
-        private int sMaNamHoc;
+        private string sMaNamHoc;
 
-        public int MaNamHoc
+        public string MaNamHoc
         {
             get { return sMaNamHoc; }
             set { sMaNamHoc = value; }
         }
 
-        private int sMaLopHoc;
+        private string sMaLopHoc;
 
-        public int MaLopHoc
+        public string MaLopHoc
         {
             get { return sMaLopHoc; }
             set { sMaLopHoc = value; }

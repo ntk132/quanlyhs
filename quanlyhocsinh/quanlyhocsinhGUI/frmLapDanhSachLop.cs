@@ -29,37 +29,40 @@ namespace quanlyhocsinhGUI
             InitializeComponent();
 
             cbLopCu.DataSource = lhdal.layDanhSachLop();
-            cbLopCu.ValueMember = "TenLop";
+            cbLopCu.ValueMember = "MaLopHoc";
             cbLopMoi.DataSource = lhdal.layDanhSachLop();
-            cbLopMoi.ValueMember = "TenLop";
+            cbLopMoi.ValueMember = "MaLopHoc";
         }
 
         private void btTimKiem_Click(object sender, EventArgs e)
         {
-            DataTable dt = da.ExecuteQuery("select MaHocSinh, HoTen from HOCSINH where Hoten like '%" + tbTimKiem.Text + "%' order by MaHocSinh");
+            //DataTable dt = da.ExecuteQuery("select MaHocSinh, HoTen from HOCSINH where Hoten like '%" + tbTimKiem.Text + "%' order by MaHocSinh");
+
+            DataTable dt = hsdal.timHocSinh(tbTimKiem.Text, "", "");
 
             dgvTimHocSinh.DataSource = dt;
         }
 
         private void btThem_Click(object sender, EventArgs e)
         {
+            // 1. Mapping...properties
             Lop_HocSinhDTO lhsdto = new Lop_HocSinhDTO();
 
             if (dgvTimHocSinh.SelectedRows.Count == 0)
                 MessageBox.Show("Chua chon hoc sinh de them vao!");
             else
             {
-                lhsdto.MaNamHoc = 3;
-                lhsdto.MaLopHoc = lhdal.layMaLopTheoTenLop(cbLopMoi.Text);
+                lhsdto.MaLopHoc = cbLopMoi.Text;
                 lhsdto.MaHocSinh = Convert.ToInt16(dgvTimHocSinh.SelectedRows[0].Cells[0].Value);
             }
-
+            // 2. BUS
             // Nếu học sinh đậu hết tất cả các môn
             if (lhsbus.isPassedAllSubject(hsdto))
             {
                 // Nếu số lượng học sinh chưa vượt quá sỉ số tối đa
                 if (lhsbus.isLessThanMax(lhdto))
                 {
+                    // 3. DAL - Insert
                     lhsdal.insert(lhsdto);
 
                     refesh_dgvDanhSachLopMoi();
@@ -85,17 +88,18 @@ namespace quanlyhocsinhGUI
 
         private void btXoa_Click(object sender, EventArgs e)
         {
+            // 1. Mapping...
             Lop_HocSinhDTO lhsdto = new Lop_HocSinhDTO();
 
             if (dgvTimHocSinh.SelectedRows.Count == 0)
                 MessageBox.Show("Chua chon hoc sinh de xoa!");
             else
             {
-                lhsdto.MaNamHoc = 3;
-                lhsdto.MaLopHoc = lhdal.layMaLopTheoTenLop(cbLopMoi.Text);
+                lhsdto.MaLopHoc = cbLopMoi.Text;
                 lhsdto.MaHocSinh = Convert.ToInt16(dgvDanhSachLopMoi.SelectedRows[0].Cells[1].Value);
             }
 
+            // 2. DAL - Delete
             lhsdal.delete(lhsdto);
             refesh_dgvDanhSachLopMoi();
         }
@@ -118,7 +122,7 @@ namespace quanlyhocsinhGUI
 
         private void refesh_dgvDanhSachLopMoi()
         {
-            dgvDanhSachLopMoi.DataSource = da.ExecuteQuery("select Hoten, GioiTinh, year(NgaySinh) as 'NamSinh', DiaChi from HS_LOP join HOCSINH on (HS_LOP.MaHocSinh=HOCSINH.MaHocSinh) where MaLopHoc='" + lhdal.layMaLopTheoTenLop(cbLopMoi.Text) + "'");
+            dgvDanhSachLopMoi.DataSource = da.ExecuteQuery("select Hoten, GioiTinh, year(NgaySinh) as 'NamSinh', DiaChi from HS_LOP join HOCSINH on (HS_LOP.MaHocSinh=HOCSINH.MaHocSinh) where MaLopHoc='" + cbLopMoi.Text + "'");
         }
     }
 }

@@ -6,7 +6,81 @@ using System.Threading.Tasks;
 
 namespace quanlyhocsinhDTO
 {
-    class KetQuaHocTapDTO
+    public class KetQuaHocTapDTO
     {
+        public KetQuaHocTapDTO() { }
+        public KetQuaHocTapDTO(string mahk, int mamon, int mahs, float diem15p, float diem1t, float diemtb)
+        {
+            this.sMaHocKy = mahk;
+            this.iMaMonHoc = mamon;
+            this.iMaHocSinh = mahs;
+            this.fDiem15Phut = diem15p;
+            this.fDiem1Tiet = diem1t;
+            this.fDiemTB = diemtb;
+        }
+
+        private string sMaHocKy;
+
+        public string MaHocKy
+        {
+            get { return sMaHocKy; }
+            set { sMaHocKy = value; }
+        }
+
+        private int iMaMonHoc;
+
+        public int MaMonHoc
+        {
+            get { return iMaMonHoc; }
+            set { iMaMonHoc = value; }
+        }
+
+        private int iMaHocSinh;
+
+        public int MaHocSinh
+        {
+            get { return iMaHocSinh; }
+            set { iMaHocSinh = value; }
+        }
+
+        private float fDiem15Phut;
+
+        public float Diem15Phut
+        {
+            get { return fDiem15Phut; }
+            set { fDiem15Phut = value; }
+        }
+
+        private float fDiem1Tiet;
+
+        public float Diem1Tiet
+        {
+            get { return fDiem1Tiet; }
+            set { fDiem1Tiet = value; }
+        }
+
+        private float fDiemTB;
+
+        public float DiemTB
+        {
+            get { return fDiemTB; }
+            set { fDiemTB = value; }
+        }
+
+        private float fDiemtoiThieuDat;
+
+        public float DiemtoiThieuDat
+        {
+            get { return fDiemtoiThieuDat; }
+            set { fDiemtoiThieuDat = value; }
+        }
+
+        private bool bCoDatHayKhong;
+
+        public bool CoDatHayKhong
+        {
+            get { return bCoDatHayKhong; }
+            set { bCoDatHayKhong = value; }
+        }
     }
 }

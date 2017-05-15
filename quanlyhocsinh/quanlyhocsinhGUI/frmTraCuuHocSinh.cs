@@ -15,17 +15,33 @@ namespace quanlyhocsinhGUI
     public partial class frmTraCuuHocSinh : Form
     {
         DataAccess da = new DataAccess();
-        HocSinhDTO hsdto = new HocSinhDTO();
+        //HocSinhDTO hsdto = new HocSinhDTO();
+        HocSinhDAL hsdal = new HocSinhDAL();
+        LopHocDAL lhdal = new LopHocDAL();
+
         public frmTraCuuHocSinh()
         {
             InitializeComponent();
 
-            rbNam.Checked = true;
+            //rbNam.Checked = true;
+
+            cbTimLop.DataSource = lhdal.layDanhSachLop();
+            cbTimLop.ValueMember = "MaLopHoc";
         }
 
         private void btTimKiem_Click(object sender, EventArgs e)
         {
-            DataTable dt = da.ExecuteQuery("select MaHocSinh, HoTen from HOCSINH where Hoten like '%" + tbTimKiemHoTen.Text + "%' order by MaHocSinh");
+            tbHoTen.Clear();
+
+            string gioitinh = "";
+
+            if (rbNam.Checked)
+                gioitinh = rbNam.Text;
+
+            if (rbNu.Checked)
+                gioitinh = rbNu.Text;
+
+            DataTable dt = hsdal.timHocSinh(tbHoTen.Text, gioitinh, cbTimLop.Text);
 
             dgvKetQua.DataSource = dt;
         }
