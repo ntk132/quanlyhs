@@ -10,53 +10,43 @@ namespace quanlyhocsinhDTO
     public class LopHocDTO
     {
         public LopHocDTO() { }
-        public LopHocDTO(string malop, string manh,string tenlop, string makhoi, int siso)
+        public LopHocDTO(string tenlop, int khoi, int siso)
         {
-            this.sMaLop = malop;
-            this.sMaNamHoc = manh;
-            this.sTenLop = tenlop;
-            this.sKhoiLop = makhoi;
-            this.iSiSo = siso;
+            this.ITenLop = tenlop;
+            this.IKhoiLop = khoi;
+            this.ISiSo = siso;
         }
 
-        private string sMaLop;
+        private int IMalop;
 
-        public string MaLop
+        public int MaLop
         {
-            get { return sMaLop; }
-            set { sMaLop = value; }
+            get { return IMalop; }
+            set { IMalop = value; }
         }
 
-        private string sMaNamHoc;
-
-        public string MaNamHoc
-        {
-            get { return sMaNamHoc; }
-            set { sMaNamHoc = value; }
-        }
-
-        private string sTenLop;
+        private string ITenLop;
 
         public string TenLop
         {
-            get { return sTenLop; }
-            set { sTenLop = value; }
+            get { return ITenLop; }
+            set { ITenLop = value; }
         }
 
-        private string sKhoiLop;
+        private int IKhoiLop;
 
-        public string KhoiLop
+        public int KhoiLop
         {
-            get { return sKhoiLop; }
-            set { sKhoiLop = value; }
+            get { return IKhoiLop; }
+            set { IKhoiLop = value; }
         }
 
-        private int iSiSo;
+        private int ISiSo;
 
         public int SiSo
         {
-            get { return iSiSo; }
-            set { iSiSo = value; }
+            get { return ISiSo; }
+            set { ISiSo = value; }
         }
     }
 }

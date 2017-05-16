@@ -6,114 +6,95 @@ using quanlyhocsinhDTO;
 
 namespace quanlyhocsinhDAL
 {
-    public class HocKyDAL
+    class HocKyDAL
     {
-        private DataAccess da = new DataAccess();
-        //private string connectionStr = @"Data Source=kpc\homesqlserver;Initial Catalog=QUANLYHS;Integrated Security=True";
+        DataAccess da = new DataAccess();
+        private string connectionStr = @"Data Source=kpc\HOMESQLSERVER;Initial Catalog=QuanLyHocSinh;Integrated Security=True";
 
         public HocKyDAL()
-        {       
-            
+        {         
+            da.ExecuteQuery("USE QuanLyHocSinh");
+            da.ExecuteQuery("SET DATEFORMAT DMY");
         }
 
-        public DataTable layDanhSachHocKy()
+        public DataTable layDanhSachTenHocKy()
         {
-            string query = "select * from HOCKY";
+            string query = "select TenHocKy from HOCKY";
             DataTable dt = new DataTable();
-            //SqlConnection connection = new SqlConnection(connectionStr);
-            SqlCommand command = new SqlCommand(query, da.connection);
+            SqlConnection connection = new SqlConnection(connectionStr);
+            SqlCommand command = new SqlCommand(query, connection);
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
 
-            da.connection.Open();
+            connection.Open();
 
             adapter.Fill(dt);
 
-            da.connection.Close();
+            connection.Close();
 
             return dt;
-        }
-
-        public string layMaHK(string tenhk)
-        {
-            string query = "select * from HOCKY where TenHocKy=@tenhk";
-            DataTable dt = new DataTable();
-            
-            SqlCommand command = new SqlCommand(query, da.connection);
-
-            command.Parameters.AddWithValue("@tenhk", SqlDbType.NVarChar).Value = tenhk;
-
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-
-            da.connection.Open();
-
-            adapter.Fill(dt);
-
-            da.connection.Close();
-
-            return dt.Rows[0];
         }
 
         public void insert(HocKyDTO hk)
         {
             string query = "insert into HOCKY (MaHocKy, TenHocKy, NamHoc) values (@mahk, @tenhk, @namhoc)";
 
-            //SqlConnection connection = new SqlConnection(connectionStr);
+            SqlConnection connection = new SqlConnection(connectionStr);
             SqlCommand command = new SqlCommand();
 
-            command.Connection = da.connection;
+            command.Connection = connection;
             command.CommandType = CommandType.Text;
             command.CommandText = query;
 
-            command.Parameters.AddWithValue("@mahk", SqlDbType.VarChar).Value = hk.MaHocKy;
+            command.Parameters.AddWithValue("@mahk", SqlDbType.Int).Value = hk.MaHocKy;
             command.Parameters.AddWithValue("@tenhk", SqlDbType.NVarChar).Value = hk.TenHocKy;
-            command.Parameters.AddWithValue("@namhoc", SqlDbType.VarChar).Value = hk.NamHoc;
+            command.Parameters.AddWithValue("@namhoc", SqlDbType.Int).Value = hk.NamHoc;
 
-            da.connection.Open();
+            connection.Open();
 
             command.ExecuteNonQuery();
 
-            da.connection.Close();
+            connection.Close();
         }
 
         public void update(HocKyDTO hk)
         {
             string query = "update HOCKY set MaHocKy=@mahk, TenHocKy=@tenhk, NamHoc=@namhoc where MaHocKy=" + hk.MaHocKy;
 
-            //SqlConnection connection = new SqlConnection(connectionStr);
+            SqlConnection connection = new SqlConnection(connectionStr);
             SqlCommand command = new SqlCommand();
 
-            command.Connection = da.connection;
+            command.Connection = connection;
             command.CommandType = CommandType.Text;
             command.CommandText = query;
 
-            command.Parameters.AddWithValue("@mahk", SqlDbType.VarChar).Value = hk.MaHocKy;
-            command.Parameters.AddWithValue("@tenhk", SqlDbType.NVarChar).Value = hk.TenHocKy;
-            command.Parameters.AddWithValue("@namhoc", SqlDbType.VarChar).Value = hk.NamHoc;
+            command.Parameters.AddWithValue("@mahk", SqlDbType.Int).Value = hk.MaHocKy;
+            command.Parameters.AddWithValue("@tenhk", SqlDbType.VarChar).Value = hk.TenHocKy;
+            command.Parameters.AddWithValue("@namhoc", SqlDbType.Int).Value = hk.NamHoc;
 
-            da.connection.Open();
+            connection.Open();
 
             command.ExecuteNonQuery();
 
-            da.connection.Close();
+            connection.Close();
         }
 
         public void delete(HocKyDTO hk)
         {
             string query = "delete from LOPHOC where MaHocKy=" + hk.MaHocKy;
 
-            //SqlConnection connection = new SqlConnection(connectionStr);
+            SqlConnection connection = new SqlConnection(connectionStr);
             SqlCommand command = new SqlCommand();
 
-            command.Connection = da.connection;
+            command.Connection = connection;
             command.CommandType = CommandType.Text;
             command.CommandText = query;
 
-            da.connection.Open();
+            connection.Open();
 
             command.ExecuteNonQuery();
 
-            da.connection.Close();
+            connection.Close();
         }
     }
 }

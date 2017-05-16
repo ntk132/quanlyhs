@@ -24,40 +24,39 @@ namespace quanlyhocsinhGUI
         List<int> thang = new List<int>();
         List<int> nam = new List<int>();
 
-
         public frmTiepNhanHocSinh()
         {
             InitializeComponent();
 
             rbNam.Checked = true;
 
-            initComboBoxNgaySinh();
+            //initComboBoxNgaySinh();
         }
 
         private void initComboBoxNgaySinh()
         {
-            int tuoiToiDa = 20;
-            int tuoiToiThieu = 15;
-
-            for (int i = 1; i <= 28; i++)
-                ngay28.Add(i);
-
-            for (int i = 1; i <= 29; i++)
-                ngay29.Add(i);
-
-            for (int i = 1; i <= 30; i++)
-                ngay30.Add(i);
-
-            for (int i = 1; i <= 31; i++)
-                ngay31.Add(i);
-
-            for (int i = 1; i <= 12; i++)
-                thang.Add(i);
+            int minyear = Convert.ToInt16(qd.layQuyDinhTheoMaQD("qd1").GiaTri);
+            int maxyear = Convert.ToInt16(qd.layQuyDinhTheoMaQD("qd2").GiaTri);
 
             DateTime now = DateTime.Now;
 
-            for (int i = tuoiToiDa; i >= tuoiToiThieu; i--)
-                nam.Add(now.Year - i);
+            // Data sources của cbThang
+            for (int i = 1; i >= 12; i++)
+                thang.Add(i);
+            // Data sources của cbNgay
+            for (int i = 1; i >= 28; i++)
+                ngay28.Add(i);
+
+            for (int i = 1; i >= 29; i++)
+                ngay29.Add(i);
+
+            for (int i = 1; i >= 30; i++)
+                ngay30.Add(i);
+
+            for (int i = 1; i >= 31; i++)
+                ngay31.Add(i);
+            for (int i = minyear; i > maxyear; i++)
+                nam.Add(i);
 
             cbNgay.DataSource = ngay31;
             cbThang.DataSource = thang;
@@ -72,6 +71,7 @@ namespace quanlyhocsinhGUI
             HocSinhDTO hsdto = new HocSinhDTO();
 
             // 1. Mapping...properties
+            hsdto.MaHocSinh = da.ExecuteQuery("select * from HOCSINH").Rows.Count + 2;
             hsdto.Hoten = tbHoTen.Text;
             hsdto.NgaySinh = cbNgay.Text + "/" + cbThang.Text + "/" + cbNam.Text;
 
@@ -79,6 +79,8 @@ namespace quanlyhocsinhGUI
                 hsdto.GioiTinh = "Nam";
             else if (rbNu.Checked)
                 hsdto.GioiTinh = "Nữ";
+            else
+                MessageBox.Show("Bạn chưa chon giới tính");
 
             hsdto.DiaChi = tbDiaChi.Text;
             hsdto.Email = tbEmail.Text;
@@ -100,23 +102,17 @@ namespace quanlyhocsinhGUI
             this.Close();
         }
 
-        private void cbNam_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbNam_TextChanged(object sender, EventArgs e)
         {
-            if (cbNam.Text == String.Empty)
-                return;
+            cbThang.Text = "";
+            cbNgay.Text = "";
         }
 
-        private void cbThang_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbThang_TextChanged(object sender, EventArgs e)
         {
-            if (cbThang.Text == String.Empty)
-                return;
+            int year = Convert.ToInt16(cbNam.Text);
 
-            int year = 0;
-
-            if (cbNam.Text != String.Empty)
-                year = Convert.ToInt16(cbNam.Text);            
-
-            switch (Convert.ToInt16(cbThang.Text))
+            switch(Convert.ToInt16(cbThang.Text))
             {
                 case 1:
                 case 3:
@@ -138,16 +134,10 @@ namespace quanlyhocsinhGUI
                         cbNgay.DataSource = ngay29;
                     else
                         cbNgay.DataSource = ngay28;
-
                     break;
                 default:
                     break;
             }
-        }
-
-        private void cbNgay_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
         }
     }
 }

@@ -10,19 +10,19 @@ namespace quanlyhocsinhDTO
     {
         public HocKyDTO() { }
 
-        public HocKyDTO(string mahk, string tenhk, string namhoc)
+        public HocKyDTO(int mahk, string tenhk, string namhoc)
         {
-            this.sMaHocKy = mahk;
+            this.iMaHocKy = mahk;
             this.sTenHocKy = tenhk;
             this.sNamHoc = namhoc;
         }
 
-        private string sMaHocKy;
+        private int iMaHocKy;
 
-        public string MaHocKy
+        public int MaHocKy
         {
-            get { return sMaHocKy; }
-            set { sMaHocKy = value; }
+            get { return iMaHocKy; }
+            set { iMaHocKy = value; }
         }
 
         private string sTenHocKy;

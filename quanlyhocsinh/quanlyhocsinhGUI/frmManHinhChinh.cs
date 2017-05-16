@@ -42,20 +42,8 @@ namespace quanlyhocsinhGUI
             pnWiget.Visible = !pnWiget.Visible;
         }
 
-        private void tsbtNamHoc_Click(object sender, EventArgs e)
-        {
-            pnWiget.Visible = false;
-
-            frmNamHoc frm = new frmNamHoc();
-
-            frm.MdiParent = this;
-            frm.Show();
-        }
-
         private void tsbtDanhSachLop_Click(object sender, EventArgs e)
         {
-            pnWiget.Visible = false;
-
             frmDanhSachLopHoc frm = new frmDanhSachLopHoc();
 
             frm.MdiParent = this;
@@ -73,34 +61,9 @@ namespace quanlyhocsinhGUI
 
         }
 
-        private void tsbtXepLop(object sender, EventArgs e)
-        {
-            pnWiget.Visible = false;
-
-            frmXepLop frm = new frmXepLop();
-
-            frm.MdiParent = this;
-            frm.Show();
-        }
-
-        private void tsbtLenLop(object sender, EventArgs e)
-        {
-            pnWiget.Visible = false;
-
-            frmLenLop frm = new frmLenLop();
-
-            frm.MdiParent = this;
-            frm.Show();
-        }
-
         private void tsbtKetQuaHocTap_Click(object sender, EventArgs e)
         {
             pnWiget.Visible = false;
-
-            frmKetQuaHocTap frm = new frmKetQuaHocTap();
-
-            frm.MdiParent = this;
-            frm.Show();
         }
 
         private void tsbtTraCuuHocSinh_Click(object sender, EventArgs e)
@@ -116,11 +79,6 @@ namespace quanlyhocsinhGUI
         private void tsbtBaoCao_Click(object sender, EventArgs e)
         {
             pnWiget.Visible = false;
-
-            frmLapBaoCaoTongHop frm = new frmLapBaoCaoTongHop();
-
-            frm.MdiParent = this;
-            frm.Show();
         }
 
         private void tsbtThayDoiQuyDinh_Click(object sender, EventArgs e)
@@ -136,16 +94,6 @@ namespace quanlyhocsinhGUI
         private void tsbtThoat_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void tsbNhapDiem_Click(object sender, EventArgs e)
-        {
-            pnWiget.Visible = false;
-
-            frmQuanLyNhapDiem frm = new frmQuanLyNhapDiem();
-
-            frm.MdiParent = this;
-            frm.Show();
         }
 
         // --------  Xử lí sự kiên click của các button trên pnWiget  --------
@@ -178,7 +126,7 @@ namespace quanlyhocsinhGUI
 
         private void btNhanBangDiemMon_Click(object sender, EventArgs e)
         {
-            frmKetQuaHocTap frm = new frmKetQuaHocTap();
+            frmNhanBangDiemMon frm = new frmNhanBangDiemMon();
 
             frm.MdiParent = this;
             pnWiget.Visible = false;
@@ -203,6 +151,6 @@ namespace quanlyhocsinhGUI
             frm.Show();
         }
 
-        // --------  Kết thúc  --------        
+        // --------  Kết thúc  --------
     }
 }

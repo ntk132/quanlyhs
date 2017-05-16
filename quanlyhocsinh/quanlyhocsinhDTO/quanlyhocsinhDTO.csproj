@@ -45,7 +45,6 @@
     <Compile Include="LopHocDTO.cs" />
     <Compile Include="Lop_HocSinhDTO.cs" />
     <Compile Include="MonHocDTO.cs" />
-    <Compile Include="NamHocDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuyDinhDTO.cs" />
   </ItemGroup>

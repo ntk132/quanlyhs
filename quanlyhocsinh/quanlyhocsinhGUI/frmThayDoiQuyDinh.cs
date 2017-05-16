@@ -17,47 +17,44 @@ namespace quanlyhocsinhGUI
     {
         DataAccess da = new DataAccess();
         QuyDinhDAL qddal = new QuyDinhDAL();
-        MonHocDAL mhdal = new MonHocDAL();
 
         public frmThayDoiQuyDinh()
         {
             InitializeComponent();
         }
 
-        private void frmThayDoiQuyDinh_Load(object sender, EventArgs e)
+        private void btThayDoiQD_Click(object sender, EventArgs e)
         {
-            dgvMonHoc.DataSource = mhdal.layDanhSachMonHoc();
+            QuyDinhDTO qd = new QuyDinhDTO();
 
-            tbTuoiToiThieu.Text = layDuLieuTuBangQuyDinh("TUOI_TOI_THIEU");
-            tbTuoiToiDa.Text = layDuLieuTuBangQuyDinh("TUOI_TOI_DA");
-            tbSiSiToiDa.Text = layDuLieuTuBangQuyDinh("SI_SO_TOI_DA");
-            tbDiemDatMon.Text = layDuLieuTuBangQuyDinh("DIEM_TOI_THIEU_DE_DAT");
+            qd.MaQuyDinh = tbMaQD.Text;
+            qd.GiaTri = tbGiaTri.Text;
+
+            qddal.update(qd);
         }
 
-        private string layDuLieuTuBangQuyDinh(string maqd)
-        {
-            DataRow dr = qddal.layQuyDinhTheoMaQD(maqd).Rows[0];
-
-            return dr["GiaTriQuyDinh"].ToString();
-        }
-
-        private void btLuuThayDoiQD_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btHuyThayDoiQD_Click(object sender, EventArgs e)
+        private void btThoat_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void dgvMonHoc_SelectionChanged(object sender, EventArgs e)
+        private void dgvQuyDinh_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvMonHoc.SelectedRows.Count > 0)
+            if (dgvQuyDinh.SelectedRows.Count > 0)
             {
-                tbMaMon.Text = dgvMonHoc.SelectedRows[0].Cells[0].Value.ToString();
-                tbTenMon.Text = dgvMonHoc.SelectedRows[0].Cells[1].Value.ToString();
+                tbMaQD.Text = dgvQuyDinh.SelectedRows[0].Cells[0].Value.ToString();
+                tbGiaTri.Text = dgvQuyDinh.SelectedRows[0].Cells[2].Value.ToString();
             }
+        }
+
+        private void frmThayDoiQuyDinh_Load(object sender, EventArgs e)
+        {
+            dgvQuyDinh.DataSource = qddal.layDanhSachQuyDinh();
+        }
+
+        private void tbMaQD_TextChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

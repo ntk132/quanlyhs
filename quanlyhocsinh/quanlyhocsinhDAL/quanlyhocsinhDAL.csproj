@@ -46,7 +46,6 @@
     <Compile Include="LopHocDAL.cs" />
     <Compile Include="Lop_HocSinhDAL.cs" />
     <Compile Include="MonHocDAL.cs" />
-    <Compile Include="NamHocDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuyDinhDAL.cs" />
   </ItemGroup>

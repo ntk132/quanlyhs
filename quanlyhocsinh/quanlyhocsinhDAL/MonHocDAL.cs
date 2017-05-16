@@ -7,88 +7,36 @@ using quanlyhocsinhDTO;
 
 namespace quanlyhocsinhDAL
 {
-    public class MonHocDAL
+    class MonHocDAL
     {
-        private DataAccess da = new DataAccess();
-        //private string connectionStr = @"Data Source=kpc\homesqlserver;Initial Catalog=QUANLYHS;Integrated Security=True";
+        private string connectionStr = @"Data Source=kpc\HOMESQLSERVER;Initial Catalog=QuanLyHocSinh;Integrated Security=True";
 
         public MonHocDAL()
         {
+            DataAccess da = new DataAccess();
+
+            da.ExecuteQuery("USE QuanLyHocSinh");
+            da.ExecuteQuery("SET DATEFORMAT DMY");
         }
 
-        public DataTable layDanhSachMonHoc()
+        public void layDanhSAchMonhoc()
         {
-            DataTable dt = new DataTable();
-
             string query = "select * from MONHOC";
-            SqlCommand command = new SqlCommand(query, da.connection);
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-
-            da.connection.Open();
-
-            adapter.Fill(dt);
-
-            da.connection.Close();
-
-            return dt;
         }
 
-        public void insert(MonHocDTO monhoc)
+        public void insert()
         {
-            string query = "insert into MONHOC values (@mamh, @tenmh)";
 
-            SqlCommand command = new SqlCommand();
-
-            command.Connection = da.connection;
-            command.CommandType = CommandType.Text;
-            command.CommandText = query;
-
-            command.Parameters.AddWithValue("@mamh", SqlDbType.Int).Value = monhoc.MaMonHoc;
-            command.Parameters.AddWithValue("@tenmh", SqlDbType.NVarChar).Value = monhoc.TenMonHoc;
-
-            da.connection.Open();
-
-            command.ExecuteNonQuery();
-
-            da.connection.Close();
         }
 
-        public void update(MonHocDTO monhoc)
+        public void update()
         {
-            string query = "update MONHOC set TenMonHoc=@tenmh where MaMonHoc=@mamh";
 
-            SqlCommand command = new SqlCommand();
-
-            command.Connection = da.connection;
-            command.CommandType = CommandType.Text;
-            command.CommandText = query;
-
-            command.Parameters.AddWithValue("@mamh", SqlDbType.Int).Value = monhoc.MaMonHoc;
-            command.Parameters.AddWithValue("@tenmh", SqlDbType.NVarChar).Value = monhoc.TenMonHoc;
-
-            da.connection.Open();
-
-            command.ExecuteNonQuery();
-
-            da.connection.Close();
         }
 
-        public void delete(int mamh)
+        public void delete()
         {
-            string query = "delete from MONHOC where MaMonHoc=@mamh";
 
-            SqlCommand command = new SqlCommand();
-
-            command.Connection = da.connection;
-            command.CommandType = CommandType.Text;
-            command.CommandText = query;
-
-            command.Parameters.AddWithValue("@mamh", SqlDbType.Int).Value = mamh;
-            da.connection.Open();
-
-            command.ExecuteNonQuery();
-
-            da.connection.Close();
         }
     }
 }
