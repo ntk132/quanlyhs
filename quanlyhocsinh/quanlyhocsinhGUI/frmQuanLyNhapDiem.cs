@@ -22,15 +22,15 @@ namespace quanlyhocsinhGUI
         {
             InitializeComponent();
 
-            cbHocKy.DataSource = hkdal.layDanhSachHocKy();
+            cbHocKy.DataSource = hkdal.layDanhSachHocKyTheoNamHoc(NAMHOC.NamHocMacDinh);
             cbHocKy.ValueMember = "TenHocKy";
-            cbLopHoc.DataSource = lhdal.layDanhSachLop();
+            cbLopHoc.DataSource = lhdal.layDanhSachLopTheoNamHoc(NAMHOC.NamHocMacDinh);
             cbLopHoc.ValueMember = "MaLopHoc";
         }
 
         private void btChon_Click(object sender, EventArgs e)
         {
-            dgvDanhSachHocSinh.DataSource = kqdal.layDanhSachHS_QLDiem(cbLopHoc.Text, hkdal.layMaHK(cbHocKy.SelectedItem.ToString()));
+            dgvDanhSachHocSinh.DataSource = kqdal.layDanhSachHS_QLDiem(NAMHOC.NamHocMacDinh, cbLopHoc.Text);
         }
 
         private void btNhapDiem_Click(object sender, EventArgs e)
@@ -42,20 +42,17 @@ namespace quanlyhocsinhGUI
                 return;
             }
 
-            // Mapping...
-            string hocky = cbHocKy.Text;
+            DataTable dt = hkdal.layDanhSachHocKyTheoNamHoc(NAMHOC.NamHocMacDinh);
+
+            // Mapping...            
+            string mahocky = dt.Rows[cbHocKy.SelectedIndex][0].ToString();
             string malop = cbLopHoc.Text;
-            string mahs = dgvDanhSachHocSinh.SelectedRows[0].Cells[0].Value.ToString();
+            string mahocsinh = dgvDanhSachHocSinh.SelectedRows[0].Cells[0].Value.ToString();
             string hoten = dgvDanhSachHocSinh.SelectedRows[0].Cells[1].Value.ToString();
 
-            frmNhapDiem frm = new frmNhapDiem(hocky, malop, mahs, hoten);
+            frmNhapDiem frm = new frmNhapDiem(mahocky, malop, mahocsinh, hoten);
 
-            frm.ShowDialog();
-        }
-
-        private void btThoat_Click(object sender, EventArgs e)
-        {
-            this.Close();
+            frm.Show();
         }
     }
 }

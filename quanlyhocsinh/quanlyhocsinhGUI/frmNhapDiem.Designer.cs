@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmNhapDiem));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbMonHoc = new System.Windows.Forms.ComboBox();
             this.tbHoTen = new System.Windows.Forms.TextBox();
@@ -75,14 +76,14 @@
             this.cbMonHoc.Location = new System.Drawing.Point(125, 147);
             this.cbMonHoc.Name = "cbMonHoc";
             this.cbMonHoc.Size = new System.Drawing.Size(150, 24);
-            this.cbMonHoc.TabIndex = 12;
+            this.cbMonHoc.TabIndex = 1;
             // 
             // tbHoTen
             // 
             this.tbHoTen.Location = new System.Drawing.Point(125, 47);
             this.tbHoTen.Name = "tbHoTen";
             this.tbHoTen.Size = new System.Drawing.Size(150, 22);
-            this.tbHoTen.TabIndex = 11;
+            this.tbHoTen.TabIndex = 0;
             // 
             // btChon
             // 
@@ -99,14 +100,14 @@
             this.tbLopHoc.Location = new System.Drawing.Point(125, 97);
             this.tbLopHoc.Name = "tbLopHoc";
             this.tbLopHoc.Size = new System.Drawing.Size(150, 22);
-            this.tbLopHoc.TabIndex = 9;
+            this.tbLopHoc.TabIndex = 0;
             // 
             // tbHocKy
             // 
             this.tbHocKy.Location = new System.Drawing.Point(125, 197);
             this.tbHocKy.Name = "tbHocKy";
             this.tbHocKy.Size = new System.Drawing.Size(150, 22);
-            this.tbHocKy.TabIndex = 6;
+            this.tbHocKy.TabIndex = 0;
             // 
             // label6
             // 
@@ -184,7 +185,7 @@
             this.tbDiemTB.Location = new System.Drawing.Point(132, 197);
             this.tbDiemTB.Name = "tbDiemTB";
             this.tbDiemTB.Size = new System.Drawing.Size(150, 22);
-            this.tbDiemTB.TabIndex = 1;
+            this.tbDiemTB.TabIndex = 0;
             // 
             // tbDiem1t
             // 
@@ -237,9 +238,11 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmNhapDiem";
             this.Text = "Nhập điểm";
+            this.Load += new System.EventHandler(this.frmNhapDiem_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

@@ -42,13 +42,19 @@
     <Compile Include="HocKyBUS.cs" />
     <Compile Include="HocSinhBUS.cs" />
     <Compile Include="KetQuaHocTapBUS.cs" />
+    <Compile Include="KhoiLopBUS.cs" />
     <Compile Include="LopHocBUS.cs" />
     <Compile Include="Lop_HocSinhBUS.cs" />
     <Compile Include="MonHocBUS.cs" />
+    <Compile Include="NamHocBUS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuyDinh.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\quanlyhocsinhDAL\quanlyhocsinhDAL.csproj">
+      <Project>{e77eeda3-2ebd-4a50-9d9c-2992310ce48e}</Project>
+      <Name>quanlyhocsinhDAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\quanlyhocsinhDTO\quanlyhocsinhDTO.csproj">
       <Project>{c5c40529-05dd-4328-aa2e-5ece382b1db1}</Project>
       <Name>quanlyhocsinhDTO</Name>

@@ -9,15 +9,15 @@ namespace quanlyhocsinhDTO
     public class QuyDinhDTO
     {
         public QuyDinhDTO() { }
-        public QuyDinhDTO(string maqd, string giatri)
+        public QuyDinhDTO(int maQuyDinh, string giatri)
         {
-            this.sMaQuyDinh = maqd;
+            this.sMaQuyDinh = maQuyDinh;
             this.sGiaTri = giatri;
         }
 
-        private string sMaQuyDinh;
+        private int sMaQuyDinh;
 
-        public string MaQuyDinh
+        public int MaQuyDinh
         {
             get { return sMaQuyDinh; }
             set { sMaQuyDinh = value; }

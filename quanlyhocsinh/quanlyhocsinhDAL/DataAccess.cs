@@ -7,56 +7,67 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Configuration;
+
 namespace quanlyhocsinhDAL
 {
     public class DataAccess
     {
-        private static string connectionStr = @"Data Source=kpc\HOMESQLSERVER;Initial Catalog=QuanLyHocSinh;Integrated Security=True";
-        private SqlConnection connection = new SqlConnection(connectionStr);
+        private string currentPath = Environment.CurrentDirectory;
+        private static string connectionStr = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\QLHS.mdf;Integrated Security=True;Connect Timeout=30";
+        public SqlConnection connection = new SqlConnection(connectionStr);
 
-        public void openConnection()
-        {
-            try
-            {
-                connection.Open();
-            }
-            catch (SqlException e)
-            {
-            }
-        }
-
-        public void closeConnection()
-        {
-            connection.Close();
+        public DataAccess()
+        {            
+            ExecuteQuery("USE QLHS");
+            ExecuteQuery("SET DATEFORMAT DMY");
         }
 
         public DataTable ExecuteQuery(string query)
         {
             DataTable dt = new DataTable();
 
-            connection.Open();
+            try
+            {
+                connection.Open();
 
-            SqlCommand command = new SqlCommand(query, connection);
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
 
-            adapter.Fill(dt);
+                adapter.Fill(dt);
+            }
+            catch
+            {
 
-            connection.Close();
+            }
+            finally
+            {
+                connection.Close();
+            }
 
             return dt;
         }
 
         public int ExecuteNonQuery(string query)
         {
-            int dt = 0;
+            int dt = 0;           
+                        
+            try
+            {
+                connection.Open();
 
-            connection.Open();
+                SqlCommand command = new SqlCommand(query, connection);
 
-            SqlCommand command = new SqlCommand(query, connection);
+                dt = command.ExecuteNonQuery();
+            }
+            catch
+            {
 
-            command.ExecuteNonQuery();
-
-            connection.Close();
+            }
+            finally
+            {
+                connection.Close();
+            }
 
             return dt;
         }

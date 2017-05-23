@@ -18,28 +18,14 @@ namespace quanlyhocsinhGUI
 
             this.WindowState = FormWindowState.Maximized;
             this.IsMdiContainer = true;
-
-            pnWiget.Visible = false;
-
-            // Chỉnh sửa giao diện các Button
-            Custom_Button_Style(btThayDoiQuyDinh);
-            Custom_Button_Style(btTraCuuHocSinh);
-            Custom_Button_Style(btNhanBangDiemMon);
-            Custom_Button_Style(btTiepNhanHocSinh);
-            Custom_Button_Style(btLapDanhSachLop);
-            Custom_Button_Style(btLapBaoCaoTongHop);
-            // --  Kết thúc
         }
 
-        private void Custom_Button_Style(Button b)
+        private void tsbtNamHoc_Click(object sender, EventArgs e)
         {
-            b.FlatStyle = FlatStyle.Flat;
-            b.FlatAppearance.BorderSize = 0;
-        }
+            frmNamHoc frm = new frmNamHoc();
 
-        private void tsbtTrangChu_Click(object sender, EventArgs e)
-        {
-            pnWiget.Visible = !pnWiget.Visible;
+            frm.MdiParent = this;
+            frm.Show();
         }
 
         private void tsbtDanhSachLop_Click(object sender, EventArgs e)
@@ -52,8 +38,6 @@ namespace quanlyhocsinhGUI
 
         private void tsbtDanhSachHocSinh_Click(object sender, EventArgs e)
         {
-            pnWiget.Visible = false;
-
             frmDanhSachHocSinh frm = new frmDanhSachHocSinh();
 
             frm.MdiParent = this;
@@ -61,15 +45,32 @@ namespace quanlyhocsinhGUI
 
         }
 
+        private void tsbtXepLop(object sender, EventArgs e)
+        {
+            frmXepLop frm = new frmXepLop();
+
+            frm.MdiParent = this;
+            frm.Show();
+        }
+
+        private void tsbtLenLop(object sender, EventArgs e)
+        {
+            frmLenLop frm = new frmLenLop();
+
+            frm.MdiParent = this;
+            frm.Show();
+        }
+
         private void tsbtKetQuaHocTap_Click(object sender, EventArgs e)
         {
-            pnWiget.Visible = false;
+            frmKetQuaHocTap frm = new frmKetQuaHocTap();
+
+            frm.MdiParent = this;
+            frm.Show();
         }
 
         private void tsbtTraCuuHocSinh_Click(object sender, EventArgs e)
         {
-            pnWiget.Visible = false;
-
             frmTraCuuHocSinh frm = new frmTraCuuHocSinh();
 
             frm.MdiParent = this;
@@ -78,13 +79,14 @@ namespace quanlyhocsinhGUI
 
         private void tsbtBaoCao_Click(object sender, EventArgs e)
         {
-            pnWiget.Visible = false;
+            frmLapBaoCaoTongHop frm = new frmLapBaoCaoTongHop();
+
+            frm.MdiParent = this;
+            frm.Show();
         }
 
         private void tsbtThayDoiQuyDinh_Click(object sender, EventArgs e)
         {
-            pnWiget.Visible = false;
-
             frmThayDoiQuyDinh frm = new frmThayDoiQuyDinh();
 
             frm.MdiParent = this;
@@ -96,61 +98,12 @@ namespace quanlyhocsinhGUI
             this.Close();
         }
 
-        // --------  Xử lí sự kiên click của các button trên pnWiget  --------
-        private void btTiepNhanHocSinh_Click(object sender, EventArgs e)
+        private void tsbNhapDiem_Click(object sender, EventArgs e)
         {
-            frmTiepNhanHocSinh frm = new frmTiepNhanHocSinh();
+            frmQuanLyNhapDiem frm = new frmQuanLyNhapDiem();
 
             frm.MdiParent = this;
-            pnWiget.Visible = false;
             frm.Show();
         }
-
-        private void btLapDanhSachLop_Click(object sender, EventArgs e)
-        {
-            frmLapDanhSachLop frm = new frmLapDanhSachLop();
-
-            frm.MdiParent = this;
-            pnWiget.Visible = false;
-            frm.Show();
-        }
-
-        private void btTraCuuHocSinh_Click(object sender, EventArgs e)
-        {
-            frmTraCuuHocSinh frm = new frmTraCuuHocSinh();
-
-            frm.MdiParent = this;
-            pnWiget.Visible = false;
-            frm.Show();
-        }
-
-        private void btNhanBangDiemMon_Click(object sender, EventArgs e)
-        {
-            frmNhanBangDiemMon frm = new frmNhanBangDiemMon();
-
-            frm.MdiParent = this;
-            pnWiget.Visible = false;
-            frm.Show();
-        }
-
-        private void btLapBaoCaoTongHop_Click(object sender, EventArgs e)
-        {
-            frmLapBaoCaoTongHop frm = new frmLapBaoCaoTongHop();
-
-            frm.MdiParent = this;
-            pnWiget.Visible = false;
-            frm.Show();
-        }
-
-        private void btThayDoiQuyDinh_Click(object sender, EventArgs e)
-        {
-            frmThayDoiQuyDinh frm = new frmThayDoiQuyDinh();
-
-            frm.MdiParent = this;
-            pnWiget.Visible = false;
-            frm.Show();
-        }
-
-        // --------  Kết thúc  --------
     }
 }

@@ -15,26 +15,44 @@ namespace quanlyhocsinhGUI
     public partial class frmTraCuuHocSinh : Form
     {
         DataAccess da = new DataAccess();
-        HocSinhDTO hsdto = new HocSinhDTO();
+        //HocSinhDTO hsdto = new HocSinhDTO();
+        HocSinhDAL hsdal = new HocSinhDAL();
+        LopHocDAL lhdal = new LopHocDAL();
+
         public frmTraCuuHocSinh()
         {
             InitializeComponent();
 
-            rbNam.Checked = true;
+            //rbNam.Checked = true;
+
+            cbTimLop.DataSource = lhdal.layDanhSachLopTheoNamHoc(NAMHOC.NamHocMacDinh);
+            cbTimLop.ValueMember = "MaLopHoc";
+
+            rbTatCa.Checked = true;
         }
 
         private void btTimKiem_Click(object sender, EventArgs e)
         {
-            DataTable dt = da.ExecuteQuery("select MaHocSinh, HoTen from HOCSINH where Hoten like '%" + tbTimKiemHoTen.Text + "%' order by MaHocSinh");
+            // Mapping...
+            string gioitinh = "";
 
-            dgvKetQua.DataSource = dt;
+            if (rbNam.Checked)
+                gioitinh = rbNam.Text;
+
+            if (rbNu.Checked)
+                gioitinh = rbNu.Text;
+
+            DataTable dt = hsdal.timHocSinh(tbTimKiemHoTen.Text, gioitinh, cbTimLop.Text);
+
+            // Search , show result
+            dgvThongTin.DataSource = dt;
         }
 
         private void dgvKetQua_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvKetQua.SelectedRows.Count > 0)
+            if (dgvThongTin.SelectedRows.Count > 0)
             {
-                tbHoTen.Text = dgvKetQua.SelectedRows[0].Cells[1].Value.ToString();
+                
             }
         }
     }

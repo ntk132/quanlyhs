@@ -32,10 +32,11 @@
             this.dgvLopCu = new System.Windows.Forms.DataGridView();
             this.dgvLopMoi = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
-            this.cbLopCu = new System.Windows.Forms.ComboBox();
-            this.cbLopMoi = new System.Windows.Forms.ComboBox();
+            this.cbLopHocCu = new System.Windows.Forms.ComboBox();
+            this.cbLopHocMoi = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btThayDoiLop = new System.Windows.Forms.Button();
+            this.chbxChuaCoLop = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLopCu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLopMoi)).BeginInit();
             this.SuspendLayout();
@@ -65,21 +66,23 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Chọn lớp:";
             // 
-            // cbLopCu
+            // cbLopHocCu
             // 
-            this.cbLopCu.FormattingEnabled = true;
-            this.cbLopCu.Location = new System.Drawing.Point(100, 22);
-            this.cbLopCu.Name = "cbLopCu";
-            this.cbLopCu.Size = new System.Drawing.Size(100, 24);
-            this.cbLopCu.TabIndex = 4;
+            this.cbLopHocCu.FormattingEnabled = true;
+            this.cbLopHocCu.Location = new System.Drawing.Point(100, 22);
+            this.cbLopHocCu.Name = "cbLopHocCu";
+            this.cbLopHocCu.Size = new System.Drawing.Size(100, 24);
+            this.cbLopHocCu.TabIndex = 4;
+            this.cbLopHocCu.SelectedIndexChanged += new System.EventHandler(this.cbLopHocCu_SelectedIndexChanged);
             // 
-            // cbLopMoi
+            // cbLopHocMoi
             // 
-            this.cbLopMoi.FormattingEnabled = true;
-            this.cbLopMoi.Location = new System.Drawing.Point(522, 22);
-            this.cbLopMoi.Name = "cbLopMoi";
-            this.cbLopMoi.Size = new System.Drawing.Size(100, 24);
-            this.cbLopMoi.TabIndex = 5;
+            this.cbLopHocMoi.FormattingEnabled = true;
+            this.cbLopHocMoi.Location = new System.Drawing.Point(522, 22);
+            this.cbLopHocMoi.Name = "cbLopHocMoi";
+            this.cbLopHocMoi.Size = new System.Drawing.Size(100, 24);
+            this.cbLopHocMoi.TabIndex = 5;
+            this.cbLopHocMoi.SelectedIndexChanged += new System.EventHandler(this.cbLopHocMoi_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -98,15 +101,28 @@
             this.btThayDoiLop.TabIndex = 6;
             this.btThayDoiLop.Text = "Thay đổi";
             this.btThayDoiLop.UseVisualStyleBackColor = true;
+            this.btThayDoiLop.Click += new System.EventHandler(this.btThayDoiLop_Click);
+            // 
+            // chbxChuaCoLop
+            // 
+            this.chbxChuaCoLop.AutoSize = true;
+            this.chbxChuaCoLop.Location = new System.Drawing.Point(230, 24);
+            this.chbxChuaCoLop.Name = "chbxChuaCoLop";
+            this.chbxChuaCoLop.Size = new System.Drawing.Size(98, 20);
+            this.chbxChuaCoLop.TabIndex = 8;
+            this.chbxChuaCoLop.Text = "Chưa có lớp";
+            this.chbxChuaCoLop.UseVisualStyleBackColor = true;
+            this.chbxChuaCoLop.CheckedChanged += new System.EventHandler(this.chbxChuaCoLop_CheckedChanged);
             // 
             // frmXepLop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(776, 403);
+            this.Controls.Add(this.chbxChuaCoLop);
             this.Controls.Add(this.btThayDoiLop);
-            this.Controls.Add(this.cbLopMoi);
-            this.Controls.Add(this.cbLopCu);
+            this.Controls.Add(this.cbLopHocMoi);
+            this.Controls.Add(this.cbLopHocCu);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvLopMoi);
@@ -116,6 +132,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmXepLop";
             this.Text = "Xếp lớp";
+            this.Load += new System.EventHandler(this.frmXepLop_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvLopCu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLopMoi)).EndInit();
             this.ResumeLayout(false);
@@ -128,9 +145,10 @@
         private System.Windows.Forms.DataGridView dgvLopCu;
         private System.Windows.Forms.DataGridView dgvLopMoi;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cbLopCu;
-        private System.Windows.Forms.ComboBox cbLopMoi;
+        private System.Windows.Forms.ComboBox cbLopHocCu;
+        private System.Windows.Forms.ComboBox cbLopHocMoi;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btThayDoiLop;
+        private System.Windows.Forms.CheckBox chbxChuaCoLop;
     }
 }

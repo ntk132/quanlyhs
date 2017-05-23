@@ -43,9 +43,12 @@
     <Compile Include="HocKyDAL.cs" />
     <Compile Include="HocSinhDAL.cs" />
     <Compile Include="KetQuaHocTapDAL.cs" />
+    <Compile Include="KhoiLopDAL.cs" />
     <Compile Include="LopHocDAL.cs" />
     <Compile Include="Lop_HocSinhDAL.cs" />
     <Compile Include="MonHocDAL.cs" />
+    <Compile Include="NamHocDAL.cs" />
+    <Compile Include="NamHocMacDinhDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuyDinhDAL.cs" />
   </ItemGroup>

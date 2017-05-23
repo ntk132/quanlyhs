@@ -10,43 +10,53 @@ namespace quanlyhocsinhDTO
     public class LopHocDTO
     {
         public LopHocDTO() { }
-        public LopHocDTO(string tenlop, int khoi, int siso)
+        public LopHocDTO(string malop, string manh,string tenlop, string makhoi, int siso)
         {
-            this.ITenLop = tenlop;
-            this.IKhoiLop = khoi;
-            this.ISiSo = siso;
+            this.sMaLopHoc = malop;
+            this.sMaNamHoc = manh;
+            this.sTenLopHoc = tenlop;
+            this.sMaKhoiLop = makhoi;
+            this.iSiSo = siso;
         }
 
-        private int IMalop;
+        private string sMaLopHoc;
 
-        public int MaLop
+        public string MaLopHoc
         {
-            get { return IMalop; }
-            set { IMalop = value; }
+            get { return sMaLopHoc; }
+            set { sMaLopHoc = value; }
         }
 
-        private string ITenLop;
+        private string sMaNamHoc;
 
-        public string TenLop
+        public string MaNamHoc
         {
-            get { return ITenLop; }
-            set { ITenLop = value; }
+            get { return sMaNamHoc; }
+            set { sMaNamHoc = value; }
         }
 
-        private int IKhoiLop;
+        private string sTenLopHoc;
 
-        public int KhoiLop
+        public string TenLopHoc
         {
-            get { return IKhoiLop; }
-            set { IKhoiLop = value; }
+            get { return sTenLopHoc; }
+            set { sTenLopHoc = value; }
         }
 
-        private int ISiSo;
+        private string sMaKhoiLop;
+
+        public string MaKhoiLop
+        {
+            get { return sMaKhoiLop; }
+            set { sMaKhoiLop = value; }
+        }
+
+        private int iSiSo;
 
         public int SiSo
         {
-            get { return ISiSo; }
-            set { ISiSo = value; }
+            get { return iSiSo; }
+            set { iSiSo = value; }
         }
     }
 }

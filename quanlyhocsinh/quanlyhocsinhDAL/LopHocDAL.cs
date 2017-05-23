@@ -9,13 +9,11 @@ namespace quanlyhocsinhDAL
 {
     public class LopHocDAL
     {
-        private string connectionStr = @"Data Source=kpc\HOMESQLSERVER;Initial Catalog=QuanLyHocSinh;Integrated Security=True";
-        DataAccess da = new DataAccess();
+        //private string connectionStr = @"Data Source=kpc\homesqlserver;Initial Catalog=QUANLYHS;Integrated Security=True";
+        private DataAccess da = new DataAccess();
 
         public LopHocDAL()
         {
-            da.ExecuteQuery("USE QuanLyHocSinh");
-            da.ExecuteQuery("SET DATEFORMAT DMY");
         }
 
         public DataTable layDanhSachLop()
@@ -28,89 +26,81 @@ namespace quanlyhocsinhDAL
             return dt;
         }
 
-        public List<object> layDanhSachTenLop()
+        public DataTable layDanhSachLopTheoNamHoc(string namhoc)
         {
-            List<object> list = new List<object>();
+            DataTable dt = new DataTable();
+            string query = "select * from LOPHOC where MaNamHoc='" + namhoc + "'";
 
-            DataTable dt = layDanhSachLop();
+            dt = da.ExecuteQuery(query);
 
-            foreach (DataRow item in dt.Rows)
-            {
-                list.Add(item);
-            }
-
-            return list;
-        }
-
-        public int layMaLopTheoTenLop(string tenlop)
-        {
-            DataTable dt = da.ExecuteQuery("select MaLopHoc from LOPHOC where TenLop='" + tenlop + "'");
-            DataRow data = dt.Rows[0];
-            return (int)data["MaLopHoc"];
+            return dt;
         }
 
         public void insert(LopHocDTO lop)
         {
-            string query = "insert into LOPHOC (MaLopHoc, TenLop, KhoiLop, SiSo) values (@malop, @tenlop, @khoilop, @siso)";
+            string query = "insert into LOPHOC (MaLopHoc, MaNamHoc,TenLopHoc, MaKhoiLop, SiSo) values (@malop, @manh, @tenlop, @khoilop, @siso)";
 
-            SqlConnection connection = new SqlConnection(connectionStr);
+            //SqlConnection connection = new SqlConnection(connectionStr);
             SqlCommand command = new SqlCommand();
 
-            command.Connection = connection;
+            command.Connection = da.connection;
             command.CommandType = CommandType.Text;
             command.CommandText = query;
 
-            command.Parameters.AddWithValue("@malop", SqlDbType.Int).Value = lop.MaLop;
-            command.Parameters.AddWithValue("@tenlop", SqlDbType.NVarChar).Value = lop.TenLop;
-            command.Parameters.AddWithValue("@khoilop", SqlDbType.Int).Value = lop.KhoiLop;
+            command.Parameters.AddWithValue("@malop", SqlDbType.VarChar).Value = lop.MaLopHoc;
+            command.Parameters.AddWithValue("@manh", SqlDbType.VarChar).Value = lop.MaNamHoc;
+            command.Parameters.AddWithValue("@tenlop", SqlDbType.NVarChar).Value = lop.TenLopHoc;
+            command.Parameters.AddWithValue("@khoilop", SqlDbType.VarChar).Value = lop.MaKhoiLop;
             command.Parameters.AddWithValue("@siso", SqlDbType.Int).Value = lop.SiSo;
 
-            connection.Open();
+            da.connection.Open();
 
             command.ExecuteNonQuery();
 
-            connection.Close();
+            da.connection.Close();
         }
 
         public void update(LopHocDTO lop)
         {
-            string query = "update LOPHOC set TenLop=@tenlop, KhoiLop=@khoilop, SiSo=@siso where MaHocSinh=" + lop.MaLop;
+            string query = "update LOPHOC set TenLopHoc=@tenlop, MaKhoiLop=@khoilop, SiSo=@siso where MaLopHoc=@malop";
 
-            SqlConnection connection = new SqlConnection(connectionStr);
+            //SqlConnection connection = new SqlConnection(connectionStr);
             SqlCommand command = new SqlCommand();
 
-            command.Connection = connection;
+            command.Connection = da.connection;
             command.CommandType = CommandType.Text;
             command.CommandText = query;
 
-            command.Parameters.AddWithValue("@malop", SqlDbType.Int).Value = lop.MaLop;
-            command.Parameters.AddWithValue("@tenlop", SqlDbType.VarChar).Value = lop.TenLop;
-            command.Parameters.AddWithValue("@khoilop", SqlDbType.Int).Value = lop.KhoiLop;
+            command.Parameters.AddWithValue("@malop", SqlDbType.Int).Value = lop.MaLopHoc;
+            command.Parameters.AddWithValue("@tenlop", SqlDbType.VarChar).Value = lop.TenLopHoc;
+            command.Parameters.AddWithValue("@khoilop", SqlDbType.Int).Value = lop.MaKhoiLop;
             command.Parameters.AddWithValue("@siso", SqlDbType.Int).Value = lop.SiSo;
 
-            connection.Open();
+            da.connection.Open();
 
             command.ExecuteNonQuery();
 
-            connection.Close();
+            da.connection.Close();
         }
 
         public void delete(LopHocDTO lop)
         {
-            string query = "delete from LOPHOC where MaHocSinh=" + lop.MaLop;
+            string query = "delete from LOPHOC where MaLopHoc=@malop";
 
-            SqlConnection connection = new SqlConnection(connectionStr);
+            //SqlConnection connection = new SqlConnection(connectionStr);
             SqlCommand command = new SqlCommand();
 
-            command.Connection = connection;
+            command.Connection = da.connection;
             command.CommandType = CommandType.Text;
             command.CommandText = query;
 
-            connection.Open();
+            command.Parameters.AddWithValue("@malop", SqlDbType.Int).Value = lop.MaLopHoc;
+
+            da.connection.Open();
 
             command.ExecuteNonQuery();
 
-            connection.Close();
+            da.connection.Close();
         }
     }
 }

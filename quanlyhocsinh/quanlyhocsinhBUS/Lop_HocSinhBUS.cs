@@ -14,7 +14,7 @@ namespace quanlyhocsinhBUS
             return true;
         }
 
-        public bool isPassedAllSubject(HocSinhDTO hs)
+        public bool isPassedAllSubject(string maNamHoc, int maHocSinh)
         {
             return true;
         }

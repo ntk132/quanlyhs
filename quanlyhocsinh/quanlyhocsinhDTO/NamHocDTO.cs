@@ -12,7 +12,8 @@ namespace quanlyhocsinhDTO
 
         public NamHocDTO(string manh, string tennh)
         {
-
+            this.sMaNamHoc = manh;
+            this.sTenNamHoc = tennh;
         }
 
         private string sMaNamHoc;

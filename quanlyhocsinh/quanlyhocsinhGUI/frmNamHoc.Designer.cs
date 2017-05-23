@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmNamHoc));
             this.label1 = new System.Windows.Forms.Label();
             this.dgvDanhSachNamHoc = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
@@ -38,7 +39,6 @@
             this.tbMaNamHoc = new System.Windows.Forms.TextBox();
             this.tbTenNamHoc = new System.Windows.Forms.TextBox();
             this.btThem = new System.Windows.Forms.Button();
-            this.btCapNhat = new System.Windows.Forms.Button();
             this.btXoa = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDanhSachNamHoc)).BeginInit();
             this.SuspendLayout();
@@ -56,17 +56,21 @@
             // 
             // dgvDanhSachNamHoc
             // 
-            this.dgvDanhSachNamHoc.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.dgvDanhSachNamHoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvDanhSachNamHoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDanhSachNamHoc.Location = new System.Drawing.Point(29, 68);
             this.dgvDanhSachNamHoc.Name = "dgvDanhSachNamHoc";
-            this.dgvDanhSachNamHoc.Size = new System.Drawing.Size(250, 300);
+            this.dgvDanhSachNamHoc.Size = new System.Drawing.Size(458, 300);
             this.dgvDanhSachNamHoc.TabIndex = 1;
+            this.dgvDanhSachNamHoc.SelectionChanged += new System.EventHandler(this.dgvDanhSachNamHoc_SelectionChanged);
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(303, 29);
+            this.label2.Location = new System.Drawing.Point(506, 47);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(122, 16);
             this.label2.TabIndex = 2;
@@ -74,15 +78,17 @@
             // 
             // cbNamHocMacDinh
             // 
+            this.cbNamHocMacDinh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbNamHocMacDinh.FormattingEnabled = true;
-            this.cbNamHocMacDinh.Location = new System.Drawing.Point(431, 25);
+            this.cbNamHocMacDinh.Location = new System.Drawing.Point(634, 43);
             this.cbNamHocMacDinh.Name = "cbNamHocMacDinh";
             this.cbNamHocMacDinh.Size = new System.Drawing.Size(150, 24);
             this.cbNamHocMacDinh.TabIndex = 3;
             // 
             // btChon
             // 
-            this.btChon.Location = new System.Drawing.Point(431, 68);
+            this.btChon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btChon.Location = new System.Drawing.Point(634, 86);
             this.btChon.Name = "btChon";
             this.btChon.Size = new System.Drawing.Size(75, 25);
             this.btChon.TabIndex = 4;
@@ -92,8 +98,9 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(303, 118);
+            this.label3.Location = new System.Drawing.Point(506, 136);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 16);
             this.label3.TabIndex = 5;
@@ -101,8 +108,9 @@
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(303, 163);
+            this.label4.Location = new System.Drawing.Point(506, 181);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(89, 16);
             this.label4.TabIndex = 6;
@@ -110,22 +118,24 @@
             // 
             // tbMaNamHoc
             // 
-            this.tbMaNamHoc.Location = new System.Drawing.Point(431, 115);
+            this.tbMaNamHoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbMaNamHoc.Location = new System.Drawing.Point(634, 133);
             this.tbMaNamHoc.Name = "tbMaNamHoc";
             this.tbMaNamHoc.Size = new System.Drawing.Size(150, 22);
             this.tbMaNamHoc.TabIndex = 7;
             // 
             // tbTenNamHoc
             // 
-            this.tbTenNamHoc.Location = new System.Drawing.Point(431, 160);
+            this.tbTenNamHoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbTenNamHoc.Location = new System.Drawing.Point(634, 178);
             this.tbTenNamHoc.Name = "tbTenNamHoc";
             this.tbTenNamHoc.Size = new System.Drawing.Size(150, 22);
             this.tbTenNamHoc.TabIndex = 8;
             // 
             // btThem
             // 
-            this.btThem.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btThem.Location = new System.Drawing.Point(306, 210);
+            this.btThem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btThem.Location = new System.Drawing.Point(634, 243);
             this.btThem.Name = "btThem";
             this.btThem.Size = new System.Drawing.Size(75, 25);
             this.btThem.TabIndex = 9;
@@ -133,21 +143,10 @@
             this.btThem.UseVisualStyleBackColor = true;
             this.btThem.Click += new System.EventHandler(this.btThem_Click);
             // 
-            // btCapNhat
-            // 
-            this.btCapNhat.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btCapNhat.Location = new System.Drawing.Point(410, 210);
-            this.btCapNhat.Name = "btCapNhat";
-            this.btCapNhat.Size = new System.Drawing.Size(75, 25);
-            this.btCapNhat.TabIndex = 10;
-            this.btCapNhat.Text = "Cập nhật";
-            this.btCapNhat.UseVisualStyleBackColor = true;
-            this.btCapNhat.Click += new System.EventHandler(this.btCapNhat_Click);
-            // 
             // btXoa
             // 
-            this.btXoa.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btXoa.Location = new System.Drawing.Point(506, 210);
+            this.btXoa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btXoa.Location = new System.Drawing.Point(634, 288);
             this.btXoa.Name = "btXoa";
             this.btXoa.Size = new System.Drawing.Size(75, 25);
             this.btXoa.TabIndex = 11;
@@ -159,9 +158,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(607, 396);
+            this.ClientSize = new System.Drawing.Size(816, 396);
             this.Controls.Add(this.btXoa);
-            this.Controls.Add(this.btCapNhat);
             this.Controls.Add(this.btThem);
             this.Controls.Add(this.tbTenNamHoc);
             this.Controls.Add(this.tbMaNamHoc);
@@ -173,9 +171,10 @@
             this.Controls.Add(this.dgvDanhSachNamHoc);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmNamHoc";
-            this.Text = "Xử lí năm học";
+            this.Text = "Năm học";
             this.Load += new System.EventHandler(this.frmNamHoc_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDanhSachNamHoc)).EndInit();
             this.ResumeLayout(false);
@@ -195,7 +194,6 @@
         private System.Windows.Forms.TextBox tbMaNamHoc;
         private System.Windows.Forms.TextBox tbTenNamHoc;
         private System.Windows.Forms.Button btThem;
-        private System.Windows.Forms.Button btCapNhat;
         private System.Windows.Forms.Button btXoa;
     }
 }

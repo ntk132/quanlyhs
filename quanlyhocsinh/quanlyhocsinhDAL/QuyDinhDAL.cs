@@ -8,14 +8,12 @@ namespace quanlyhocsinhDAL
 {
     public class QuyDinhDAL
     {
-        private string connectionStr = @"Data Source=kpc\HOMESQLSERVER;Initial Catalog=QuanLyHocSinh;Integrated Security=True";
+        private DataAccess da = new DataAccess();
+        //private string connectionStr = @"Data Source=kpc\homesqlserver;Initial Catalog=QUANLYHS;Integrated Security=True";
 
         public QuyDinhDAL()
         {
-            DataAccess da = new DataAccess();
 
-            da.ExecuteQuery("USE QuanLyHocSinh");
-            da.ExecuteQuery("SET DATEFORMAT DMY");
         }
 
         public DataTable layDanhSachQuyDinh()
@@ -23,64 +21,119 @@ namespace quanlyhocsinhDAL
             DataTable dt = new DataTable();
             string query = "select * from QUYDINH";
 
-            SqlConnection connection = new SqlConnection(connectionStr);
-            SqlCommand command = new SqlCommand(query, connection);
+            //SqlConnection connection = new SqlConnection(connectionStr);
+            SqlCommand command = new SqlCommand(query, da.connection);
 
             SqlDataAdapter adpater = new SqlDataAdapter(command);
 
-            connection.Open();
+            da.connection.Open();
 
             adpater.Fill(dt);
 
-            connection.Close();
+            da.connection.Close();
 
             return dt;
 
         }
 
-        public QuyDinhDTO layQuyDinhTheoMaQD(string maqd)
+        public DataTable layQuyDinhTuoiToiThieu()
         {
-            QuyDinhDTO qd = new QuyDinhDTO();
             DataTable dt = new DataTable();
-            string query = "select * from QUYDINH where MaQuyDinh='" + maqd + "'";
+            string query = "select * from QUYDINH where MaQuyDinh=1";
 
-            SqlConnection connection = new SqlConnection(connectionStr);
-            SqlCommand command = new SqlCommand(query, connection);
+            //SqlConnection connection = new SqlConnection(connectionStr);
+            SqlCommand command = new SqlCommand(query, da.connection);
 
             SqlDataAdapter adpater = new SqlDataAdapter(command);
 
-            connection.Open();
+            da.connection.Open();
 
             adpater.Fill(dt);
 
-            connection.Close();
+            da.connection.Close();
 
-            DataRow dr = dt.Rows[0];
+            return dt;
 
-            qd.MaQuyDinh = (string)dr["MaQuyDinh"];
-            qd.GiaTri = (string)dr["GiaTri"];
+        }
 
-            return qd;
+        public DataTable layQuyDinhTuoiToiDa()
+        {
+            DataTable dt = new DataTable();
+            string query = "select * from QUYDINH where MaQuyDinh=2";
+
+            //SqlConnection connection = new SqlConnection(connectionStr);
+            SqlCommand command = new SqlCommand(query, da.connection);
+
+            SqlDataAdapter adpater = new SqlDataAdapter(command);
+
+            da.connection.Open();
+
+            adpater.Fill(dt);
+
+            da.connection.Close();
+
+            return dt;
+
+        }
+
+        public DataTable layQuyDinhSiSoToiDa()
+        {
+            DataTable dt = new DataTable();
+            string query = "select * from QUYDINH where MaQuyDinh=3";
+
+            //SqlConnection connection = new SqlConnection(connectionStr);
+            SqlCommand command = new SqlCommand(query, da.connection);
+
+            SqlDataAdapter adpater = new SqlDataAdapter(command);
+
+            da.connection.Open();
+
+            adpater.Fill(dt);
+
+            da.connection.Close();
+
+            return dt;
+
+        }
+
+        public DataTable layQuyDinhDiemToiThieuDatMon()
+        {
+            DataTable dt = new DataTable();
+            string query = "select * from QUYDINH where MaQuyDinh=4";
+
+            //SqlConnection connection = new SqlConnection(connectionStr);
+            SqlCommand command = new SqlCommand(query, da.connection);
+
+            SqlDataAdapter adpater = new SqlDataAdapter(command);
+
+            da.connection.Open();
+
+            adpater.Fill(dt);
+
+            da.connection.Close();
+
+            return dt;
+
         }
 
         public void update(QuyDinhDTO qd)
         {
-            string query = "update QUYDINH set GiaTri=@giatri where MaQuyDinh='" + qd.MaQuyDinh + "'";
+            string query = "update QUYDINH set GiaTri=@giatri where MaQuyDinh=" + qd.MaQuyDinh;
 
-            SqlConnection connection = new SqlConnection(connectionStr);
+            //SqlConnection connection = new SqlConnection(connectionStr);
             SqlCommand command = new SqlCommand();
 
-            command.Connection = connection;
+            command.Connection = da.connection;
             command.CommandType = CommandType.Text;
             command.CommandText = query;
 
             command.Parameters.AddWithValue("@giatri", SqlDbType.NChar).Value = qd.GiaTri;
 
-            connection.Open();
+            da.connection.Open();
 
             command.ExecuteNonQuery();
 
-            connection.Close();
+            da.connection.Close();
         }
     }
 }

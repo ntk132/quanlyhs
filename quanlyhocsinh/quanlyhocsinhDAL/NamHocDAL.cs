@@ -26,18 +26,54 @@ namespace quanlyhocsinhDAL
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
 
-            da.connection.Open();
+            dt = da.ExecuteQuery(query);
 
-            adapter.Fill(dt);
+            return dt;
+        }
 
-            da.connection.Close();
+        public DataTable layDanhSachNamHocVaHocKy()
+        {
+            DataTable dt = new DataTable();
+
+            string query = "select a.MaNamHoc as 'Mã năm học', c.TenNamHoc as 'Tên năm học', a.MaHocKy as 'Mã học kỳ I', b.MaHocKy as 'Mã học kỳ II' from (select MaNamHoc, MaHocKy from HOCKY where MaHocKy like '%_1') a, (select MaNamHoc, MaHocKy from HOCKY where MaHocKy like '%_2') b, (select MaNamHoc, TenNamHoc from NAMHOC) c where a.MaNamHoc = b.MaNamHoc and a.MaNamHoc = c.MaNamHoc";
+
+            SqlCommand command = new SqlCommand();
+
+            command.Connection = da.connection;
+            command.CommandType = CommandType.Text;
+            command.CommandText = query;
+
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+
+            dt = da.ExecuteQuery(query);
+
+            return dt;
+        }
+
+        public DataTable layNamHocTheoMaNamHoc(string maNamHoc)
+        {
+            DataTable dt = new DataTable();
+
+            string query = "select * from NAMHOC where MaNAmHoc=@manh";
+
+            SqlCommand command = new SqlCommand();
+
+            command.Connection = da.connection;
+            command.CommandType = CommandType.Text;
+            command.CommandText = query;
+
+            command.Parameters.AddWithValue("@manh", SqlDbType.VarChar).Value = maNamHoc;
+
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+
+            dt = da.ExecuteQuery(query);
 
             return dt;
         }
 
         public void insert(NamHocDTO namhoc)
         {
-            string query = "insert into NAMHOC values (@manh, @tennh)";
+            string query = "insert into NAMHOC (MaNamHoc, TenNamHoc) values (@manh, @tennh)";
 
             SqlCommand command = new SqlCommand();
 

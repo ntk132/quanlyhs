@@ -11,19 +11,19 @@ namespace quanlyhocsinhDTO
         public HocSinhDTO() { }
         public HocSinhDTO(int mahs, string hoten, string ngaysinh, string gioitinh, string diachi, string email)
         {
-            this.IMaHocSinh = mahs;
+            this.iMaHocSinh = mahs;
             this.sHoTen = hoten;
-            this.dtNgaySinh = ngaysinh;
+            this.sNgaySinh = ngaysinh;
             this.sGioiTinh = gioitinh;
             this.sDiaChi = diachi;
             this.sEmail = email;
         }
 
-        private int IMaHocSinh;
+        private int iMaHocSinh;
         public int MaHocSinh
         {
-            get { return IMaHocSinh; }
-            set { IMaHocSinh = value; }
+            get { return iMaHocSinh; }
+            set { iMaHocSinh = value; }
         }
 
         private string sHoTen;
@@ -33,11 +33,11 @@ namespace quanlyhocsinhDTO
             set { sHoTen = value; }
         }
 
-        private string dtNgaySinh;
+        private string sNgaySinh;
         public string NgaySinh
         {
-            get { return dtNgaySinh; }
-            set { dtNgaySinh = value; }
+            get { return sNgaySinh; }
+            set { sNgaySinh = value; }
         }
 
         private string sGioiTinh;
