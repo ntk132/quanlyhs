@@ -76,46 +76,21 @@ namespace quanlyhocsinhGUI
 
             // DAL - Update
             // Tuổi tối thiểu
-            if (tbTuoiToiThieu.Text != TuoiToiThieu)
-            {
-                quydinhDAL.update(qdTuoiToiThieu);
-            }
-
+            quydinhDAL.update(qdTuoiToiThieu);
             // Tuổi tối đa
-            if (tbTuoiToiDa.Text != TuoiToiDa)
-            {
-                quydinhDAL.update(qdTuoiToiDa);
-            }
-
+            quydinhDAL.update(qdTuoiToiDa);
             // Sỉ số tối đa
-            if (tbSiSiToiDa.Text != SiSoToiDa)
-            {
-                quydinhDAL.update(qdSiSoToiDa);
-            }
-
+            quydinhDAL.update(qdSiSoToiDa);
             // Điểm tối thiểu để đạt môn
-            if (tbDiemDatMon.Text != DiemToiThieuDatMon)
-            {
-                quydinhDAL.update(qdDiemDatMon);
-            }
-
+            quydinhDAL.update(qdDiemDatMon);
             // K10
-            if (tbSiSoK10.Text != SoLuongLopKhoi10)
-            {
-                khoilopDAL.update(qdSoLopKhoi10);
-            }
-
+            khoilopDAL.update(qdSoLopKhoi10);
             // K11
-            if (tbSiSoK11.Text != SoLuongLopKhoi10)
-            {
-                khoilopDAL.update(qdSoLopKhoi11);
-            }
-
+            khoilopDAL.update(qdSoLopKhoi11);
             // K12
-            if (tbSiSoK12.Text != SoLuongLopKhoi10)
-            {
-                khoilopDAL.update(qdSoLopKhoi12);
-            }
+            khoilopDAL.update(qdSoLopKhoi12);
+
+            MessageBox.Show("Đã lưu thay đổi!");
         }
 
         private void isFullInformation()
@@ -186,6 +161,29 @@ namespace quanlyhocsinhGUI
 
         private void btHuyThayDoiQD_Click(object sender, EventArgs e)
         {
+            QuyDinhDTO qdTuoiToiThieu = new QuyDinhDTO(1, tbTuoiToiThieu.Text);
+            QuyDinhDTO qdTuoiToiDa = new QuyDinhDTO(2, tbTuoiToiDa.Text);
+            QuyDinhDTO qdSiSoToiDa = new QuyDinhDTO(3, tbSiSiToiDa.Text);
+            QuyDinhDTO qdDiemDatMon = new QuyDinhDTO(4, tbDiemDatMon.Text);
+            KhoiLopDTO qdSoLopKhoi10 = new KhoiLopDTO("K10", "", Convert.ToInt16(SoLuongLopKhoi10));
+            KhoiLopDTO qdSoLopKhoi11 = new KhoiLopDTO("K11", "", Convert.ToInt16(SoLuongLopKhoi11));
+            KhoiLopDTO qdSoLopKhoi12 = new KhoiLopDTO("K12", "", Convert.ToInt16(SoLuongLopKhoi12));
+
+            // Tuổi tối thiểu
+            quydinhDAL.update(qdTuoiToiThieu);
+            // Tuổi tối đa
+            quydinhDAL.update(qdTuoiToiDa);
+            // Sỉ số tối đa
+            quydinhDAL.update(qdSiSoToiDa);
+            // Điểm tối thiểu để đạt môn
+            quydinhDAL.update(qdDiemDatMon);
+            // K10
+            khoilopDAL.update(qdSoLopKhoi10);
+            // K11
+            khoilopDAL.update(qdSoLopKhoi11);
+            // K12
+            khoilopDAL.update(qdSoLopKhoi12);
+
             tbTuoiToiThieu.Text = TuoiToiThieu;
             tbTuoiToiDa.Text = TuoiToiDa;
             tbSiSiToiDa.Text = SiSoToiDa;
@@ -195,6 +193,8 @@ namespace quanlyhocsinhGUI
             tbSiSoK12.Text = SoLuongLopKhoi12;
 
             tbTenMon.Clear();
+
+            MessageBox.Show("Đã chỉnh các thông số về mặc định!");
         }
 
         private void dgvMonHoc_SelectionChanged(object sender, EventArgs e)
