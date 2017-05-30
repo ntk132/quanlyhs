@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess.cs" />
+    <Compile Include="DiemTrungBinhDAL.cs" />
     <Compile Include="HocKyDAL.cs" />
     <Compile Include="HocSinhDAL.cs" />
     <Compile Include="KetQuaHocTapDAL.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="NamHocMacDinhDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuyDinhDAL.cs" />
+    <Compile Include="ThongSoMacDinhDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\quanlyhocsinhDTO\quanlyhocsinhDTO.csproj">

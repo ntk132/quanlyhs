@@ -18,14 +18,15 @@ namespace quanlyhocsinhGUI
         HocKyDAL hkDAL = new HocKyDAL();
         LopHocDAL lhDAL = new LopHocDAL();
         MonHocDAL mhDAL = new MonHocDAL();
+        DiemTrungBinhDAL diemtbDAL = new DiemTrungBinhDAL();
 
         public frmKetQuaHocTap()
         {
             InitializeComponent();
 
-            cbHocKy.DataSource = hkDAL.layDanhSachHocKyTheoNamHoc(NAMHOC.NamHocMacDinh);
+            cbHocKy.DataSource = hkDAL.layDanhSachHocKyTheoNamHoc(MACDINH.NamHocMacDinh);
             cbHocKy.ValueMember = "TenHocKy";
-            cbLopHoc.DataSource = lhDAL.layDanhSachLopTheoNamHoc(NAMHOC.NamHocMacDinh);
+            cbLopHoc.DataSource = lhDAL.layDanhSachLopTheoNamHoc(MACDINH.NamHocMacDinh);
             cbLopHoc.ValueMember = "MaLopHoc";
             cbMonHoc.DataSource = mhDAL.layDanhSachMonHoc();
             cbMonHoc.ValueMember = "TenMonHoc";
@@ -33,7 +34,7 @@ namespace quanlyhocsinhGUI
 
         private void btXemDanhSach_Click(object sender, EventArgs e)
         {
-            DataTable dtMaHocKy = hkDAL.layDanhSachHocKyTheoNamHoc(NAMHOC.NamHocMacDinh);
+            DataTable dtMaHocKy = hkDAL.layDanhSachHocKyTheoNamHoc(MACDINH.NamHocMacDinh);
             DataTable dtMaMonHoc = mhDAL.layDanhSachMonHoc();
 
             // Mapping...
@@ -42,13 +43,13 @@ namespace quanlyhocsinhGUI
             int mamon = Convert.ToInt16(dtMaMonHoc.Rows[cbMonHoc.SelectedIndex]["MaMonHoc"]);
 
             // Show result
-            dgvChiTietDiem.DataSource = kqDAL.xemDiemCuaHocSinh(malop, mamon, mahk);
-            //MessageBox.Show(mahk + "\n" + malop + "\n" + mamon);
+            dgvChiTietDiem.DataSource = kqDAL.xemDiemCuaHocSinhTrongLop(malop, mamon, mahk);
         }
 
         private void btTrungBinhNam_Click(object sender, EventArgs e)
         {
-
+            dgvChiTietDiem.DataSource = diemtbDAL.xemDiemTBTheoLop(MACDINH.NamHocMacDinh, cbLopHoc.Text);
+            dgvChiTietDiem.MultiSelect = false;
         }
 
         private void dgvChiTietDiem_SelectionChanged(object sender, EventArgs e)

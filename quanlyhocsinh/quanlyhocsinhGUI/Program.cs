@@ -25,20 +25,31 @@ namespace quanlyhocsinhGUI
         }
     }
 
-    public class NAMHOC
+    public class MACDINH
     {
-        
-
         private static string sNamHocMacDinh;
+
+        private MACDINH()
+        {
+            ThongSoMacDinhDAL thongsomacdinhDAL = new ThongSoMacDinhDAL();
+
+            sNamHocMacDinh = thongsomacdinhDAL.layThongSoMacDinh("NamHocMacDinh").Rows[0]["GiaTriThongSo"].ToString();
+            sTuoiToiThieu = thongsomacdinhDAL.layThongSoMacDinh("TuoiToiThieu").Rows[0]["GiaTriThongSo"].ToString();
+            sTuoiToiDa = thongsomacdinhDAL.layThongSoMacDinh("TuoiToiDa").Rows[0]["GiaTriThongSo"].ToString();
+            sSiSoLopToiDa = thongsomacdinhDAL.layThongSoMacDinh("SiSoLopToiDa").Rows[0]["GiaTriThongSo"].ToString();
+            sDiemToiThieuDatMon = thongsomacdinhDAL.layThongSoMacDinh("DiemToiThieuDat").Rows[0]["GiaTriThongSo"].ToString();
+            sSoLuongLopKhoi10 = thongsomacdinhDAL.layThongSoMacDinh("SoLuongLopKhoi10").Rows[0]["GiaTriThongSo"].ToString();
+            sSoLuongLopKhoi11 = thongsomacdinhDAL.layThongSoMacDinh("SoLuongLopKhoi11").Rows[0]["GiaTriThongSo"].ToString();
+            sSoLuongLopKhoi12 = thongsomacdinhDAL.layThongSoMacDinh("SoLuongLopKhoi12").Rows[0]["GiaTriThongSo"].ToString();
+        }
+
         public static string NamHocMacDinh
         {
             get
             {
-                NamHocMacDinhDAL namhocmacdinhDAL = new NamHocMacDinhDAL();
+                ThongSoMacDinhDAL thongsomacdinhDAL = new ThongSoMacDinhDAL();
 
-                DataRow dt = namhocmacdinhDAL.layNamHocMacDinh().Rows[0];
-
-                sNamHocMacDinh = dt["GiaTriThongSo"].ToString();
+                sNamHocMacDinh = thongsomacdinhDAL.layThongSoMacDinh("NamHocMacDinh").Rows[0]["GiaTriThongSo"].ToString();
 
                 return sNamHocMacDinh;
             }
@@ -46,15 +57,57 @@ namespace quanlyhocsinhGUI
             {
                 sNamHocMacDinh = value;
 
-                NamHocMacDinhDTO namhocmacdinhDTO = new NamHocMacDinhDTO();
+                ThongSoMacDinhDTO thongsomacdinhDTO = new ThongSoMacDinhDTO();
 
-                namhocmacdinhDTO.MaThongSo  ="NamHocMacDinh";
-                namhocmacdinhDTO.GiaTriThongSo = sNamHocMacDinh;
+                thongsomacdinhDTO.MaThongSo  ="NamHocMacDinh";
+                thongsomacdinhDTO.GiaTriThongSo = sNamHocMacDinh;
 
-                NamHocMacDinhDAL namhocmacdinhDAL = new NamHocMacDinhDAL();
+                ThongSoMacDinhDAL thongsomacdinhDAL = new ThongSoMacDinhDAL();
 
-                namhocmacdinhDAL.update(namhocmacdinhDTO);
+                thongsomacdinhDAL.update(thongsomacdinhDTO);
             }
+        }
+
+        private static string sTuoiToiThieu;
+        public static string TuoiToiThieu
+        {
+            get { return sTuoiToiThieu; }
+        }
+
+        private static string sTuoiToiDa;
+        public static string TuoiToiDa
+        {
+            get { return sTuoiToiDa; }
+        }
+
+        private static string sSiSoLopToiDa;
+        public static string SiSoLopToiDa
+        {
+            get { return sSiSoLopToiDa; }
+        }
+
+        private static string sDiemToiThieuDatMon;
+        public static string DiemToiThieuDatMon
+        {
+            get { return sDiemToiThieuDatMon; }
+        }
+
+        private static string sSoLuongLopKhoi10;
+        public static string SoLuongLopKhoi10
+        {
+            get { return sSoLuongLopKhoi10; }
+        }
+
+        private static string sSoLuongLopKhoi11;
+        public static string SoLuongLopKhoi11
+        {
+            get { return sSoLuongLopKhoi11; }
+        }
+
+        private static string sSoLuongLopKhoi12;
+        public static string SoLuongLopKhoi12
+        {
+            get { return sSoLuongLopKhoi12; }
         }
     }
 }

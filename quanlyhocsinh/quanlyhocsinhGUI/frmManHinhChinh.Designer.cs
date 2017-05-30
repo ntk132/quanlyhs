@@ -41,6 +41,7 @@
             this.tsbBaoCao = new System.Windows.Forms.ToolStripButton();
             this.tsbThayDoiQuyDinh = new System.Windows.Forms.ToolStripButton();
             this.tsbThoat = new System.Windows.Forms.ToolStripButton();
+            this.label1 = new System.Windows.Forms.Label();
             this.tsMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -222,11 +223,26 @@
             this.tsbThoat.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tsbThoat.Click += new System.EventHandler(this.tsbtThoat_Click);
             // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(675, 536);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(597, 16);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Version 1.0 | UIT.Micracle- team | Liên hệ: ..., Khu phố 6, P. Linh Trung, Quận T" +
+    "hủ Đức, Tp Hồ Chí Minh";
+            // 
             // frmManHinhChinh
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1284, 561);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.tsMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmManHinhChinh";
@@ -234,6 +250,7 @@
             this.tsMenu.ResumeLayout(false);
             this.tsMenu.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -251,5 +268,6 @@
         private System.Windows.Forms.ToolStripButton tsbBaoCao;
         private System.Windows.Forms.ToolStripButton tsbThayDoiQuyDinh;
         private System.Windows.Forms.ToolStripButton tsbThoat;
+        private System.Windows.Forms.Label label1;
     }
 }

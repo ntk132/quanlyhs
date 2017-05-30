@@ -147,7 +147,8 @@
             this.dgvThongTin.Name = "dgvThongTin";
             this.dgvThongTin.Size = new System.Drawing.Size(347, 310);
             this.dgvThongTin.TabIndex = 12;
-            this.dgvThongTin.SelectionChanged += new System.EventHandler(this.dgvKetQua_SelectionChanged);
+            this.dgvThongTin.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvThongTin_CellClick);
+            this.dgvThongTin.SelectionChanged += new System.EventHandler(this.dgvThongTin_SelectionChanged);
             // 
             // label5
             // 
@@ -167,7 +168,6 @@
             this.dgvKetQuaHocTap.Name = "dgvKetQuaHocTap";
             this.dgvKetQuaHocTap.Size = new System.Drawing.Size(298, 310);
             this.dgvKetQuaHocTap.TabIndex = 12;
-            this.dgvKetQuaHocTap.SelectionChanged += new System.EventHandler(this.dgvKetQua_SelectionChanged);
             // 
             // frmTraCuuHocSinh
             // 

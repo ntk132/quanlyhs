@@ -111,17 +111,11 @@
     <Compile Include="frmNamHoc.Designer.cs">
       <DependentUpon>frmNamHoc.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmNhapDiem.cs">
+    <Compile Include="frmNhapKetQuaHocTap.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmNhapDiem.Designer.cs">
-      <DependentUpon>frmNhapDiem.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmQuanLyNhapDiem.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmQuanLyNhapDiem.Designer.cs">
-      <DependentUpon>frmQuanLyNhapDiem.cs</DependentUpon>
+    <Compile Include="frmNhapKetQuaHocTap.Designer.cs">
+      <DependentUpon>frmNhapKetQuaHocTap.cs</DependentUpon>
     </Compile>
     <Compile Include="frmThayDoiQuyDinh.cs">
       <SubType>Form</SubType>
@@ -173,11 +167,8 @@
     <EmbeddedResource Include="frmNamHoc.resx">
       <DependentUpon>frmNamHoc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmNhapDiem.resx">
-      <DependentUpon>frmNhapDiem.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmQuanLyNhapDiem.resx">
-      <DependentUpon>frmQuanLyNhapDiem.cs</DependentUpon>
+    <EmbeddedResource Include="frmNhapKetQuaHocTap.resx">
+      <DependentUpon>frmNhapKetQuaHocTap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmThayDoiQuyDinh.resx">
       <DependentUpon>frmThayDoiQuyDinh.cs</DependentUpon>
@@ -230,10 +221,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo.ico" />
-    <Content Include="QLHS.mdf">
+    <Content Include="QUANLYHOCSINH.mdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="QLHS_log.ldf">
+    <Content Include="QUANLYHOCSINH_log.ldf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\baocao.png" />

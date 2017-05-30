@@ -46,15 +46,16 @@
             this.dgvLopCu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvLopCu.Location = new System.Drawing.Point(28, 75);
             this.dgvLopCu.Name = "dgvLopCu";
-            this.dgvLopCu.Size = new System.Drawing.Size(300, 300);
+            this.dgvLopCu.Size = new System.Drawing.Size(348, 409);
             this.dgvLopCu.TabIndex = 0;
+            this.dgvLopCu.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvLopCu_CellClick);
             // 
             // dgvLopMoi
             // 
             this.dgvLopMoi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvLopMoi.Location = new System.Drawing.Point(450, 75);
+            this.dgvLopMoi.Location = new System.Drawing.Point(499, 75);
             this.dgvLopMoi.Name = "dgvLopMoi";
-            this.dgvLopMoi.Size = new System.Drawing.Size(300, 300);
+            this.dgvLopMoi.Size = new System.Drawing.Size(351, 409);
             this.dgvLopMoi.TabIndex = 1;
             // 
             // label1
@@ -78,7 +79,7 @@
             // cbLopHocMoi
             // 
             this.cbLopHocMoi.FormattingEnabled = true;
-            this.cbLopHocMoi.Location = new System.Drawing.Point(522, 22);
+            this.cbLopHocMoi.Location = new System.Drawing.Point(571, 22);
             this.cbLopHocMoi.Name = "cbLopHocMoi";
             this.cbLopHocMoi.Size = new System.Drawing.Size(100, 24);
             this.cbLopHocMoi.TabIndex = 5;
@@ -87,7 +88,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(447, 25);
+            this.label2.Location = new System.Drawing.Point(496, 25);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 16);
             this.label2.TabIndex = 2;
@@ -95,7 +96,7 @@
             // 
             // btThayDoiLop
             // 
-            this.btThayDoiLop.Location = new System.Drawing.Point(350, 130);
+            this.btThayDoiLop.Location = new System.Drawing.Point(399, 237);
             this.btThayDoiLop.Name = "btThayDoiLop";
             this.btThayDoiLop.Size = new System.Drawing.Size(75, 50);
             this.btThayDoiLop.TabIndex = 6;
@@ -118,7 +119,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(776, 403);
+            this.ClientSize = new System.Drawing.Size(884, 511);
             this.Controls.Add(this.chbxChuaCoLop);
             this.Controls.Add(this.btThayDoiLop);
             this.Controls.Add(this.cbLopHocMoi);

@@ -16,17 +16,21 @@ namespace quanlyhocsinhGUI
     
     public partial class frmNamHoc : Form
     {
+        public bool isRunning = false;
+
         NamHocDAL namhocDAL = new NamHocDAL();
         NamHocMacDinhDAL namhocmacdinhDAL = new NamHocMacDinhDAL();
 
         public frmNamHoc()
         {
             InitializeComponent();
+           
+            dgvDanhSachNamHoc.MultiSelect = false;
         }
 
         private void btChon_Click(object sender, EventArgs e)
         {
-            NAMHOC.NamHocMacDinh = cbNamHocMacDinh.Text;
+            MACDINH.NamHocMacDinh = cbNamHocMacDinh.Text;
 
             /*
             // Mapping...
@@ -39,15 +43,36 @@ namespace quanlyhocsinhGUI
             namhocmacdinhDAL.update(namhocmacdinhDTO);
             */
 
-            MessageBox.Show(NAMHOC.NamHocMacDinh);
+            MessageBox.Show(MACDINH.NamHocMacDinh);
         }
 
         private void btThem_Click(object sender, EventArgs e)
         {
+            // Kiểm tra User đã nhập mã năm học hay chưa
+            if (tbMaNamHoc.Text == string.Empty)
+            {
+                MessageBox.Show("Chưa nhập mã năm học. Không thể tạo mới!");
+
+                tbMaNamHoc.Focus();
+
+                return;
+            }            
+
             // 1. Mapping...
             NamHocDTO namhocDTO = new NamHocDTO(tbMaNamHoc.Text, tbTenNamHoc.Text);
 
             // 2. BUS
+            // Kiểm tra xem mã năm học đã tồn tại hay chưa
+            NamHocBUS namhocBUS = new NamHocBUS();
+
+            if (namhocBUS.isExists(namhocDTO))
+            {
+                MessageBox.Show("Mã năm học này đã tồn tại! Vui lòng thử lại!");
+
+                tbMaNamHoc.Focus();
+
+                return;
+            }
 
             // 3. DAL - Insert
             namhocDAL.insert(namhocDTO);
@@ -100,6 +125,12 @@ namespace quanlyhocsinhGUI
 
         private void btXoa_Click(object sender, EventArgs e)
         {
+            KetQuaHocTapDAL ketquaDAL = new KetQuaHocTapDAL();
+            HocKyDAL hockyDAL = new HocKyDAL();
+            Lop_HocSinhDAL lop_hsDAL = new Lop_HocSinhDAL();
+            LopHocDAL lophocDAL = new LopHocDAL();
+            DiemTrungBinhDAL diemtbDAl = new DiemTrungBinhDAL();
+
             // Nếu chưa chọn năm học thì chưa thể xóa
             if (dgvDanhSachNamHoc.SelectedRows.Count <= 0)
             {
@@ -109,25 +140,40 @@ namespace quanlyhocsinhGUI
             }
 
             // Mapping... học kỳ với năm học cần xóa
+            string maNamHoc = tbMaNamHoc.Text;
+
             HocKyDTO hocky = new HocKyDTO();
 
-            hocky.MaNamHoc = tbMaNamHoc.Text;
+            hocky.MaNamHoc = maNamHoc;
             hocky.TenHocKy = "";
             hocky.MaHocKy = "";
 
-            // Xoa nam hoc thi auto xoa 2 hoc ky trong nam hoc do
-            HocKyDAL hockyDAL = new HocKyDAL();
+            // Xóa một năm học:
+            // Do quá trình xóa có liên quan đến khóa ngoại nên
+            // Xóa Bảng: KETQUAHOCTAP -> HOCKY
+            // Xóa bảng: HS_LOP -> LOPHOC
+            // Xóa bảng: DIEMTB -> NAMHOC
+            //          | HOCKY  -  KETQUAHOCTAP
+            // NAMHOC - | LOPHOC -  HS_LOP
+            //          | DIEMTB
 
-
+            ketquaDAL.xoaKetQuaTrongMotNamHoc(maNamHoc);
             hockyDAL.delete(hocky);
-            namhocDAL.delete(tbMaNamHoc.Text);
+            lop_hsDAL.xoaLopHSTrongNamHoc(maNamHoc);
+            lophocDAL.xoaLopHocTrongNamHoc(maNamHoc);
+            diemtbDAl.xoaDiemTBTrongNamHoc(maNamHoc);
+            namhocDAL.delete(maNamHoc);
             
             refeshDataGridView();
         }
 
         private void frmNamHoc_Load(object sender, EventArgs e)
         {
+            isRunning = true;
+
             refeshDataGridView();
+
+            cbNamHocMacDinh.Text = MACDINH.NamHocMacDinh;
         }
 
         private void refeshDataGridView()
@@ -140,11 +186,31 @@ namespace quanlyhocsinhGUI
 
         private void dgvDanhSachNamHoc_SelectionChanged(object sender, EventArgs e)
         {
+            if (dgvDanhSachNamHoc.CurrentRow.Index > dgvDanhSachNamHoc.Rows.Count - 2)
+            {
+                MessageBox.Show("Đây không phải hàng dữ liệu! Vui lòng chọn lại!");
+
+                return;
+            }
+
             if (dgvDanhSachNamHoc.SelectedRows.Count > 0)
             {
                 tbMaNamHoc.Text = dgvDanhSachNamHoc.SelectedRows[0].Cells[0].Value.ToString();
                 tbTenNamHoc.Text = dgvDanhSachNamHoc.SelectedRows[0].Cells[1].Value.ToString();
             }
+        }
+
+        private void dgvDanhSachNamHoc_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvDanhSachNamHoc.Rows.Count < 3)
+                return;
+
+            dgvDanhSachNamHoc.Rows[e.RowIndex].Selected = true;
+        }
+
+        private void frmNamHoc_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            isRunning = false;
         }
     }    
 }

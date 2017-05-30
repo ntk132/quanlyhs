@@ -47,7 +47,7 @@
             // btThayDoiLop
             // 
             this.btThayDoiLop.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btThayDoiLop.Location = new System.Drawing.Point(351, 133);
+            this.btThayDoiLop.Location = new System.Drawing.Point(405, 162);
             this.btThayDoiLop.Name = "btThayDoiLop";
             this.btThayDoiLop.Size = new System.Drawing.Size(75, 50);
             this.btThayDoiLop.TabIndex = 13;
@@ -58,7 +58,7 @@
             // cbNamHocMoi
             // 
             this.cbNamHocMoi.FormattingEnabled = true;
-            this.cbNamHocMoi.Location = new System.Drawing.Point(523, 12);
+            this.cbNamHocMoi.Location = new System.Drawing.Point(568, 31);
             this.cbNamHocMoi.Name = "cbNamHocMoi";
             this.cbNamHocMoi.Size = new System.Drawing.Size(200, 24);
             this.cbNamHocMoi.TabIndex = 12;
@@ -67,7 +67,7 @@
             // cbNamHocCu
             // 
             this.cbNamHocCu.FormattingEnabled = true;
-            this.cbNamHocCu.Location = new System.Drawing.Point(101, 12);
+            this.cbNamHocCu.Location = new System.Drawing.Point(101, 31);
             this.cbNamHocCu.Name = "cbNamHocCu";
             this.cbNamHocCu.Size = new System.Drawing.Size(200, 24);
             this.cbNamHocCu.TabIndex = 11;
@@ -77,7 +77,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(448, 15);
+            this.label2.Location = new System.Drawing.Point(493, 34);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 16);
             this.label2.TabIndex = 9;
@@ -86,7 +86,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 15);
+            this.label1.Location = new System.Drawing.Point(26, 34);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 16);
             this.label1.TabIndex = 10;
@@ -98,10 +98,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvLopMoi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvLopMoi.Location = new System.Drawing.Point(451, 78);
+            this.dgvLopMoi.Location = new System.Drawing.Point(496, 118);
             this.dgvLopMoi.Name = "dgvLopMoi";
-            this.dgvLopMoi.Size = new System.Drawing.Size(300, 300);
+            this.dgvLopMoi.Size = new System.Drawing.Size(363, 318);
             this.dgvLopMoi.TabIndex = 8;
+            this.dgvLopMoi.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvLopMoi_CellClick);
             // 
             // dgvLopCu
             // 
@@ -109,16 +110,17 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvLopCu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvLopCu.Location = new System.Drawing.Point(29, 78);
+            this.dgvLopCu.Location = new System.Drawing.Point(29, 118);
             this.dgvLopCu.Name = "dgvLopCu";
-            this.dgvLopCu.Size = new System.Drawing.Size(300, 300);
+            this.dgvLopCu.Size = new System.Drawing.Size(359, 318);
             this.dgvLopCu.TabIndex = 7;
+            this.dgvLopCu.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvLopCu_CellClick);
             // 
             // cbLopHocMoi
             // 
             this.cbLopHocMoi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbLopHocMoi.FormattingEnabled = true;
-            this.cbLopHocMoi.Location = new System.Drawing.Point(523, 48);
+            this.cbLopHocMoi.Location = new System.Drawing.Point(568, 67);
             this.cbLopHocMoi.Name = "cbLopHocMoi";
             this.cbLopHocMoi.Size = new System.Drawing.Size(100, 24);
             this.cbLopHocMoi.TabIndex = 17;
@@ -127,7 +129,7 @@
             // cbLopHocCu
             // 
             this.cbLopHocCu.FormattingEnabled = true;
-            this.cbLopHocCu.Location = new System.Drawing.Point(101, 48);
+            this.cbLopHocCu.Location = new System.Drawing.Point(101, 67);
             this.cbLopHocCu.Name = "cbLopHocCu";
             this.cbLopHocCu.Size = new System.Drawing.Size(100, 24);
             this.cbLopHocCu.TabIndex = 16;
@@ -137,7 +139,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(448, 51);
+            this.label3.Location = new System.Drawing.Point(493, 70);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 16);
             this.label3.TabIndex = 14;
@@ -146,7 +148,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(26, 51);
+            this.label4.Location = new System.Drawing.Point(26, 70);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(64, 16);
             this.label4.TabIndex = 15;
@@ -156,7 +158,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(776, 403);
+            this.ClientSize = new System.Drawing.Size(884, 461);
             this.Controls.Add(this.cbLopHocMoi);
             this.Controls.Add(this.cbLopHocCu);
             this.Controls.Add(this.label3);

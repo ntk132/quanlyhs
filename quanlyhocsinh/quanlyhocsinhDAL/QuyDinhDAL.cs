@@ -118,7 +118,7 @@ namespace quanlyhocsinhDAL
 
         public void update(QuyDinhDTO qd)
         {
-            string query = "update QUYDINH set GiaTri=@giatri where MaQuyDinh=" + qd.MaQuyDinh;
+            string query = "update QUYDINH set GiaTriQuyDinh=@giatri where MaQuyDinh=" + qd.MaQuyDinh;
 
             //SqlConnection connection = new SqlConnection(connectionStr);
             SqlCommand command = new SqlCommand();

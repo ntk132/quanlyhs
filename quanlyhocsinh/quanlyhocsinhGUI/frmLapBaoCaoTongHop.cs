@@ -15,37 +15,65 @@ namespace quanlyhocsinhGUI
 {
     public partial class frmLapBaoCaoTongHop : Form
     {
-        HocKyDAL hkdal = new HocKyDAL();
-        LopHocDAL lhdal = new LopHocDAL();
-        MonHocDAL mhdal = new MonHocDAL();
-        
+        HocKyDAL hockyDAL = new HocKyDAL();
+        MonHocDAL monhocDAL = new MonHocDAL();
+        KetQuaHocTapDAL ketquahoctapDAL = new KetQuaHocTapDAL();
+        DiemTrungBinhDAL diemtbDAL = new DiemTrungBinhDAL();
+
         public frmLapBaoCaoTongHop()
         {
             InitializeComponent();
 
-            cbHocKy.DataSource = hkdal.layDanhSachHocKyTheoNamHoc(NAMHOC.NamHocMacDinh);
+            cbHocKy.DataSource = hockyDAL.layDanhSachHocKyTheoNamHoc(MACDINH.NamHocMacDinh);
             cbHocKy.ValueMember = "TenHocKy";
-            cbLopHoc.DataSource = lhdal.layDanhSachLopTheoNamHoc(NAMHOC.NamHocMacDinh);
-            cbLopHoc.ValueMember = "MaLopHoc";
-            cbMonHoc.DataSource = mhdal.layDanhSachMonHoc();
+            cbMonHoc.DataSource = monhocDAL.layDanhSachMonHoc();
             cbMonHoc.ValueMember = "TenMonHoc";
+
+            chbMonHoc.Checked = true;
         }
 
-        private void rbHocKy_CheckedChanged(object sender, EventArgs e)
+        private void btXemBaoCao_Click(object sender, EventArgs e)
         {
-            if (rbHocKy.Checked)
+            // Mapping...
+            string maHocKy = ((DataTable)cbHocKy.DataSource).Rows[cbHocKy.SelectedIndex]["MaHocKy"].ToString();
+            int maMonHoc = Convert.ToInt16(((DataTable)cbMonHoc.DataSource).Rows[cbMonHoc.SelectedIndex]["MaMonHoc"].ToString());
+            // Nếu User chọn vào check box Môn học
+            // Thì xuất ra báo cáo môn học(được chọn) của học kỳ đó
+            if (chbMonHoc.Checked)
             {
-                cbMonHoc.Enabled = false;
-                cbHocKy.Enabled = true;
+                dgvBaoCao.DataSource = ketquahoctapDAL.xuatBaoCaoTongKetMonHoc(MACDINH.NamHocMacDinh, maHocKy, maMonHoc);
+            }
+                // Ngược lại, xuất ra báo cáo tổng hợp học kỳ đó
+            else
+            {
+                string index = string.Empty;
+
+                if (cbHocKy.SelectedIndex == 0)
+                    index = "1";
+                else
+                    index = "2";
+
+                dgvBaoCao.DataSource = diemtbDAL.xuatBaoCaoTongKetHocKy(MACDINH.NamHocMacDinh, index);
             }
         }
 
-        private void rbMonHoc_CheckedChanged(object sender, EventArgs e)
+        private void chbMonHoc_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbMonHoc.Checked)
+            if (chbMonHoc.Checked)
             {
-                cbHocKy.Enabled = false;
                 cbMonHoc.Enabled = true;
+            }
+            else
+            {
+                cbMonHoc.Enabled = false;
+            }
+        }
+
+        private void dgvBaoCao_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvBaoCao.CurrentCell.RowIndex > dgvBaoCao.Rows.Count - 2)
+            {
+                return;
             }
         }
     }

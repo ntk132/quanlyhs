@@ -24,24 +24,28 @@ namespace quanlyhocsinhGUI
         {
             frmNamHoc frm = new frmNamHoc();
 
-            frm.MdiParent = this;
-            frm.Show();
+            if (frm.isRunning)
+                return;
+            else
+            {
+                controlStartForms(frm);
+
+                frm.isRunning = true;
+            }                
         }
 
         private void tsbtDanhSachLop_Click(object sender, EventArgs e)
         {
             frmDanhSachLopHoc frm = new frmDanhSachLopHoc();
 
-            frm.MdiParent = this;
-            frm.Show();
+            controlStartForms(frm);
         }
 
         private void tsbtDanhSachHocSinh_Click(object sender, EventArgs e)
         {
             frmDanhSachHocSinh frm = new frmDanhSachHocSinh();
 
-            frm.MdiParent = this;
-            frm.Show();
+            controlStartForms(frm);
 
         }
 
@@ -49,46 +53,46 @@ namespace quanlyhocsinhGUI
         {
             frmXepLop frm = new frmXepLop();
 
-            frm.MdiParent = this;
-            frm.Show();
+            controlStartForms(frm);
         }
 
         private void tsbtLenLop(object sender, EventArgs e)
         {
             frmLenLop frm = new frmLenLop();
 
-            frm.MdiParent = this;
-            frm.Show();
+            controlStartForms(frm);
         }
 
         private void tsbtKetQuaHocTap_Click(object sender, EventArgs e)
         {
             frmKetQuaHocTap frm = new frmKetQuaHocTap();
 
-            frm.MdiParent = this;
-            frm.Show();
+            controlStartForms(frm);
         }
 
         private void tsbtTraCuuHocSinh_Click(object sender, EventArgs e)
         {
             frmTraCuuHocSinh frm = new frmTraCuuHocSinh();
 
-            frm.MdiParent = this;
-            frm.Show();
+            controlStartForms(frm);
         }
 
         private void tsbtBaoCao_Click(object sender, EventArgs e)
         {
             frmLapBaoCaoTongHop frm = new frmLapBaoCaoTongHop();
 
-            frm.MdiParent = this;
-            frm.Show();
+            controlStartForms(frm);
         }
 
         private void tsbtThayDoiQuyDinh_Click(object sender, EventArgs e)
         {
             frmThayDoiQuyDinh frm = new frmThayDoiQuyDinh();
 
+            controlStartForms(frm);
+        }
+
+        private void controlStartForms(Form frm)
+        {
             frm.MdiParent = this;
             frm.Show();
         }
@@ -100,7 +104,9 @@ namespace quanlyhocsinhGUI
 
         private void tsbNhapDiem_Click(object sender, EventArgs e)
         {
-            frmQuanLyNhapDiem frm = new frmQuanLyNhapDiem();
+            //frmQuanLyNhapDiem frm = new frmQuanLyNhapDiem();
+
+            frmNhapKetQuaHocTap frm = new frmNhapKetQuaHocTap();
 
             frm.MdiParent = this;
             frm.Show();

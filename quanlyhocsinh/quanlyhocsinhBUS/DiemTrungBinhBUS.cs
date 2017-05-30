@@ -11,24 +11,23 @@ using quanlyhocsinhDTO;
 
 namespace quanlyhocsinhBUS
 {
-    public class KetQuaHocTapBUS
+    public class DiemTrungBinhBUS
     {
-        public bool isExists(KetQuaHocTapDTO ketquahoctapDTO)
+        public bool isExists(DiemTrungBinhDTO diemtbDTO)
         {
-            DataTable dt = new DataTable();
             DataAccess da = new DataAccess();
+            DataTable dt = new DataTable();
 
-            string query = "select count(*) from KETQUAHOCTAP where MaHocKy=@mahk and MaMonHoc=@mamh and MaHocSinh=@mahs";
+            string query = "select count(*) from DIEMTRUNGBINHNAMHOC where MaNamHoc=@manh and MaHocSinh=@mahs";
 
             SqlCommand command = new SqlCommand();
 
-            command.CommandType = CommandType.Text;
             command.Connection = da.connection;
+            command.CommandType = CommandType.Text;
             command.CommandText = query;
 
-            command.Parameters.AddWithValue("@mahk", SqlDbType.VarChar).Value = ketquahoctapDTO.MaHocKy;
-            command.Parameters.AddWithValue("@mamh", SqlDbType.Int).Value = ketquahoctapDTO.MaMonHoc;
-            command.Parameters.AddWithValue("@mahs", SqlDbType.Int).Value = ketquahoctapDTO.MaHocSinh;
+            command.Parameters.AddWithValue("@manh", SqlDbType.VarChar).Value = diemtbDTO.MaNamHoc;
+            command.Parameters.AddWithValue("@mahs", SqlDbType.Int).Value = diemtbDTO.MaHocSinh;
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
 
@@ -40,10 +39,12 @@ namespace quanlyhocsinhBUS
 
             int value = Convert.ToInt16(dt.Rows[0][0].ToString());
 
-            if (value == 0)
-                return false;
+            // Nếu value = 1 thì bảng điểm trung bình của học sinh này đã tồn tại
+            if (value == 1)
+                return true;
 
-            return true;
+            return false;
         }
+
     }
 }

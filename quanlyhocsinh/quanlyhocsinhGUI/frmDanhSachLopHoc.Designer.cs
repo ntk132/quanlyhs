@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDanhSachLopHoc));
             this.dgvDanhSachLop = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbKhoiLop = new System.Windows.Forms.ComboBox();
             this.tbTenLop = new System.Windows.Forms.TextBox();
             this.tbMaLop = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -43,7 +44,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cbNamHoc = new System.Windows.Forms.ComboBox();
-            this.cbKhoiLop = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDanhSachLop)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -56,8 +56,9 @@
             this.dgvDanhSachLop.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDanhSachLop.Location = new System.Drawing.Point(25, 74);
             this.dgvDanhSachLop.Name = "dgvDanhSachLop";
-            this.dgvDanhSachLop.Size = new System.Drawing.Size(379, 295);
+            this.dgvDanhSachLop.Size = new System.Drawing.Size(579, 365);
             this.dgvDanhSachLop.TabIndex = 1;
+            this.dgvDanhSachLop.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDanhSachLop_CellClick);
             this.dgvDanhSachLop.SelectionChanged += new System.EventHandler(this.dgvDanhSachLop_SelectionChanged);
             // 
             // groupBox1
@@ -76,12 +77,21 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(433, 27);
+            this.groupBox1.Location = new System.Drawing.Point(633, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(327, 342);
+            this.groupBox1.Size = new System.Drawing.Size(327, 412);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin lớp học";
+            // 
+            // cbKhoiLop
+            // 
+            this.cbKhoiLop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbKhoiLop.FormattingEnabled = true;
+            this.cbKhoiLop.Location = new System.Drawing.Point(96, 47);
+            this.cbKhoiLop.Name = "cbKhoiLop";
+            this.cbKhoiLop.Size = new System.Drawing.Size(200, 24);
+            this.cbKhoiLop.TabIndex = 14;
             // 
             // tbTenLop
             // 
@@ -184,7 +194,7 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(160, 30);
+            this.label4.Location = new System.Drawing.Point(360, 30);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 16);
             this.label4.TabIndex = 3;
@@ -194,26 +204,17 @@
             // 
             this.cbNamHoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbNamHoc.FormattingEnabled = true;
-            this.cbNamHoc.Location = new System.Drawing.Point(231, 27);
+            this.cbNamHoc.Location = new System.Drawing.Point(431, 27);
             this.cbNamHoc.Name = "cbNamHoc";
             this.cbNamHoc.Size = new System.Drawing.Size(173, 24);
             this.cbNamHoc.TabIndex = 4;
             this.cbNamHoc.SelectedIndexChanged += new System.EventHandler(this.cbNamHoc_SelectedIndexChanged);
             // 
-            // cbKhoiLop
-            // 
-            this.cbKhoiLop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbKhoiLop.FormattingEnabled = true;
-            this.cbKhoiLop.Location = new System.Drawing.Point(96, 47);
-            this.cbKhoiLop.Name = "cbKhoiLop";
-            this.cbKhoiLop.Size = new System.Drawing.Size(200, 24);
-            this.cbKhoiLop.TabIndex = 14;
-            // 
             // frmDanhSachLopHoc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 391);
+            this.ClientSize = new System.Drawing.Size(984, 461);
             this.Controls.Add(this.cbNamHoc);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox1);

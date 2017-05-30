@@ -64,6 +64,7 @@
             this.dgvDanhSachNamHoc.Name = "dgvDanhSachNamHoc";
             this.dgvDanhSachNamHoc.Size = new System.Drawing.Size(458, 300);
             this.dgvDanhSachNamHoc.TabIndex = 1;
+            this.dgvDanhSachNamHoc.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDanhSachNamHoc_CellClick);
             this.dgvDanhSachNamHoc.SelectionChanged += new System.EventHandler(this.dgvDanhSachNamHoc_SelectionChanged);
             // 
             // label2
@@ -175,6 +176,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmNamHoc";
             this.Text = "Năm học";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmNamHoc_FormClosing);
             this.Load += new System.EventHandler(this.frmNamHoc_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDanhSachNamHoc)).EndInit();
             this.ResumeLayout(false);

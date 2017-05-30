@@ -35,7 +35,7 @@ namespace quanlyhocsinhDAL
 
         public void insert(MonHocDTO monhoc)
         {
-            string query = "insert into MONHOC values (@mamh, @tenmh)";
+            string query = "insert into MONHOC values (@tenmh)";
 
             SqlCommand command = new SqlCommand();
 
@@ -43,7 +43,6 @@ namespace quanlyhocsinhDAL
             command.CommandType = CommandType.Text;
             command.CommandText = query;
 
-            command.Parameters.AddWithValue("@mamh", SqlDbType.Int).Value = monhoc.MaMonHoc;
             command.Parameters.AddWithValue("@tenmh", SqlDbType.NVarChar).Value = monhoc.TenMonHoc;
 
             da.connection.Open();

@@ -19,40 +19,60 @@ namespace quanlyhocsinhGUI
         QuyDinhDAL quydinhDAL = new QuyDinhDAL();
         MonHocDAL monhocDAL = new MonHocDAL();
         MonHocBUS monhocBUS = new MonHocBUS();
+        KhoiLopDAL khoilopDAL = new KhoiLopDAL();
+        ThongSoMacDinhDAL thongsomacdinhDAL = new ThongSoMacDinhDAL();
 
         private string TuoiToiDa;
         private string TuoiToiThieu;
         private string SiSoToiDa;
         private string DiemToiThieuDatMon;
+        private string SoLuongLopKhoi10;
+        private string SoLuongLopKhoi11;
+        private string SoLuongLopKhoi12;
+
+        private string strMaMonHoc;
+        private string strTenMonHoc;
 
         public frmThayDoiQuyDinh()
         {
             InitializeComponent();
+
+            dgvMonHoc.MultiSelect = false;
         }
 
         private void frmThayDoiQuyDinh_Load(object sender, EventArgs e)
         {
             dgvMonHoc.DataSource = monhocDAL.layDanhSachMonHoc();
 
-            TuoiToiThieu = quydinhDAL.layQuyDinhTuoiToiThieu().Rows[0]["GiaTriQuyDinh"].ToString();
-            TuoiToiDa = quydinhDAL.layQuyDinhTuoiToiDa().Rows[0]["GiaTriQuyDinh"].ToString();
-            SiSoToiDa = quydinhDAL.layQuyDinhSiSoToiDa().Rows[0]["GiaTriQuyDinh"].ToString();
-            DiemToiThieuDatMon = quydinhDAL.layQuyDinhDiemToiThieuDatMon().Rows[0]["GiaTriQuyDinh"].ToString();
+            TuoiToiThieu = thongsomacdinhDAL.layThongSoMacDinh("TuoiToiThieu").Rows[0]["GiaTriThongSo"].ToString();
+            TuoiToiDa = thongsomacdinhDAL.layThongSoMacDinh("TuoiToiDa").Rows[0]["GiaTriThongSo"].ToString();
+            SiSoToiDa = thongsomacdinhDAL.layThongSoMacDinh("SiSoToiDa").Rows[0]["GiaTriThongSo"].ToString();
+            DiemToiThieuDatMon = thongsomacdinhDAL.layThongSoMacDinh("DiemToiThieuDat").Rows[0]["GiaTriThongSo"].ToString();
+            SoLuongLopKhoi10 = thongsomacdinhDAL.layThongSoMacDinh("SoLuongLopKhoi10").Rows[0]["GiaTriThongSo"].ToString();
+            SoLuongLopKhoi11 = thongsomacdinhDAL.layThongSoMacDinh("SoLuongLopKhoi11").Rows[0]["GiaTriThongSo"].ToString();
+            SoLuongLopKhoi12 = thongsomacdinhDAL.layThongSoMacDinh("SoLuongLopKhoi12").Rows[0]["GiaTriThongSo"].ToString();
 
-            tbTuoiToiThieu.Text = TuoiToiThieu;
-            tbTuoiToiDa.Text = TuoiToiDa;
-            tbSiSiToiDa.Text = SiSoToiDa;
-            tbDiemDatMon.Text = DiemToiThieuDatMon;
+            tbTuoiToiThieu.Text = quydinhDAL.layQuyDinhTuoiToiThieu().Rows[0]["GiaTriQuyDinh"].ToString();
+            tbTuoiToiDa.Text = quydinhDAL.layQuyDinhTuoiToiDa().Rows[0]["GiaTriQuyDinh"].ToString();
+            tbSiSiToiDa.Text = quydinhDAL.layQuyDinhSiSoToiDa().Rows[0]["GiaTriQuyDinh"].ToString();
+            tbDiemDatMon.Text = quydinhDAL.layQuyDinhDiemToiThieuDatMon().Rows[0]["GiaTriQuyDinh"].ToString();
+            tbSiSoK10.Text = khoilopDAL.laySoLopToiDaTrongMotKhoi("K10").ToString();
+            tbSiSoK11.Text = khoilopDAL.laySoLopToiDaTrongMotKhoi("K11").ToString();
+            tbSiSoK12.Text = khoilopDAL.laySoLopToiDaTrongMotKhoi("K12").ToString();
         }
 
         private void btLuuThayDoiQD_Click(object sender, EventArgs e)
         {
+            isFullInformation();
+
             // Mapping...
             QuyDinhDTO qdTuoiToiThieu = new QuyDinhDTO(1, tbTuoiToiThieu.Text);
             QuyDinhDTO qdTuoiToiDa = new QuyDinhDTO(2, tbTuoiToiDa.Text);
             QuyDinhDTO qdSiSoToiDa = new QuyDinhDTO(3, tbSiSiToiDa.Text);
             QuyDinhDTO qdDiemDatMon = new QuyDinhDTO(4, tbDiemDatMon.Text);
-            MonHocDTO monhoc = new MonHocDTO(Convert.ToInt16(tbMaMon.Text), tbTenMon.Text);
+            KhoiLopDTO qdSoLopKhoi10 = new KhoiLopDTO("K10", "", Convert.ToInt16(tbSiSoK10.Text));
+            KhoiLopDTO qdSoLopKhoi11 = new KhoiLopDTO("K11", "", Convert.ToInt16(tbSiSoK11.Text));
+            KhoiLopDTO qdSoLopKhoi12 = new KhoiLopDTO("K12", "", Convert.ToInt16(tbSiSoK12.Text));
 
             // DAL - Update
             // Tuổi tối thiểu
@@ -79,10 +99,88 @@ namespace quanlyhocsinhGUI
                 quydinhDAL.update(qdDiemDatMon);
             }
 
-            // Môn học
-            if (tbTenMon.Text != string.Empty)
+            // K10
+            if (tbSiSoK10.Text != SoLuongLopKhoi10)
             {
-                monhocDAL.update(monhoc);
+                khoilopDAL.update(qdSoLopKhoi10);
+            }
+
+            // K11
+            if (tbSiSoK11.Text != SoLuongLopKhoi10)
+            {
+                khoilopDAL.update(qdSoLopKhoi11);
+            }
+
+            // K12
+            if (tbSiSoK12.Text != SoLuongLopKhoi10)
+            {
+                khoilopDAL.update(qdSoLopKhoi12);
+            }
+        }
+
+        private void isFullInformation()
+        {
+            if (tbTuoiToiThieu.Text == string.Empty)
+            {
+                MessageBox.Show("Error");
+
+                tbTuoiToiThieu.Focus();
+
+                return;
+            }
+
+            if (tbTuoiToiDa.Text == string.Empty)
+            {
+                MessageBox.Show("Error");
+
+                tbTuoiToiDa.Focus();
+
+                return;
+            }
+
+            if (tbSiSiToiDa.Text == string.Empty)
+            {
+                MessageBox.Show("Error");
+
+                tbSiSiToiDa.Focus();
+
+                return;
+            }
+
+            if (tbDiemDatMon.Text == string.Empty)
+            {
+                MessageBox.Show("Error");
+
+                tbDiemDatMon.Focus();
+
+                return;
+            }
+
+            if (tbSiSoK10.Text == string.Empty)
+            {
+                MessageBox.Show("Error");
+
+                tbSiSoK10.Focus();
+
+                return;
+            }
+
+            if (tbSiSoK11.Text == string.Empty)
+            {
+                MessageBox.Show("Error");
+
+                tbSiSoK11.Focus();
+
+                return;
+            }
+
+            if (tbSiSoK12.Text == string.Empty)
+            {
+                MessageBox.Show("Error");
+
+                tbSiSoK12.Focus();
+
+                return;
             }
         }
 
@@ -92,8 +190,10 @@ namespace quanlyhocsinhGUI
             tbTuoiToiDa.Text = TuoiToiDa;
             tbSiSiToiDa.Text = SiSoToiDa;
             tbDiemDatMon.Text = DiemToiThieuDatMon;
+            tbSiSoK10.Text = SoLuongLopKhoi10;
+            tbSiSoK11.Text = SoLuongLopKhoi11;
+            tbSiSoK12.Text = SoLuongLopKhoi12;
 
-            tbMaMon.Clear();
             tbTenMon.Clear();
         }
 
@@ -101,31 +201,36 @@ namespace quanlyhocsinhGUI
         {
             if (dgvMonHoc.SelectedRows.Count > 0)
             {
-                tbMaMon.Text = dgvMonHoc.SelectedRows[0].Cells[0].Value.ToString();
-                tbTenMon.Text = dgvMonHoc.SelectedRows[0].Cells[1].Value.ToString();
+                strTenMonHoc = dgvMonHoc.SelectedRows[0].Cells[1].Value.ToString();
+
+                tbTenMon.Text = strTenMonHoc;
             }
         }
 
         private void btThemMon_Click(object sender, EventArgs e)
         {
-            // Mapping...
-            MonHocDTO monhocDTO = new MonHocDTO();
-
-            monhocDTO.MaMonHoc = Convert.ToInt16(tbMaMon.Text);
-            monhocDTO.TenMonHoc = tbTenMon.Text;
-
-            // BUS - Test
-            if (monhocBUS.isMatching(monhocDTO))
+            if (tbTenMon.Text == string.Empty)
             {
-                MessageBox.Show("Trùng mã môn học, thao tác không thể thực hiện!");
+                MessageBox.Show("Thiếu tên môn học! Vui lòng thử lại!");
 
-                tbMaMon.Focus();
+                tbTenMon.Focus();
 
                 return;
             }
 
+
+            // Mapping...
+            MonHocDTO monhocDTO = new MonHocDTO();
+
+            monhocDTO.TenMonHoc = tbTenMon.Text;
+
+            // BUS - Test
+
             // DAL - Insert
             monhocDAL.insert(monhocDTO);
+
+            dgvMonHoc.DataSource = monhocDAL.layDanhSachMonHoc();
+            dgvMonHoc.MultiSelect = false;
         }
 
         private void btSuaMon_Click(object sender, EventArgs e)
@@ -140,11 +245,13 @@ namespace quanlyhocsinhGUI
             // Mapping...
             MonHocDTO monhocDTO = new MonHocDTO();
 
-            monhocDTO.MaMonHoc = Convert.ToInt16(tbMaMon.Text);
             monhocDTO.TenMonHoc = tbTenMon.Text;
 
             // DAL - Update
             monhocDAL.update(monhocDTO);
+
+            dgvMonHoc.DataSource = monhocDAL.layDanhSachMonHoc();
+            dgvMonHoc.MultiSelect = false;
         }
 
         private void btXoaMon_Click(object sender, EventArgs e)
@@ -159,11 +266,23 @@ namespace quanlyhocsinhGUI
             // Mapping...
             MonHocDTO monhocDTO = new MonHocDTO();
 
-            monhocDTO.MaMonHoc = Convert.ToInt16(tbMaMon.Text);
             monhocDTO.TenMonHoc = tbTenMon.Text;
 
             // DAL - Delete
-            monhocDAL.delete(Convert.ToInt16(monhocDTO.MaMonHoc));
+            // Do Bảng MONHOC có khóa ngoại trên bảng KETQUAHOCTAP
+            // Nên phải xóa trên bảng KETQUAHOCTAP trước
+            KetQuaHocTapDAL ketquaDAL = new KetQuaHocTapDAL();
+
+            ketquaDAL.xoaKetQuaTrongMotMon(monhocDTO.MaMonHoc);
+            monhocDAL.delete(monhocDTO.MaMonHoc);
+
+            dgvMonHoc.DataSource = monhocDAL.layDanhSachMonHoc();
+            dgvMonHoc.MultiSelect = false;
+        }
+
+        private void dgvMonHoc_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dgvMonHoc.Rows[e.RowIndex].Selected = true;
         }
     }
 }

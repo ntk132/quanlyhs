@@ -9,7 +9,6 @@ namespace quanlyhocsinhDAL
     public class HocKyDAL
     {
         private DataAccess da = new DataAccess();
-        //private string connectionStr = @"Data Source=kpc\homesqlserver;Initial Catalog=QUANLYHS;Integrated Security=True";
 
         public HocKyDAL()
         {       
@@ -62,7 +61,6 @@ namespace quanlyhocsinhDAL
         {
             string query = "insert into HOCKY (MaHocKy, TenHocKy, MaNamHoc) values (@mahk, @tenhk, @namhoc)";
 
-            //SqlConnection connection = new SqlConnection(connectionStr);
             SqlCommand command = new SqlCommand();
 
             command.Connection = da.connection;
@@ -84,7 +82,6 @@ namespace quanlyhocsinhDAL
         {
             string query = "update HOCKY set MaHocKy=@mahk, TenHocKy=@tenhk, NamHoc=@namhoc where MaHocKy=" + hk.MaHocKy;
 
-            //SqlConnection connection = new SqlConnection(connectionStr);
             SqlCommand command = new SqlCommand();
 
             command.Connection = da.connection;
@@ -106,7 +103,6 @@ namespace quanlyhocsinhDAL
         {
             string query = "delete from HOCKY where MaNamHoc=@manh";
 
-            //SqlConnection connection = new SqlConnection(connectionStr);
             SqlCommand command = new SqlCommand();
 
             command.Connection = da.connection;

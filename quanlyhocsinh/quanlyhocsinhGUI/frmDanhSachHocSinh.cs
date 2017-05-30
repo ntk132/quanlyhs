@@ -15,9 +15,15 @@ namespace quanlyhocsinhGUI
 {
     public partial class frmDanhSachHocSinh : Form
     {
-        DataAccess data = new DataAccess();
-        HocSinhDTO hsdto = new HocSinhDTO();
-        HocSinhDAL hsdal = new HocSinhDAL();
+        DataAccess da = new DataAccess();
+        HocSinhDAL hocsinhDAL = new HocSinhDAL();
+        HocSinhBUS hocsinhBUS = new HocSinhBUS();
+        LopHocDAL lophocDAL = new LopHocDAL();
+        QuyDinhDAL quydinhDAL = new QuyDinhDAL();
+        Lop_HocSinhDAL lop_hsDAL = new Lop_HocSinhDAL();
+        KetQuaHocTapDAL ketquaDAL = new KetQuaHocTapDAL();
+        DiemTrungBinhDAL diemtbDAL = new DiemTrungBinhDAL();
+        
 
         List<int> ngay28 = new List<int>();
         List<int> ngay29 = new List<int>();
@@ -29,19 +35,19 @@ namespace quanlyhocsinhGUI
         public frmDanhSachHocSinh()
         {
             InitializeComponent();
-            LoadStudentList();
+
+            dgvHocSinh.MultiSelect = false;
 
             initComboBoxNgaySinh();
 
-            cbNgay.Text = String.Empty;
-            cbThang.Text = String.Empty;
-            cbNam.Text = String.Empty;
+            cbLopHoc.DataSource = lophocDAL.layDanhSachLopTheoNamHoc(MACDINH.NamHocMacDinh);
+            cbLopHoc.ValueMember = "MaLopHoc";
         }
 
         private void initComboBoxNgaySinh()
         {
-            int tuoiToiDa = 20;
-            int tuoiToiThieu = 15;
+            int tuoiToiDa = Convert.ToInt16(quydinhDAL.layQuyDinhTuoiToiDa().Rows[0]["GiaTriQuyDinh"].ToString());
+            int tuoiToiThieu = Convert.ToInt16(quydinhDAL.layQuyDinhTuoiToiThieu().Rows[0]["GiaTriQuyDinh"].ToString());
 
             for (int i = 1; i <= 28; i++)
                 ngay28.Add(i);
@@ -71,34 +77,35 @@ namespace quanlyhocsinhGUI
         private void LoadStudentList()
         {
             // Load toan bo danh sach hoc sinh len ngay khi run form
-            dgvHocSinh.DataSource = data.ExecuteQuery("SELECT * FROM HOCSINH");
-        }
-
-        private void dgvHocSinh_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
+            dgvHocSinh.DataSource = hocsinhDAL.xuatToanBoHocSinh();
+            dgvHocSinh.MultiSelect = false;
         }
 
         private void btThem_Click(object sender, EventArgs e)
         {
-            DataAccess da = new DataAccess();
-            HocSinhBUS hsbus = new HocSinhBUS();
-            HocSinhDAL hsdal = new HocSinhDAL();
-            HocSinhDTO hsdto = new HocSinhDTO();
+            
+            HocSinhDTO hocsinhDTO = new HocSinhDTO();
+
+            // Kiểm tra User dẫ nhập đầy đủ thông tin để tạo mới hay chưa
+            if (!isFullInformation())
+            {
+                return;
+            }
 
             // 1. Mapping...properties
-            hsdto.Hoten = tbHoTen.Text;
-            hsdto.NgaySinh = cbNgay.Text + "/" + cbThang.Text + "/" + cbNam.Text;
+            hocsinhDTO.Hoten = tbHoTen.Text;
+            hocsinhDTO.NgaySinh = cbNgay.Text + "/" + cbThang.Text + "/" + cbNam.Text;
 
             if (rbNam.Checked)
-                hsdto.GioiTinh = "Nam";
+                hocsinhDTO.GioiTinh = "Nam";
             else if (rbNu.Checked)
-                hsdto.GioiTinh = "Nữ";
+                hocsinhDTO.GioiTinh = "Nữ";
 
-            hsdto.DiaChi = tbDiaChi.Text;
-            hsdto.Email = tbEmail.Text;
+            hocsinhDTO.DiaChi = tbDiaChi.Text;
+            hocsinhDTO.Email = tbEmail.Text;
 
             // 2. BUS
-            if (hsbus.isLessThanMinAge() || hsbus.isGreatThanAge())
+            if (hocsinhBUS.isLessThanMinAge() || hocsinhBUS.isGreatThanAge())
             {
                 MessageBox.Show("Nhập tuổi sai quy định");
 
@@ -106,71 +113,174 @@ namespace quanlyhocsinhGUI
             }
 
             // 3. insert
-            hsdal.insert(hsdto);
+            hocsinhDAL.insert(hocsinhDTO);
 
             // Refesh data grid view
-            refeshDataTable();
+            LoadStudentList();
+        }
+
+        // Hàm có chức năng kiểm tra giá trị ở các thành phần nhập thông tin học sinh
+        // trong quá trình thực hiện thao tác nhập, sửa
+        // Các thông tin: họ tên, ngày sinh, giới tính, địa chỉ trống -> hiện thông báo lỗi
+        private bool isFullInformation()
+        {
+            // Ho ten
+            if (tbHoTen.Text== string.Empty)
+            {
+                MessageBox.Show("Họ tên học sinh còn trống!");
+
+                tbHoTen.Focus();
+
+                return false;
+            }
+
+            // ngay thang nam sinh
+            if (cbNgay.Text == string.Empty)
+            {
+                MessageBox.Show("Ngày sinh học sinh còn trống!");
+
+                cbNgay.Focus();
+
+                return false;
+            }
+
+            if (cbThang.Text == string.Empty)
+            {
+                MessageBox.Show("Tháng sinh học sinh còn trống!");
+
+                cbThang.Focus();
+
+                return false;
+            }
+
+            if (cbNam.Text == string.Empty)
+            {
+                MessageBox.Show("Năm sinh học sinh còn trống!");
+
+                cbNam.Focus();
+
+                return false;
+            }
+
+            // gioi tinh
+            if (!rbNam.Checked && !rbNu.Checked)
+            {
+                MessageBox.Show("Giới tính học sinh còn trống!");
+
+                return false;
+            }
+
+            // dia chi
+            if (tbDiaChi.Text == string.Empty)
+            {
+                MessageBox.Show("Địa chỉ học sinh còn trống!");
+
+                tbDiaChi.Focus();
+
+                return false;
+            }
+
+            return true;
         }
 
         private void btXoa_Click(object sender, EventArgs e)
         {
-            if (dgvHocSinh.SelectedRows.Count > 0)
-            {
-                // Mapping..MaHocSinh
-                int id = Convert.ToInt32(dgvHocSinh.SelectedRows[0].Cells[0].Value);
-                
-                // DAL - Delete
-                hsdal.delete(id);
-            }
-            else
+            if (dgvHocSinh.SelectedRows.Count <= 0)
             {
                 MessageBox.Show("Chưa chọn học sinh để thực hiện thao tác!");
 
-                return;
+                return;                
+            }
+            else
+            {
+                // Mapping..MaHocSinh
+                int id = Convert.ToInt32(dgvHocSinh.SelectedRows[0].Cells[0].Value);
+                DataTable dt = lop_hsDAL.layMaLopHocTheoMaHocSinhVaNamHoc(id);
+                
+
+                // DAL - Delete
+                // Do Mã học sinh là khóa ngoại của các bảng:
+                // HS_LOP, KETQUAHOCTAP, DIEMTRUNGBINHNAMHOC
+                // Nên phải thực hiên thao tác xóa trên các bảng này trước
+                lop_hsDAL.xoaLopHSCuaMotHocSinh(id);
+                ketquaDAL.xoaKetQuaHoctapCuaMotHocSinh(id);
+                diemtbDAL.xoaDiemTBCuaMotHocSinh(id);
+
+                hocsinhDAL.delete(id);
+
+                // Sau khi xoa hs update lai si so lop
+                // ma hoc sinh nay da tham gia
+                foreach (DataRow dr in dt.Rows)
+                {
+                    string maLopHoc = dr["MaLopHoc"].ToString();
+
+                    CapNhatSiSoLopHoc(maLopHoc);
+                }
+                
             }
 
             // Refesh data grid view
-            refeshDataTable();
+            LoadStudentList();
+        }
+
+        private void CapNhatSiSoLopHoc(string maLopHoc)
+        {
+            LopHocDTO lophocDTO = new LopHocDTO();
+
+            lophocDTO.MaNamHoc = MACDINH.NamHocMacDinh;
+            lophocDTO.MaLopHoc = maLopHoc;
+            lophocDTO.SiSo = lop_hsDAL.laySiSoCuaLop(MACDINH.NamHocMacDinh, maLopHoc);
+
+            lophocDAL.suaSiSoLop(lophocDTO);
         }
 
         private void btSua_Click(object sender, EventArgs e)
         {
-            // Mapping...
-            string gioitinh = "Nam";
-
-            if (rbNu.Checked)
-                gioitinh = rbNu.Text;
-
-            if (dgvHocSinh.SelectedRows.Count > 0)
-            {
-                hsdto.MaHocSinh = Convert.ToInt32(dgvHocSinh.SelectedRows[0].Cells[0].Value);
-                hsdto.Hoten = tbHoTen.Text;
-                hsdto.NgaySinh = cbNgay.Text + "/" + cbThang.Text + "/" + cbNam.Text;
-                hsdto.GioiTinh = gioitinh;
-                hsdto.DiaChi = tbDiaChi.Text;
-                hsdto.Email = tbEmail.Text;
-            }
-            else
+            // Kiểm tra xem đã chọn học sinh để cập nhật thông tin chưa
+            if (dgvHocSinh.SelectedRows.Count <= 0)
             {
                 MessageBox.Show("Chưa chọn học sinh để thực hiện thao tác!");
 
                 return;
             }
 
+            // Kiểm tra xem có ô thông tin nào trống hay không
+            // nếu có thì thông báo tới User và dừng thao tác
+            if (!isFullInformation())
+                return;
+
+            // Ngược lại thì bắt đầu thao tác cập nhật thông tin học sinh
+
+            // Mapping...
+            HocSinhDTO hocsinhDTO = new HocSinhDTO();
+            string gioitinh = rbNam.Text;
+
+            if (rbNu.Checked)
+                gioitinh = rbNu.Text;
+
+            hocsinhDTO.MaHocSinh = Convert.ToInt32(dgvHocSinh.SelectedRows[0].Cells[0].Value);
+            hocsinhDTO.Hoten = tbHoTen.Text;
+            hocsinhDTO.NgaySinh = cbNgay.Text + "/" + cbThang.Text + "/" + cbNam.Text;
+            hocsinhDTO.GioiTinh = gioitinh;
+            hocsinhDTO.DiaChi = tbDiaChi.Text;
+            hocsinhDTO.Email = tbEmail.Text;
+
             // DAL - Insert
-            hsdal.update(hsdto);
+            hocsinhDAL.update(hocsinhDTO);
 
             // Refesh data grid view
-            refeshDataTable();
-        }
-
-        private void refeshDataTable()
-        {
-            dgvHocSinh.DataSource = data.ExecuteQuery("SELECT * FROM HOCSINH");
+            LoadStudentList();
         }
 
         private void dgvHocSinh_SelectionChanged(object sender, EventArgs e)
         {
+            if (dgvHocSinh.CurrentRow.Index > dgvHocSinh.Rows.Count - 2)
+            {
+                MessageBox.Show("Đây không phải hàng dữ liệu! Vui lòng chọn lại!");
+
+                return;
+            }
+
             if (dgvHocSinh.SelectedRows.Count > 0)
             {
                 tbHoTen.Text = dgvHocSinh.SelectedRows[0].Cells[1].Value.ToString();
@@ -236,6 +346,66 @@ namespace quanlyhocsinhGUI
                 default:
                     break;
             }
+        }
+
+        private void chbToanBoHS_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chbToanBoHS.Checked)
+            {
+                cbLopHoc.Enabled = false;
+
+                LoadStudentList();
+                clearAllInformation();
+            }
+            else
+            {
+                cbLopHoc.Enabled = true;
+                cbLopHoc.Text = string.Empty;
+
+                clearAllInformation();
+
+                dgvHocSinh.DataSource = null;
+                dgvHocSinh.MultiSelect = false;
+            }
+        }
+
+        private void frmDanhSachHocSinh_Load(object sender, EventArgs e)
+        {
+            LoadStudentList();
+
+            cbNgay.Text = String.Empty;
+            cbThang.Text = String.Empty;
+            cbNam.Text = String.Empty;
+
+            cbLopHoc.Text = String.Empty;
+            chbToanBoHS.Checked = true;
+        }
+
+        private void cbLopHoc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dgvHocSinh.DataSource = hocsinhDAL.layDanhSachHocSinhTheoLop(MACDINH.NamHocMacDinh, cbLopHoc.Text);
+            dgvHocSinh.MultiSelect = false;
+            clearAllInformation();
+        }
+
+        private void clearAllInformation()
+        {
+            tbHoTen.Text = string.Empty;
+            cbNgay.Text = string.Empty;
+            cbThang.Text = string.Empty;
+            cbNam.Text = string.Empty;
+            rbNam.Checked = false;
+            rbNu.Checked = false;
+            tbDiaChi.Text = string.Empty;
+            tbEmail.Text = string.Empty;
+        }
+
+        private void dgvHocSinh_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 3)
+                return;
+
+            dgvHocSinh.Rows[e.RowIndex].Selected = true;
         }
     }
 }

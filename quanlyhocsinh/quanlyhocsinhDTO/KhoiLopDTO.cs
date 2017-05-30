@@ -9,17 +9,19 @@ namespace quanlyhocsinhDTO
     public class KhoiLopDTO
     {
         public KhoiLopDTO() { }
-        public KhoiLopDTO(int makkoilop, string tenkhoilop, int soloptoida)
+        public KhoiLopDTO(string maKhoiLop, string tenKhoiLop, int soLopToiDa)
         {
-
+            this.sMaKhoiLop = maKhoiLop;
+            this.sTenKhoiLop = tenKhoiLop;
+            this.iSoLopToiDa = soLopToiDa;
         }
 
-        private int iMaKhoiLop;
+        private string sMaKhoiLop;
 
-        public int MaKhoilop
+        public string MaKhoilop
         {
-            get { return iMaKhoiLop; }
-            set { iMaKhoiLop = value; }
+            get { return sMaKhoiLop; }
+            set { sMaKhoiLop = value; }
         }
 
         private string sTenKhoiLop;

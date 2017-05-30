@@ -25,7 +25,7 @@ namespace quanlyhocsinhGUI
         {
             // Xét điều kiện đăng nhập:
             // - Cứ chuỗi nhập trên hai Textbox mà khác rỗng thì đăng nhập hợp lệ
-            if (tbUser.Text != "" && tbPassword.Text != "")
+            if (tbUser.Text == "admin" && tbPassword.Text == "admin")
             {
                 frmManHinhChinh main = new frmManHinhChinh();
 

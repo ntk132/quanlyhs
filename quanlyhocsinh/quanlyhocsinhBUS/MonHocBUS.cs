@@ -15,13 +15,20 @@ namespace quanlyhocsinhBUS
     {
         MonHocDAL monhocDAL = new MonHocDAL();
 
-        public bool isMatching(MonHocDTO monhocDTO)
+        public bool isExists(MonHocDTO monhocDTO)
         {
             foreach (DataRow dr in monhocDAL.layDanhSachMonHoc().Rows)
             {
                 int maMonHoc = Convert.ToInt16(dr["MaMonHoc"].ToString());
+                string tenMonHoc = dr["TenMonHoc"].ToString();
+
                 if (monhocDTO.MaMonHoc == maMonHoc)
                     return true;
+                else
+                {
+                    if (monhocDTO.TenMonHoc == tenMonHoc)
+                        return true;
+                }
             }
 
             return false;

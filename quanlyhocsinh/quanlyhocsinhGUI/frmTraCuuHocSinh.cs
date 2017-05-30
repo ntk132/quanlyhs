@@ -18,14 +18,15 @@ namespace quanlyhocsinhGUI
         //HocSinhDTO hsdto = new HocSinhDTO();
         HocSinhDAL hsdal = new HocSinhDAL();
         LopHocDAL lhdal = new LopHocDAL();
+        DiemTrungBinhDAL diemtbDAL = new DiemTrungBinhDAL();
 
         public frmTraCuuHocSinh()
         {
             InitializeComponent();
 
-            //rbNam.Checked = true;
+            dgvThongTin.MultiSelect = false;
 
-            cbTimLop.DataSource = lhdal.layDanhSachLopTheoNamHoc(NAMHOC.NamHocMacDinh);
+            cbTimLop.DataSource = lhdal.layDanhSachLopTheoNamHoc(MACDINH.NamHocMacDinh);
             cbTimLop.ValueMember = "MaLopHoc";
 
             rbTatCa.Checked = true;
@@ -42,18 +43,32 @@ namespace quanlyhocsinhGUI
             if (rbNu.Checked)
                 gioitinh = rbNu.Text;
 
-            DataTable dt = hsdal.timHocSinh(tbTimKiemHoTen.Text, gioitinh, cbTimLop.Text);
+            DataTable dt = hsdal.timHocSinh(MACDINH.NamHocMacDinh, cbTimLop.Text, tbTimKiemHoTen.Text, gioitinh);
 
             // Search , show result
             dgvThongTin.DataSource = dt;
+            dgvThongTin.MultiSelect = false;
         }
 
-        private void dgvKetQua_SelectionChanged(object sender, EventArgs e)
+        private void dgvThongTin_SelectionChanged(object sender, EventArgs e)
         {
+            if (dgvThongTin.CurrentRow.Index > dgvThongTin.Rows.Count - 2)
+            {
+                MessageBox.Show("Đây không phải hàng dữ liệu!");
+
+                return;
+            }
+
             if (dgvThongTin.SelectedRows.Count > 0)
             {
-                
+                int maHocSinh = Convert.ToInt32(dgvThongTin.SelectedRows[0].Cells[0].Value);
+                dgvKetQuaHocTap.DataSource = diemtbDAL.xemDiemTrungBinhCuaHocSinh(MACDINH.NamHocMacDinh, maHocSinh);
             }
+        }
+
+        private void dgvThongTin_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dgvThongTin.Rows[e.RowIndex].Selected = true;
         }
     }
 }

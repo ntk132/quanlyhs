@@ -14,13 +14,30 @@ namespace quanlyhocsinhDAL
     public class DataAccess
     {
         private string currentPath = Environment.CurrentDirectory;
-        private static string connectionStr = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\QLHS.mdf;Integrated Security=True;Connect Timeout=30";
+        private static string connectionStr = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\QUANLYHOCSINH.mdf;Integrated Security=True;Connect Timeout=30";
         public SqlConnection connection = new SqlConnection(connectionStr);
 
         public DataAccess()
         {            
             ExecuteQuery("USE QLHS");
             ExecuteQuery("SET DATEFORMAT DMY");
+        }
+
+        public void OpenConnection()
+        {
+            try
+            {
+                connection.Open();
+            }
+            catch
+            {
+
+            }
+        }
+
+        public void CloseConnection()
+        {
+            connection.Close();
         }
 
         public DataTable ExecuteQuery(string query)

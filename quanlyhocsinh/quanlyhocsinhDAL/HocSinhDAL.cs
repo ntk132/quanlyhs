@@ -21,7 +21,6 @@ namespace quanlyhocsinhDAL
 
             string query = "select * from HOCSINH where MaHocSinh=@mahs";
 
-            //SqlConnection connection = new SqlConnection(connectionStr);
             SqlCommand command = new SqlCommand();
 
             command.Connection = da.connection;
@@ -47,7 +46,6 @@ namespace quanlyhocsinhDAL
 
             string query = "select * from HOCSINH";
 
-            //SqlConnection connection = new SqlConnection(connectionStr);
             SqlCommand command = new SqlCommand();
 
             command.Connection = da.connection;
@@ -65,18 +63,20 @@ namespace quanlyhocsinhDAL
             return dt;
         }
 
-        public DataTable timHocSinh(string hoten, string gioitinh, string malop)
+        public DataTable layDanhSachHocSinhTheoLop(string maNamHoc, string maLopHoc)
         {
             DataTable dt = new DataTable();
 
-            string query = "select HOCSINH.MaHocSinh, HoTen from HOCSINH join HS_LOP on (HOCSINH.MaHocSinh=HS_LOP.MaHocSinh) where HOCSINH.HoTen like N'%" + hoten + "%' and GioiTinh like N'%" + gioitinh + "%' and MaLopHoc like '" + malop + "'";
+            string query = "select HOCSINH.MaHocSinh, HoTen, NgaySinh, GioiTinh, DiaChi, Email from HOCSINH join HS_LOP on (HOCSINH.MaHocSinh=HS_LOP.MaHocSinh) where MaNamHoc=@manh and MaLopHoc=@malop";
 
-            //SqlConnection connection = new SqlConnection(connectionStr);
             SqlCommand command = new SqlCommand();
 
             command.Connection = da.connection;
             command.CommandType = CommandType.Text;
             command.CommandText = query;
+
+            command.Parameters.AddWithValue("@manh", SqlDbType.VarChar).Value = maNamHoc;
+            command.Parameters.AddWithValue("@malop", SqlDbType.VarChar).Value = maLopHoc;
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
 
@@ -89,11 +89,51 @@ namespace quanlyhocsinhDAL
             return dt;
         }
 
+        public DataTable timHocSinh(string maNamHoc, string maLopHoc, string hoten, string gioitinh)
+        {
+            DataTable dt = new DataTable();
+
+            string query = "select HOCSINH.MaHocSinh, HoTen from HOCSINH join HS_LOP on (HOCSINH.MaHocSinh=HS_LOP.MaHocSinh) where MaNamHoc=@manh and HoTen like N'%" + hoten + "%' and GioiTinh like N'%" + gioitinh + "%' and MaLopHoc like '" + maLopHoc + "'";
+
+            SqlCommand command = new SqlCommand();
+
+            command.Connection = da.connection;
+            command.CommandType = CommandType.Text;
+            command.CommandText = query;
+
+            command.Parameters.AddWithValue("@manh", SqlDbType.VarChar).Value = maNamHoc;
+
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+
+            da.connection.Open();
+
+            adapter.Fill(dt);
+
+            da.connection.Close();
+
+            return dt;
+        }
+
+        /*
+        public DataTable timHocSinhTheoTen()
+        {
+
+        }
+
+        public DataTable timHocSinhTheoGioiTinh()
+        {
+
+        }
+
+        public DataTable timHocSinhTheoLop()
+        {
+
+        }
+        */
         public void insert(HocSinhDTO hs)
         {
             string query = "insert into HOCSINH (HoTen, NgaySinh, GioiTinh, DiaChi, Email) values (@hoten, @ngaysinh, @gioitinh, @diachi, @email)";
 
-            //SqlConnection connection = new SqlConnection(connectionStr);
             SqlCommand command = new SqlCommand();
 
             command.Connection = da.connection;
@@ -117,7 +157,6 @@ namespace quanlyhocsinhDAL
         {
             string query = "update HOCSINH set HoTen=@hoten, NgaySinh=@ngaysinh, GioiTinh=@gioitinh, DiaChi=@diachi, Email=@email where MaHocSinh=" + hs.MaHocSinh;
 
-            //SqlConnection connection = new SqlConnection(connectionStr);
             SqlCommand command = new SqlCommand();
 
             command.Connection = da.connection;
@@ -141,7 +180,6 @@ namespace quanlyhocsinhDAL
         {
             string query = "delete from HOCSINH where MaHocSinh=" + id;
 
-            //SqlConnection connection = new SqlConnection(connectionStr);
             SqlCommand command = new SqlCommand();
 
             command.Connection = da.connection;
