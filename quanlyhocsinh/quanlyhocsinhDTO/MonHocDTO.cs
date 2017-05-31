@@ -10,6 +10,11 @@ namespace quanlyhocsinhDTO
     {
         public MonHocDTO() { }
 
+        public MonHocDTO(string tenmh)
+        {
+            this.sTenMonHoc = tenmh;
+        }
+
         public MonHocDTO(int mamh, string tenmh)
         {
             this.iMaMonHoc = mamh;

@@ -9,7 +9,7 @@ namespace quanlyhocsinhDTO
     public class KetQuaHocTapDTO
     {
         public KetQuaHocTapDTO() { }
-        public KetQuaHocTapDTO(string mahk, int mamon, int mahs, float diem15p, float diem1t, float diemtb)
+        public KetQuaHocTapDTO(string mahk, int mamon, int mahs, decimal diem15p, decimal diem1t, decimal diemtb)
         {
             this.sMaHocKy = mahk;
             this.iMaMonHoc = mamon;
@@ -43,33 +43,33 @@ namespace quanlyhocsinhDTO
             set { iMaHocSinh = value; }
         }
 
-        private float fDiem15Phut;
+        private decimal fDiem15Phut;
 
-        public float Diem15Phut
+        public decimal Diem15Phut
         {
             get { return fDiem15Phut; }
             set { fDiem15Phut = value; }
         }
 
-        private float fDiem1Tiet;
+        private decimal fDiem1Tiet;
 
-        public float Diem1Tiet
+        public decimal Diem1Tiet
         {
             get { return fDiem1Tiet; }
             set { fDiem1Tiet = value; }
         }
 
-        private float fDiemTB;
+        private decimal fDiemTB;
 
-        public float DiemTB
+        public decimal DiemTB
         {
             get { return fDiemTB; }
             set { fDiemTB = value; }
         }
 
-        private float fDiemToiThieuDat;
+        private decimal fDiemToiThieuDat;
 
-        public float DiemToiThieuDat
+        public decimal DiemToiThieuDat
         {
             get { return fDiemToiThieuDat; }
             set { fDiemToiThieuDat = value; }

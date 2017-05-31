@@ -92,7 +92,7 @@ namespace quanlyhocsinhDAL
             return dt;
         }
 
-        public float tinhDiemTrungBinhNamHoc(DiemTrungBinhDTO diemtbDTO)
+        public decimal tinhDiemTrungBinhNamHoc(DiemTrungBinhDTO diemtbDTO)
         {
             DataTable dt = new DataTable();
 
@@ -115,7 +115,7 @@ namespace quanlyhocsinhDAL
 
             da.connection.Close();
 
-            return (float)Convert.ToDouble(dt.Rows[0][0].ToString());
+            return Convert.ToDecimal(dt.Rows[0][0].ToString());
         }
 
         public DataTable xuatBaoCaoTongKetHocKy(string maNamHoc, string index)
@@ -165,9 +165,9 @@ namespace quanlyhocsinhDAL
 
             command.Parameters.AddWithValue("@manh", SqlDbType.VarChar).Value = diemtrungbinhDTO.MaNamHoc;
             command.Parameters.AddWithValue("@mahs", SqlDbType.Int).Value = diemtrungbinhDTO.MaHocSinh;
-            command.Parameters.AddWithValue("@tbhk1", SqlDbType.Float).Value = diemtrungbinhDTO.DiemTrungBinhHK1;
-            command.Parameters.AddWithValue("@tbhk2", SqlDbType.Float).Value = diemtrungbinhDTO.DiemTrungBinhHK2;
-            command.Parameters.AddWithValue("@tbnam", SqlDbType.Float).Value = diemtrungbinhDTO.DiemTrungBinhHKNam;
+            command.Parameters.AddWithValue("@tbhk1", SqlDbType.Decimal).Value = diemtrungbinhDTO.DiemTrungBinhHK1;
+            command.Parameters.AddWithValue("@tbhk2", SqlDbType.Decimal).Value = diemtrungbinhDTO.DiemTrungBinhHK2;
+            command.Parameters.AddWithValue("@tbnam", SqlDbType.Decimal).Value = diemtrungbinhDTO.DiemTrungBinhHKNam;
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
 
@@ -190,9 +190,9 @@ namespace quanlyhocsinhDAL
 
             command.Parameters.AddWithValue("@manh", SqlDbType.VarChar).Value = diemtrungbinhDTO.MaNamHoc;
             command.Parameters.AddWithValue("@mahs", SqlDbType.Int).Value = diemtrungbinhDTO.MaHocSinh;
-            command.Parameters.AddWithValue("@tbhk1", SqlDbType.Float).Value = diemtrungbinhDTO.DiemTrungBinhHK1;
-            command.Parameters.AddWithValue("@tbhk2", SqlDbType.Float).Value = diemtrungbinhDTO.DiemTrungBinhHK2;
-            command.Parameters.AddWithValue("@tbnam", SqlDbType.Float).Value = diemtrungbinhDTO.DiemTrungBinhHKNam;
+            command.Parameters.AddWithValue("@tbhk1", SqlDbType.Decimal).Value = diemtrungbinhDTO.DiemTrungBinhHK1;
+            command.Parameters.AddWithValue("@tbhk2", SqlDbType.Decimal).Value = diemtrungbinhDTO.DiemTrungBinhHK2;
+            command.Parameters.AddWithValue("@tbnam", SqlDbType.Decimal).Value = diemtrungbinhDTO.DiemTrungBinhHKNam;
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
 
@@ -215,7 +215,7 @@ namespace quanlyhocsinhDAL
 
             command.Parameters.AddWithValue("@manh", SqlDbType.VarChar).Value = diemtrungbinhDTO.MaNamHoc;
             command.Parameters.AddWithValue("@mahs", SqlDbType.Int).Value = diemtrungbinhDTO.MaHocSinh;
-            command.Parameters.AddWithValue("@tbhk1", SqlDbType.Float).Value = diemtrungbinhDTO.DiemTrungBinhHK1;
+            command.Parameters.AddWithValue("@tbhk1", SqlDbType.Decimal).Value = diemtrungbinhDTO.DiemTrungBinhHK1;
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
 
@@ -238,7 +238,7 @@ namespace quanlyhocsinhDAL
 
             command.Parameters.AddWithValue("@manh", SqlDbType.VarChar).Value = diemtrungbinhDTO.MaNamHoc;
             command.Parameters.AddWithValue("@mahs", SqlDbType.Int).Value = diemtrungbinhDTO.MaHocSinh;
-            command.Parameters.AddWithValue("@tbhk2", SqlDbType.Float).Value = diemtrungbinhDTO.DiemTrungBinhHK2;
+            command.Parameters.AddWithValue("@tbhk2", SqlDbType.Decimal).Value = diemtrungbinhDTO.DiemTrungBinhHK2;
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
 

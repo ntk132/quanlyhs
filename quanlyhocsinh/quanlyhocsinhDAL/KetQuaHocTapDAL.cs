@@ -131,20 +131,14 @@ namespace quanlyhocsinhDAL
             string query = "select distinct LOPHOC.MaLopHoc as 'Mã lớp học', SiSo as 'Sĩ số lớp', "
                 + "(select count(*) "
                 + "from (KETQUAHOCTAP join HS_LOP on (KETQUAHOCTAP.MaHocSinh=HS_LOP.MaHocSinh)) "
-                + "where MaHocKy=@mahk and MaMonHoc=@mamon and MaLopHoc=LOPHOC.MaLopHoc and DiemTB > DiemToiThieuDeDat" 
+                + "where MaHocKy=@mahk and MaMonHoc=@mamon and MaLopHoc=LOPHOC.MaLopHoc and DiemTB >= DiemToiThieuDeDat" 
                 + ") as 'Số lượng đạt', "
                 + "(select count(*) "
                 + "from (KETQUAHOCTAP join HS_LOP on (KETQUAHOCTAP.MaHocSinh=HS_LOP.MaHocSinh)) "
-                + "where MaHocKy=@mahk and MaMonHoc=@mamon and MaLopHoc=LOPHOC.MaLopHoc and DiemTB > DiemToiThieuDeDat" 
+                + "where MaHocKy=@mahk and MaMonHoc=@mamon and MaLopHoc=LOPHOC.MaLopHoc and DiemTB >= DiemToiThieuDeDat" 
                 + ") * 100 / SiSo as 'Tỉ lệ' "
                 + "from (KETQUAHOCTAP join HS_LOP on (KETQUAHOCTAP.MaHocSinh=HS_LOP.MaHocSinh) join LOPHOC on (HS_LOP.MaLopHoc=LOPHOC.MaLopHoc)) " 
                 + "where LOPHOC.MaNamHoc=@manh and MaHocKy=@mahk and MaMonHoc=@mamon";
-
-            /*
-            string query = "select distinct LOPHOC.MaLopHoc as 'Mã lớp học', SiSo as 'Sĩ số lớp' "
-                + "from (KETQUAHOCTAP join HS_LOP on (KETQUAHOCTAP.MaHocSinh=HS_LOP.MaHocSinh) join LOPHOC on (HS_LOP.MaLopHoc=LOPHOC.MaLopHoc)) "
-                + "where LOPHOC.MaNamHoc=@manh and MaHocKy=@mahk and MaMonHoc=@mamon";
-            */
 
             SqlCommand command = new SqlCommand();
 
@@ -167,7 +161,7 @@ namespace quanlyhocsinhDAL
             return dt;
         }        
 
-        public float tinhDiemTBTuSoMonDaCoDiem(KetQuaHocTapDTO ketquahoctaoDTO)
+        public decimal tinhDiemTBTuSoMonDaCoDiem(KetQuaHocTapDTO ketquahoctaoDTO)
         {
             DataTable dt = new DataTable();
 
@@ -190,7 +184,7 @@ namespace quanlyhocsinhDAL
 
             da.connection.Close();
 
-            return (float)Convert.ToDouble(dt.Rows[0][0].ToString());
+            return Convert.ToDecimal(dt.Rows[0][0].ToString());
         }
 
         public void insert(KetQuaHocTapDTO kq)
@@ -206,10 +200,10 @@ namespace quanlyhocsinhDAL
             command.Parameters.AddWithValue("@mahk", SqlDbType.VarChar).Value = kq.MaHocKy;
             command.Parameters.AddWithValue("@mamh", SqlDbType.Int).Value = kq.MaMonHoc;
             command.Parameters.AddWithValue("@mahs", SqlDbType.Int).Value = kq.MaHocSinh;
-            command.Parameters.AddWithValue("@diem15p", SqlDbType.Float).Value = kq.Diem15Phut;
-            command.Parameters.AddWithValue("@diem1t", SqlDbType.Float).Value = kq.Diem1Tiet;
-            command.Parameters.AddWithValue("@diemtb", SqlDbType.Float).Value = kq.DiemTB;
-            command.Parameters.AddWithValue("@diemtoithieu",SqlDbType.Float).Value = kq.DiemToiThieuDat;
+            command.Parameters.AddWithValue("@diem15p", SqlDbType.Decimal).Value = kq.Diem15Phut;
+            command.Parameters.AddWithValue("@diem1t", SqlDbType.Decimal).Value = kq.Diem1Tiet;
+            command.Parameters.AddWithValue("@diemtb", SqlDbType.Decimal).Value = kq.DiemTB;
+            command.Parameters.AddWithValue("@diemtoithieu", SqlDbType.Decimal).Value = kq.DiemToiThieuDat;
             command.Parameters.AddWithValue("@codathaykhong",SqlDbType.Int).Value = kq.CoDatHayKhong;
 
             da.connection.Open();
@@ -232,10 +226,10 @@ namespace quanlyhocsinhDAL
             command.Parameters.AddWithValue("@mahk", SqlDbType.VarChar).Value = kq.MaHocKy;
             command.Parameters.AddWithValue("@mamh", SqlDbType.Int).Value = kq.MaMonHoc;
             command.Parameters.AddWithValue("@mahs", SqlDbType.Int).Value = kq.MaHocSinh;
-            command.Parameters.AddWithValue("@diem15p", SqlDbType.Float).Value = kq.Diem15Phut;
-            command.Parameters.AddWithValue("@diem1t", SqlDbType.Float).Value = kq.Diem1Tiet;
-            command.Parameters.AddWithValue("@diemtb", SqlDbType.Float).Value = kq.DiemTB;
-            command.Parameters.AddWithValue("@diemtoithieu", SqlDbType.Float).Value = kq.DiemToiThieuDat;
+            command.Parameters.AddWithValue("@diem15p", SqlDbType.Decimal).Value = kq.Diem15Phut;
+            command.Parameters.AddWithValue("@diem1t", SqlDbType.Decimal).Value = kq.Diem1Tiet;
+            command.Parameters.AddWithValue("@diemtb", SqlDbType.Decimal).Value = kq.DiemTB;
+            command.Parameters.AddWithValue("@diemtoithieu", SqlDbType.Decimal).Value = kq.DiemToiThieuDat;
             command.Parameters.AddWithValue("@codathaykhong", SqlDbType.Int).Value = kq.CoDatHayKhong;
 
             da.connection.Open();

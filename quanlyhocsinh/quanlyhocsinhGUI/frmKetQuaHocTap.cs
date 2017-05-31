@@ -24,6 +24,8 @@ namespace quanlyhocsinhGUI
         {
             InitializeComponent();
 
+            dgvChiTietDiem.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
             cbHocKy.DataSource = hkDAL.layDanhSachHocKyTheoNamHoc(MACDINH.NamHocMacDinh);
             cbHocKy.ValueMember = "TenHocKy";
             cbLopHoc.DataSource = lhDAL.layDanhSachLopTheoNamHoc(MACDINH.NamHocMacDinh);
@@ -55,6 +57,14 @@ namespace quanlyhocsinhGUI
         private void dgvChiTietDiem_SelectionChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void dgvChiTietDiem_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > dgvChiTietDiem.RowCount)
+                return;
+
+            dgvChiTietDiem.Rows[e.RowIndex].Selected = true;
         }
     }
 }

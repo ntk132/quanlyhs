@@ -73,6 +73,7 @@ namespace quanlyhocsinhGUI
             KhoiLopDTO qdSoLopKhoi10 = new KhoiLopDTO("K10", "", Convert.ToInt16(tbSiSoK10.Text));
             KhoiLopDTO qdSoLopKhoi11 = new KhoiLopDTO("K11", "", Convert.ToInt16(tbSiSoK11.Text));
             KhoiLopDTO qdSoLopKhoi12 = new KhoiLopDTO("K12", "", Convert.ToInt16(tbSiSoK12.Text));
+            
 
             // DAL - Update
             // Tuổi tối thiểu
@@ -161,10 +162,10 @@ namespace quanlyhocsinhGUI
 
         private void btHuyThayDoiQD_Click(object sender, EventArgs e)
         {
-            QuyDinhDTO qdTuoiToiThieu = new QuyDinhDTO(1, tbTuoiToiThieu.Text);
-            QuyDinhDTO qdTuoiToiDa = new QuyDinhDTO(2, tbTuoiToiDa.Text);
-            QuyDinhDTO qdSiSoToiDa = new QuyDinhDTO(3, tbSiSiToiDa.Text);
-            QuyDinhDTO qdDiemDatMon = new QuyDinhDTO(4, tbDiemDatMon.Text);
+            QuyDinhDTO qdTuoiToiThieu = new QuyDinhDTO(1, TuoiToiThieu);
+            QuyDinhDTO qdTuoiToiDa = new QuyDinhDTO(2, TuoiToiDa);
+            QuyDinhDTO qdSiSoToiDa = new QuyDinhDTO(3, SiSoToiDa);
+            QuyDinhDTO qdDiemDatMon = new QuyDinhDTO(4, DiemToiThieuDatMon);
             KhoiLopDTO qdSoLopKhoi10 = new KhoiLopDTO("K10", "", Convert.ToInt16(SoLuongLopKhoi10));
             KhoiLopDTO qdSoLopKhoi11 = new KhoiLopDTO("K11", "", Convert.ToInt16(SoLuongLopKhoi11));
             KhoiLopDTO qdSoLopKhoi12 = new KhoiLopDTO("K12", "", Convert.ToInt16(SoLuongLopKhoi12));
@@ -242,9 +243,17 @@ namespace quanlyhocsinhGUI
                 return;
             }
 
+            if (dgvMonHoc.SelectedRows.Count < 0)
+            {
+                MessageBox.Show("Chưa chọn môn để sửa!");
+
+                return;
+            }
+
             // Mapping...
             MonHocDTO monhocDTO = new MonHocDTO();
 
+            monhocDTO.MaMonHoc = Convert.ToInt16(dgvMonHoc.SelectedRows[0].Cells["MaMonHoc"].Value);
             monhocDTO.TenMonHoc = tbTenMon.Text;
 
             // DAL - Update
@@ -263,9 +272,17 @@ namespace quanlyhocsinhGUI
                 return;
             }
 
+            if (dgvMonHoc.SelectedRows.Count < 0)
+            {
+                MessageBox.Show("Chưa chọn môn để xóa!");
+
+                return;
+            }
+
             // Mapping...
             MonHocDTO monhocDTO = new MonHocDTO();
 
+            monhocDTO.MaMonHoc = Convert.ToInt16(dgvMonHoc.SelectedRows[0].Cells["MaMonHoc"].Value);
             monhocDTO.TenMonHoc = tbTenMon.Text;
 
             // DAL - Delete

@@ -10,7 +10,7 @@ namespace quanlyhocsinhDTO
     {
         public DiemTrungBinhDTO() { }
 
-        public DiemTrungBinhDTO(string maNamHoc, int maHocSinh, float diemTBHK1, float diemTBHK2, float diemTBCaNam)
+        public DiemTrungBinhDTO(string maNamHoc, int maHocSinh, decimal diemTBHK1, decimal diemTBHK2, decimal diemTBCaNam)
         {
             this.sMaNamHoc = maNamHoc;
             this.iMaHocSinh = maHocSinh;
@@ -35,26 +35,26 @@ namespace quanlyhocsinhDTO
             set { iMaHocSinh = value; }
         }
 
-        private float fDiemTrungBinhHK1;
+        private decimal fDiemTrungBinhHK1;
 
-        public float DiemTrungBinhHK1
+        public decimal DiemTrungBinhHK1
         {
             get { return fDiemTrungBinhHK1; }
             set { fDiemTrungBinhHK1 = value; }
 
         }
 
-        private float fDiemTrungBinhHK2;
+        private decimal fDiemTrungBinhHK2;
 
-        public float DiemTrungBinhHK2
+        public decimal DiemTrungBinhHK2
         {
             get { return fDiemTrungBinhHK2; }
             set { fDiemTrungBinhHK2 = value; }
 
         }
 
-        private float fDiemTrungBinhNam;
-        public float DiemTrungBinhHKNam
+        private decimal fDiemTrungBinhNam;
+        public decimal DiemTrungBinhHKNam
         {
             get { return fDiemTrungBinhNam; }
             set { fDiemTrungBinhNam = value; }
