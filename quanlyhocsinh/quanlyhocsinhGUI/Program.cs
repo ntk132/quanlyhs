@@ -8,6 +8,7 @@ using System.Data.Sql;
 using System.Data.SqlClient;
 using quanlyhocsinhDTO;
 using quanlyhocsinhDAL;
+using System.Globalization;
 
 namespace quanlyhocsinhGUI
 {
@@ -19,9 +20,33 @@ namespace quanlyhocsinhGUI
         [STAThread]
         static void Main()
         {
+            // Định dạng ngày giờ để sử dụng cho project này
+            FormatDatetime();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmDangNhap());
+        }
+
+        static void FormatDatetime()
+        {
+            try
+            {
+                CultureInfo culture = new System.Globalization.CultureInfo("vi-VN", true);
+                DateTimeFormatInfo dfi = (DateTimeFormatInfo)culture.DateTimeFormat.Clone();
+
+                dfi.ShortDatePattern = "dd/MM/yyyy";
+                dfi.LongDatePattern = "dd/MM/yyyy";
+                dfi.FullDateTimePattern = "dd/MM/yyyy";
+
+                culture.DateTimeFormat = dfi;
+                System.Windows.Forms.Application.CurrentCulture = culture;
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show("Không thể định dạng ngày tháng", "FormatDatetime", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
     }
 

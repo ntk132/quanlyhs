@@ -70,10 +70,11 @@ namespace quanlyhocsinhGUI
             HocSinhBUS hsbus = new HocSinhBUS();
             HocSinhDAL hsdal = new HocSinhDAL();
             HocSinhDTO hsdto = new HocSinhDTO();
+            string ngaysinh = cbNgay.Text + "/" + cbThang.Text + "/" + cbNam.Text;
 
             // 1. Mapping...properties
             hsdto.Hoten = tbHoTen.Text;
-            hsdto.NgaySinh = cbNgay.Text + "/" + cbThang.Text + "/" + cbNam.Text;
+            hsdto.NgaySinh = Convert.ToDateTime(ngaysinh);
 
             if (rbNam.Checked)
                 hsdto.GioiTinh = "Nam";

@@ -83,8 +83,8 @@ namespace quanlyhocsinhGUI
 
         private void btThem_Click(object sender, EventArgs e)
         {
-            
             HocSinhDTO hocsinhDTO = new HocSinhDTO();
+            string ngaysinh = cbNgay.Text + "/" + cbThang.Text + "/" + cbNam.Text;
 
             // Kiểm tra User dẫ nhập đầy đủ thông tin để tạo mới hay chưa
             if (!isFullInformation())
@@ -94,7 +94,7 @@ namespace quanlyhocsinhGUI
 
             // 1. Mapping...properties
             hocsinhDTO.Hoten = tbHoTen.Text;
-            hocsinhDTO.NgaySinh = cbNgay.Text + "/" + cbThang.Text + "/" + cbNam.Text;
+            hocsinhDTO.NgaySinh = Convert.ToDateTime(ngaysinh);
 
             if (rbNam.Checked)
                 hocsinhDTO.GioiTinh = "Nam";
@@ -253,6 +253,7 @@ namespace quanlyhocsinhGUI
 
             // Mapping...
             HocSinhDTO hocsinhDTO = new HocSinhDTO();
+            string ngaysinh = cbNgay.Text + "/" + cbThang.Text + "/" + cbNam.Text;
             string gioitinh = rbNam.Text;
 
             if (rbNu.Checked)
@@ -260,7 +261,7 @@ namespace quanlyhocsinhGUI
 
             hocsinhDTO.MaHocSinh = Convert.ToInt32(dgvHocSinh.SelectedRows[0].Cells[0].Value);
             hocsinhDTO.Hoten = tbHoTen.Text;
-            hocsinhDTO.NgaySinh = cbNgay.Text + "/" + cbThang.Text + "/" + cbNam.Text;
+            hocsinhDTO.NgaySinh = Convert.ToDateTime(ngaysinh);
             hocsinhDTO.GioiTinh = gioitinh;
             hocsinhDTO.DiaChi = tbDiaChi.Text;
             hocsinhDTO.Email = tbEmail.Text;
