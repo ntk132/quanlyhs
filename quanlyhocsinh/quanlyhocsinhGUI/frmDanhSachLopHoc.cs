@@ -66,7 +66,11 @@ namespace quanlyhocsinhGUI
         {
             // Nếu người dùng chưa chọn\nhập bất cứ thông tin gì mà đã tạo lớp
             // Hiện thông báo cho User biết thao tác không thể thực hiện được
-            isFullInformation();
+            // Nếu User chưa nhập thông tin đầy đủ
+            if (!isFullInformation())
+            {
+                return;
+            }
 
             LopHocDTO lophocDTO = new LopHocDTO();
             LopHocBUS lophocBUS = new LopHocBUS();            
@@ -123,7 +127,11 @@ namespace quanlyhocsinhGUI
                 return;
             }
 
-            isFullInformation();
+            // Nếu User chưa nhập thông tin đầy đủ
+            if (!isFullInformation())
+            {
+                return;
+            }
 
             LopHocDTO lophocDTO = new LopHocDTO();
 
@@ -170,7 +178,7 @@ namespace quanlyhocsinhGUI
             refeshDataGridView();
         }
 
-        private void isFullInformation()
+        private bool isFullInformation()
         {
             if (tbMaLop.Text == string.Empty)
             {
@@ -178,7 +186,7 @@ namespace quanlyhocsinhGUI
 
                 tbMaLop.Focus();
 
-                return;
+                return false;
             }
 
             if (cbNamHoc.Text == string.Empty)
@@ -187,7 +195,7 @@ namespace quanlyhocsinhGUI
 
                 cbNamHoc.Focus();
 
-                return;
+                return false;
             }
 
             if (cbKhoiLop.Text == string.Empty)
@@ -196,8 +204,10 @@ namespace quanlyhocsinhGUI
 
                 cbKhoiLop.Focus();
 
-                return;
+                return false;
             }
+
+            return true;
         }
 
         private void cbNamHoc_SelectedIndexChanged(object sender, EventArgs e)

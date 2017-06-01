@@ -337,7 +337,7 @@ namespace quanlyhocsinhGUI
                     cbNgay.DataSource = ngay30;
                     break;
                 case 2:
-                    if (year % 4 == 0 && year % 100 == 0)
+                    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
                         cbNgay.DataSource = ngay29;
                     else
                         cbNgay.DataSource = ngay28;

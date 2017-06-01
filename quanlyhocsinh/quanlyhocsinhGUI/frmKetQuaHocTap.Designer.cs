@@ -45,7 +45,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(63, 79);
+            this.label1.Location = new System.Drawing.Point(63, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 16);
             this.label1.TabIndex = 0;
@@ -55,7 +55,7 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(248, 79);
+            this.label2.Location = new System.Drawing.Point(248, 29);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 16);
             this.label2.TabIndex = 1;
@@ -65,7 +65,7 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(414, 79);
+            this.label3.Location = new System.Drawing.Point(414, 29);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(37, 16);
             this.label3.TabIndex = 2;
@@ -104,9 +104,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvChiTietDiem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvChiTietDiem.Location = new System.Drawing.Point(27, 74);
+            this.dgvChiTietDiem.Location = new System.Drawing.Point(27, 111);
             this.dgvChiTietDiem.Name = "dgvChiTietDiem";
-            this.dgvChiTietDiem.Size = new System.Drawing.Size(745, 474);
+            this.dgvChiTietDiem.Size = new System.Drawing.Size(731, 430);
             this.dgvChiTietDiem.TabIndex = 6;
             this.dgvChiTietDiem.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvChiTietDiem_CellClick);
             this.dgvChiTietDiem.SelectionChanged += new System.EventHandler(this.dgvChiTietDiem_SelectionChanged);
@@ -114,7 +114,7 @@
             // btXemDanhSach
             // 
             this.btXemDanhSach.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btXemDanhSach.Location = new System.Drawing.Point(583, 12);
+            this.btXemDanhSach.Location = new System.Drawing.Point(608, 25);
             this.btXemDanhSach.Name = "btXemDanhSach";
             this.btXemDanhSach.Size = new System.Drawing.Size(150, 25);
             this.btXemDanhSach.TabIndex = 4;
@@ -125,7 +125,7 @@
             // btTrungBinhNam
             // 
             this.btTrungBinhNam.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btTrungBinhNam.Location = new System.Drawing.Point(583, 43);
+            this.btTrungBinhNam.Location = new System.Drawing.Point(608, 65);
             this.btTrungBinhNam.Name = "btTrungBinhNam";
             this.btTrungBinhNam.Size = new System.Drawing.Size(150, 25);
             this.btTrungBinhNam.TabIndex = 5;
