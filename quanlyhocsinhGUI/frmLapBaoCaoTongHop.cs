@@ -17,6 +17,7 @@ namespace quanlyhocsinhGUI
     {
         HocKyDAL hockyDAL = new HocKyDAL();
         MonHocDAL monhocDAL = new MonHocDAL();
+        QuyDinhDAL quydinhDAL = new QuyDinhDAL();
         KetQuaHocTapDAL ketquahoctapDAL = new KetQuaHocTapDAL();
         DiemTrungBinhDAL diemtbDAL = new DiemTrungBinhDAL();
 
@@ -37,23 +38,25 @@ namespace quanlyhocsinhGUI
             // Mapping...
             string maHocKy = ((DataTable)cbHocKy.DataSource).Rows[cbHocKy.SelectedIndex]["MaHocKy"].ToString();
             int maMonHoc = Convert.ToInt16(((DataTable)cbMonHoc.DataSource).Rows[cbMonHoc.SelectedIndex]["MaMonHoc"].ToString());
+            decimal diemToiThieuDat = Convert.ToDecimal(quydinhDAL.layQuyDinhDiemToiThieuDatMon().Rows[0]["GiaTriQuyDinh"].ToString().Replace(".", ","));
+
             // Nếu User chọn vào check box Môn học
             // Thì xuất ra báo cáo môn học(được chọn) của học kỳ đó
             if (chbMonHoc.Checked)
             {
-                dgvBaoCao.DataSource = ketquahoctapDAL.xuatBaoCaoTongKetMonHoc(MACDINH.NamHocMacDinh, maHocKy, maMonHoc);
+                dgvBaoCao.DataSource = ketquahoctapDAL.xuatBaoCaoTongKetMonHoc(MACDINH.NamHocMacDinh, maHocKy, maMonHoc, diemToiThieuDat);
             }
                 // Ngược lại, xuất ra báo cáo tổng hợp học kỳ đó
             else
             {
                 string index = string.Empty;
-
+                
                 if (cbHocKy.SelectedIndex == 0)
                     index = "1";
                 else
                     index = "2";
 
-                dgvBaoCao.DataSource = diemtbDAL.xuatBaoCaoTongKetHocKy(MACDINH.NamHocMacDinh, index);
+                dgvBaoCao.DataSource = diemtbDAL.xuatBaoCaoTongKetHocKy(MACDINH.NamHocMacDinh, index, diemToiThieuDat);
             }
         }
 

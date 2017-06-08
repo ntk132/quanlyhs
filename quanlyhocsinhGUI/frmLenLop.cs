@@ -19,9 +19,14 @@ namespace quanlyhocsinhGUI
         LopHocDAL lophocDAL = new LopHocDAL();
         Lop_HocSinhDAL lop_hsDAL = new Lop_HocSinhDAL();
         QuyDinhDAL quydinhDAL = new QuyDinhDAL();
+        MonHocDAL monhocDAL = new MonHocDAL();
+        KetQuaHocTapDAL ketquahoctapDAL = new KetQuaHocTapDAL();
+        DiemTrungBinhDAL diemtbDAL = new DiemTrungBinhDAL();
 
         DataTable DanhSachNamHoc = new DataTable();
         DataTable DanhSachLopHoc = new DataTable();
+
+        int SoLuongMonHoc;
 
         public frmLenLop()
         {
@@ -31,7 +36,8 @@ namespace quanlyhocsinhGUI
             cbNamHocCu.ValueMember = "MaNamHoc";
             cbNamHocMoi.DataSource = namhocDAL.layDanhSachNamHoc();
             cbNamHocMoi.ValueMember = "MaNamHoc";
-                      
+
+            SoLuongMonHoc = monhocDAL.laySoLuongMonHoc();
         }
 
         private void frmLenLop_Load(object sender, EventArgs e)
@@ -82,6 +88,7 @@ namespace quanlyhocsinhGUI
             }
 
             Lop_HocSinhBUS lop_hsBUS = new Lop_HocSinhBUS();
+            DiemTrungBinhBUS diemtbBUS = new DiemTrungBinhBUS();
             
             foreach (DataRow dr in ((DataTable)dgvLopCu.DataSource).Rows)
             {                
@@ -95,15 +102,22 @@ namespace quanlyhocsinhGUI
                 lop_hsDTO.MaLopHoc = cbLopHocMoi.Text;
                 lop_hsDTO.MaHocSinh = maHocSinh;
 
-                // Nếu học sinh đạt tất cả các môn (của năm học trước)
+                // BUS
+                // Nếu học sinh đạt điểm trung bình cả năm trên 5.0 (của năm học trước)
                 // thì được lên lớp.
-                if (lop_hsBUS.isPassedAllSubject(maNamHoc, maHocSinh))
+                // Và phải đảm bảo đã có đủ điểm trung bình của tất cả các môn trong 2 học kỳ (của năm học trước)
+                if (ketquahoctapDAL.laySoLuongKetQuaHocTapCuaMotHocSinh(cbNamHocCu.Text, maHocSinh) != SoLuongMonHoc * 2)
+                {
+                    continue;
+                }
+
+                if (diemtbBUS.isPassed(cbNamHocCu.Text, maHocSinh))
                 {
                     // Nếu học sinh này đã được xếp lớp rồi thì bỏ qua
                     if (lop_hsBUS.isExists(lop_hsDTO))
                         continue;
                     else
-                        lop_hsDAL.insert(lop_hsDTO);
+                        lop_hsDAL.insert(lop_hsDTO); // DAL - Insert
                 }
 
             }

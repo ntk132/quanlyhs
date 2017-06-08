@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace quanlyhocsinhGUI
 {
@@ -49,6 +50,11 @@ namespace quanlyhocsinhGUI
             {
                 Application.Exit();
             }
+        }
+
+        private void frmDangNhap_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -67,13 +67,13 @@ namespace quanlyhocsinhGUI
         private void btThem_Click(object sender, EventArgs e)
         {
             DataAccess da = new DataAccess();
-            HocSinhBUS hsbus = new HocSinhBUS();
             HocSinhDAL hsdal = new HocSinhDAL();
             HocSinhDTO hsdto = new HocSinhDTO();
+            string ngaysinh = cbNgay.Text + "/" + cbThang.Text + "/" + cbNam.Text;
 
             // 1. Mapping...properties
             hsdto.Hoten = tbHoTen.Text;
-            hsdto.NgaySinh = cbNgay.Text + "/" + cbThang.Text + "/" + cbNam.Text;
+            hsdto.NgaySinh = Convert.ToDateTime(ngaysinh);
 
             if (rbNam.Checked)
                 hsdto.GioiTinh = "Nam";
@@ -82,14 +82,6 @@ namespace quanlyhocsinhGUI
 
             hsdto.DiaChi = tbDiaChi.Text;
             hsdto.Email = tbEmail.Text;
-
-            // 2. BUS
-            if (hsbus.isLessThanMinAge() || hsbus.isGreatThanAge())
-            {
-                MessageBox.Show("Nhập tuổi sai quy định");
-
-                cbNgay.Focus();
-            }
 
             // 3. insert
             hsdal.insert(hsdto);

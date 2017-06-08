@@ -23,7 +23,7 @@ namespace quanlyhocsinhGUI
         KetQuaHocTapDAL ketquaDAL = new KetQuaHocTapDAL();
         KetQuaHocTapBUS ketquaBUS = new KetQuaHocTapBUS();
 
-        private float diemdatmon;
+        private decimal diemdatmon;
 
         public frmNhapKetQuaHocTap()
         {
@@ -43,8 +43,8 @@ namespace quanlyhocsinhGUI
 
             tbDiem15p.Enabled = false;
             tbDiem1t.Enabled = false;
-                        
-            diemdatmon = (float)Convert.ToDouble(quydinhDAL.layQuyDinhDiemToiThieuDatMon().Rows[0]["GiaTriQuyDinh"].ToString());
+
+            diemdatmon = Convert.ToDecimal(quydinhDAL.layQuyDinhDiemToiThieuDatMon().Rows[0]["GiaTriQuyDinh"].ToString());
         }
 
         private void btChon_Click(object sender, EventArgs e)
@@ -67,9 +67,9 @@ namespace quanlyhocsinhGUI
                 return;
             }
 
-            Double diem15p = Convert.ToDouble(tbDiem15p.Text);
-            Double diem1t = Convert.ToDouble(tbDiem1t.Text);
-            Double diemtb = Math.Round((diem15p + diem1t * 2) / 3, 2, MidpointRounding.AwayFromZero);
+            decimal diem15p = Convert.ToDecimal(tbDiem15p.Text);
+            decimal diem1t = Convert.ToDecimal(tbDiem1t.Text);
+            decimal diemtb = (diem15p + diem1t * 2) / 3;
 
             // Kiểm tra các cột điểm nhập vào có đúng quy đinh hay không:
             // 0 <= Điểm số <= 10
@@ -93,7 +93,7 @@ namespace quanlyhocsinhGUI
                 return;
             }
 
-            tbDiemTB.Text = diemtb.ToString();            
+            tbDiemTB.Text = String.Format("{0:0.00}", diemtb);            
 
             KetQuaHocTapDTO ketquaDTO = new KetQuaHocTapDTO();
 
@@ -103,9 +103,9 @@ namespace quanlyhocsinhGUI
             ketquaDTO.MaHocKy = dt.Rows[cbHocKy.SelectedIndex][0].ToString();
             ketquaDTO.MaMonHoc = Convert.ToInt16(((DataTable)cbMonHoc.DataSource).Rows[cbMonHoc.SelectedIndex]["MaMonHoc"].ToString());
             ketquaDTO.MaHocSinh = Convert.ToInt32(dgvDanhSachHocSinh.SelectedRows[0].Cells[0].Value);
-            ketquaDTO.Diem15Phut = (float)diem15p;
-            ketquaDTO.Diem1Tiet = (float)diem1t;
-            ketquaDTO.DiemTB = (float)diemtb;
+            ketquaDTO.Diem15Phut = diem15p;
+            ketquaDTO.Diem1Tiet = diem1t;
+            ketquaDTO.DiemTB = diemtb;
             ketquaDTO.DiemToiThieuDat = diemdatmon;
 
             if (diemtb >= diemdatmon)
@@ -141,10 +141,21 @@ namespace quanlyhocsinhGUI
             tbDiem1t.Enabled = false;
         }
 
+        private decimal lamTronSo(double d, int somu)
+        {
+            double empty = Math.Pow(10, somu);
+            int temp = (int)(Math.Round(d, somu) * empty);
+            d = temp / empty;
+            
+            string temp1 = String.Format("{0:0.00}", d);
+
+            return Convert.ToDecimal(temp1);
+        }
+
         private void CapNhatLaiDiemTrungBinh(KetQuaHocTapDTO kqDTO)
         {
             // Cập nhật lại điểm trung bình môn
-            float value = ketquaDAL.tinhDiemTBTuSoMonDaCoDiem(kqDTO);
+            decimal value = ketquaDAL.tinhDiemTBTuSoMonDaCoDiem(kqDTO);
 
             DiemTrungBinhDAL diemtbDAL = new DiemTrungBinhDAL();
             DiemTrungBinhBUS diemtbBUS = new DiemTrungBinhBUS();
@@ -204,16 +215,25 @@ namespace quanlyhocsinhGUI
             }
             else
             {
-                string maHocKy = hockyDAL.layDanhSachHocKyTheoNamHoc(MACDINH.NamHocMacDinh).Rows[0]["MaHocKy"].ToString();
+                string maHocKy = hockyDAL.layDanhSachHocKyTheoNamHoc(MACDINH.NamHocMacDinh).Rows[cbHocKy.SelectedIndex]["MaHocKy"].ToString();
                 string maLopHoc = cbLopHoc.Text;
                 int maMonHoc = Convert.ToInt16(((DataTable)cbMonHoc.DataSource).Rows[cbMonHoc.SelectedIndex]["MaMonHoc"].ToString());
                 int maHocSinh = Convert.ToInt32(dgvDanhSachHocSinh.SelectedRows[0].Cells["MaHocSinh"].Value);
 
                 DataTable dt = ketquaDAL.xemDiemCuaHocSinh(maHocKy, maLopHoc, maMonHoc, maHocSinh);
 
-                tbDiem15p.Text = dt.Rows[0]["Diem15Phut"].ToString();
-                tbDiem1t.Text = dt.Rows[0]["Diem1Tiet"].ToString();
-                tbDiemTB.Text = dt.Rows[0]["DiemTB"].ToString();
+                if (dt.Rows.Count <= 0)
+                {
+                    tbDiem15p.Text = string.Empty;
+                    tbDiem1t.Text = string.Empty;
+                    tbDiemTB.Text = string.Empty;
+                }
+                else
+                {
+                    tbDiem15p.Text = dt.Rows[0]["Diem15Phut"].ToString();
+                    tbDiem1t.Text = dt.Rows[0]["Diem1Tiet"].ToString();
+                    tbDiemTB.Text = dt.Rows[0]["DiemTB"].ToString();
+                };
 
                 tbDiem15p.Enabled = true;
                 tbDiem1t.Enabled = true;
