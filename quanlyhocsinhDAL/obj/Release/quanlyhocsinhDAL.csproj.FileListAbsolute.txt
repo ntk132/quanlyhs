@@ -1,0 +1,7 @@
+E:\VS 2013\quanlyhocsinh\quanlyhocsinhDAL\bin\Release\quanlyhocsinhDAL.dll
+E:\VS 2013\quanlyhocsinh\quanlyhocsinhDAL\bin\Release\quanlyhocsinhDAL.pdb
+E:\VS 2013\quanlyhocsinh\quanlyhocsinhDAL\bin\Release\quanlyhocsinhDTO.dll
+E:\VS 2013\quanlyhocsinh\quanlyhocsinhDAL\bin\Release\quanlyhocsinhDTO.pdb
+E:\VS 2013\quanlyhocsinh\quanlyhocsinhDAL\obj\Release\quanlyhocsinhDAL.csprojResolveAssemblyReference.cache
+E:\VS 2013\quanlyhocsinh\quanlyhocsinhDAL\obj\Release\quanlyhocsinhDAL.dll
+E:\VS 2013\quanlyhocsinh\quanlyhocsinhDAL\obj\Release\quanlyhocsinhDAL.pdb
