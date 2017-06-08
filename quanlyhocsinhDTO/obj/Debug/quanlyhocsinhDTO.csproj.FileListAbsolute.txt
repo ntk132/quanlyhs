@@ -1,0 +1,4 @@
+E:\VS 2013\quanlyhocsinh\quanlyhocsinhDTO\bin\Debug\quanlyhocsinhDTO.dll
+E:\VS 2013\quanlyhocsinh\quanlyhocsinhDTO\bin\Debug\quanlyhocsinhDTO.pdb
+E:\VS 2013\quanlyhocsinh\quanlyhocsinhDTO\obj\Debug\quanlyhocsinhDTO.dll
+E:\VS 2013\quanlyhocsinh\quanlyhocsinhDTO\obj\Debug\quanlyhocsinhDTO.pdb
